@@ -223,15 +223,14 @@
 <div data-role="page" id="editProfilePage"><!--Start page-->
     <div data-role="header">
         <a href="#mypanel" class="ui-btn ui-corner-all ui-icon-bars ui-btn-icon-notext">Bars Icon</a>
-        <h1>Cars Ezy Edit Profile</h1>
+        <h1>Edit Profile</h1>
     </div>
     <div data-role="content">
-        Edit Profile details
 
-        <!--number input Mobile -->
+        <!--text input Email -->
         <div data-role="fieldcontain">
-            <label for="txtEditMobile">Mobile (10 digits) *</label>
-            <input type="number" name="txtEditMobile" id="txtEditMobile" value=""  />
+            <label for="txtEditEmail">Email</label>
+            <input type="email" name="txtEditEmail" id="txtEditEmail" value=""  />
         </div>
 
         <!--password-->
@@ -251,6 +250,7 @@
             <label for="pwdPasswordNew2">Repeat new password (min 3 chars, no spaces)</label>
             <input type="password" name="pwdPasswordNew2" id="pwdPasswordNew2" value=""  />
         </div>
+		
         <input id="btnSubmitChangesProfile" type="button" value="Submit changes">
 
     </div>

@@ -40,9 +40,9 @@ $("#registrationPage, #myProfilePage, #editProfilePage").on("pageinit", function
 //              alert("before editProfilePage show");   // from dreamweaver
 
         // get the mobile and pre fill input field
-        fillMobileTextFields(window.localStorage.getItem("Email"), window.localStorage.getItem("OAuth"));
+        fillMobileTextFields(window.localStorage.getItem("Name"), window.localStorage.getItem("OAuth"));
 
-        // wipe all password fields vor value and background color
+        // wipe all password fields for value and background color
         $("#pwdPasswordProve").val("");
         $("#pwdPasswordNew1").val("");
         $("#pwdPasswordNew2").val("");
@@ -69,7 +69,7 @@ $("#registrationPage, #myProfilePage, #editProfilePage").on("pageinit", function
     // btn click
     $("#btnSubmitChangesProfile").on("click", function(){
         // hard coded test : mypass
-        submitProfileChanges(window.localStorage.getItem("Email"), window.localStorage.getItem("OAuth"));
+        submitProfileChanges(window.localStorage.getItem("Name"), window.localStorage.getItem("OAuth"));
     });
              
 });  // end on pageinit
@@ -222,18 +222,25 @@ function isNameValidFormat(name)
 
 
 // when editing My Profile the system must check if password entered is correct password
-function submitProfileChanges(emailFromLocalStorage, akeyFromLocalStorage)
+function submitProfileChanges(nameFromLocalStorage, akeyFromLocalStorage)
 {
+   alert ("in submitProfileChanges");
     // validate user input
-    var mobile = $("#txtEditMobile").val().trim();
-    var mobileFormatOK = isNumberFormatOk(mobile, 10);
-//    alert ("returned mobileFormatOK: " + mobileFormatOK);
+    var email = $("#txtEditEmail").val().trim();
+	var emailFormatOK = true;
+	
+	// only check if email not null
+	if (email != null)
+	{
+		emailFormatOK = isEmailValidFormat(mobile);
+//    alert ("returned emailFormatOK: " + emailFormatOK);
+	}
 
     var currentPassword = $("#pwdPasswordProve").val();
 
-//    alert(currentPassword);
-//    alert(emailFromLocalStorage);
-//    alert(akeyFromLocalStorage);
+   alert(currentPassword);
+   alert(nameFromLocalStorage);
+   alert(akeyFromLocalStorage);
 
     var passwordFormatOK = isStringLengthMoreThanZero(currentPassword);
 //    alert ("returned passwordFormatOK: " + passwordFormatOK);
@@ -271,14 +278,14 @@ function submitProfileChanges(emailFromLocalStorage, akeyFromLocalStorage)
 //    alert ("newPasswordsMatchOK: " + newPasswordsMatchOK);
 
     //if all ok
-    if (mobileFormatOK && passwordFormatOK && newPasswordsMatchOK)
+    if (emailFormatOK && passwordFormatOK && newPasswordsMatchOK)
     {
 //        alert("all ok");
-        checkCredentials(mobile, currentPassword, newPassword1, emailFromLocalStorage, akeyFromLocalStorage);
+        checkCredentials(email, currentPassword, newPassword1, nameFromLocalStorage, akeyFromLocalStorage);
     }
 
     // make red background for relevant fields
-    doRedBackground(mobileFormatOK, "#txtEditMobile");
+    doRedBackground(emailFormatOK, "#txtEditEmail");
     doRedBackground(passwordFormatOK, "#pwdPasswordProve");
     doRedBackground(newPasswordsMatchOK, "#pwdPasswordNew1");
     doRedBackground(newPasswordsMatchOK, "#pwdPasswordNew2");
@@ -286,12 +293,12 @@ function submitProfileChanges(emailFromLocalStorage, akeyFromLocalStorage)
 
 
 // make sure password is matching the users password
-function checkCredentials(aMobileNo, currentPasswordEntered, newPassword, emailFromLocalStorage, akeyFromLocalStorage)
+function checkCredentials(anEmail, currentPasswordEntered, newPassword, nameFromLocalStorage, akeyFromLocalStorage)
 {
     // verify that the password entered is correct
     $.ajax({
         type: 'GET',
-        url: rootURL + '/passwordValidation/' + currentPasswordEntered + '/' + emailFromLocalStorage + '/' + akeyFromLocalStorage,
+        url: rootURL + 'passwordValidation/' + currentPasswordEntered + '/' + nameFromLocalStorage + '/' + akeyFromLocalStorage + '/',
         dataType: "json",
     })
     .done(function(data) {
@@ -302,7 +309,7 @@ function checkCredentials(aMobileNo, currentPasswordEntered, newPassword, emailF
         if (data.VALID == "true")
         {
 //            alert("in if valid == true");
-            updateCustomerProfileDetails(aMobileNo, newPassword);
+            updateCustomerProfileDetails(anEmail, newPassword);
         }
         else  //{"VALID":"false"}
         {
@@ -319,14 +326,14 @@ function checkCredentials(aMobileNo, currentPasswordEntered, newPassword, emailF
 
 
 // update details
-function updateCustomerProfileDetails(mobileNo, newPwd)
+function updateCustomerProfileDetails(anEmail, newPwd)
 {
     var customerId = window.localStorage.getItem("Id");
 
     $.ajax({
         type: "PUT",
-        url: rootURL + '/customer/' + customerId,
-        data: stringifyUpdateDetails(mobileNo, newPwd),
+        url: rootURL + 'customer/' + customerId + '/',
+        data: stringifyUpdateDetails(anEmail, newPwd),
         dataType: 'json',
     })
     .done(function(data) {
@@ -334,19 +341,19 @@ function updateCustomerProfileDetails(mobileNo, newPwd)
         // data is not null
         if (data != null)
         {
-//            alert("update done in db");
+           alert("update done in db");
 
-//            alert("from returned row data.fldAuthenticationKey: " +  data.fldAuthenticationKey);
+           alert("from returned row data.fldAuthenticationKey: " +  data.fldAuthenticationKey);
 
             // update authentication key local storage
             window.localStorage.setItem("OAuth", data.fldAuthenticationKey);  // Pass a key name and its value to add or update that key.
-//            alert("update local: " + window.localStorage.getItem("OAuth"));
+           alert("update local: " + window.localStorage.getItem("OAuth"));
 
             // toast message
             toast("Updated successfully", standardDurationToast, standardDelayToast);
 
-            // redirect to searchCarPage
-            $(location).attr('href', '#searchCarPage');
+            // redirect to addRunPage
+            $(location).attr('href', '#addRunPage');
         }
         else  // data == null
         {
@@ -363,15 +370,15 @@ function updateCustomerProfileDetails(mobileNo, newPwd)
 
 
 // make json string
-function stringifyUpdateDetails(mobileNo, pwd)
+function stringifyUpdateDetails(anEmail, pwd)
 {
     // create updateDetails object
     var updateDetails = new Object();
 
     // add properties to object
-    updateDetails.email = window.localStorage.getItem("Email");
+    updateDetails.name = window.localStorage.getItem("Name");
     updateDetails.authenticationKey = window.localStorage.getItem("OAuth");
-    updateDetails.mobile = mobileNo;
+    updateDetails.email = anEmail;
     updateDetails.password = pwd;
 
     // serialize it
@@ -481,7 +488,7 @@ function populateCustomerDetails(nameFromLocalStorage, akeyFromLocalStorage)
     // get the customer details
     $.ajax({
         type: 'GET',
-        url: rootURL + '/customer/' + nameFromLocalStorage + '/' + akeyFromLocalStorage,
+        url: rootURL + 'customer/' + nameFromLocalStorage + '/' + akeyFromLocalStorage + '/',
         dataType: "json",
     })
     .done(function(data) {
@@ -505,22 +512,21 @@ function populateCustomerDetails(nameFromLocalStorage, akeyFromLocalStorage)
 }
 
 
-function fillMobileTextFields(emailFromLocalStorage, akeyFromLocalStorage)
+function fillMobileTextFields(nameFromLocalStorage, akeyFromLocalStorage)
 {
     // get the customer details
     $.ajax({
         type: 'GET',
-        url: rootURL + '/customer/' + emailFromLocalStorage + '/' + akeyFromLocalStorage,
+        url: rootURL + 'customer/' + nameFromLocalStorage + '/' + akeyFromLocalStorage + '/',
         dataType: "json",
     })
     .done(function(data) {
 //        alert("in done fillMobileTextFields");
 
         // Execute when ajax successfully completes
-//        alert(data.fldMobile);
 
-        // fill field with mobile
-        $("#txtEditMobile").val(data.fldMobile);
+        // fill field
+        $("#txtEditEmail").val(data.fldEmail);
     })
     .always(function() { /* always execute this code */ })
     .fail(function(data){
