@@ -7,10 +7,10 @@
 /////////////////////////////////////////Variable Declaration
 
 // 10.0.2.2 is the same as Localhost of WService running in Emulator.
- var rootURL = "http://10.0.2.2/sites/ITC33A/EzyCar/index.php";
-//var rootURL = "http://kirstine.byethost14.com/sites/ITC33A/EzyCar/index.php";
-//var rootURL = "http://kirstine.comli.com/sites/ITC33A/EzyCar/index.php";
-//var rootURL = "http://localhost/sites/ITC33A/EzyCar/index.php";  // for the browser tester
+ var rootURL = "http://10.0.2.2/sites/MoreFitMoreFun/index.php/";
+//var rootURL = "http://kirstine.byethost14.com/sites/MoreFitMoreFun/index.php/";
+//var rootURL = "http://kirstine.comli.com/sites/MoreFitMoreFun/index.php/";
+//var rootURL = "http://localhost/sites/MoreFitMoreFun/index.php/";  // for the browser tester
 
 var pageinited = false;
 
@@ -51,19 +51,19 @@ $(document).on("pageinit", function(){
     var akeyFromLocalStorage = window.localStorage.getItem("OAuth");
     var emailFromLocalStorage = window.localStorage.getItem("Email");
 
-    //    alert("from storage id: " + idFromLocalStorage
-    //            + "\nfrom storage email: " + emailFromLocalStorage
-    //            + "\nfrom storage key: " + akeyFromLocalStorage);
+	alert("from storage id: " + idFromLocalStorage
+		   + "\nfrom storage email: " + emailFromLocalStorage
+		   + "\nfrom storage key: " + akeyFromLocalStorage);		   
 
     // make sure that email and OAuth exist in the local storage
     if (emailFromLocalStorage != null && akeyFromLocalStorage != null && idFromLocalStorage != null)
     {
-//        alert("local storage has id, email, and authKey");
+		alert("local storage has id, email, and authKey");
 
         // check if both matches both in database
         $.ajax({
             type: 'GET',
-            url: rootURL + '/authenticate/' + emailFromLocalStorage + '/' + akeyFromLocalStorage,
+            url: rootURL + 'authenticate/' + emailFromLocalStorage + '/' + akeyFromLocalStorage,
             dataType: "json",
         })
         .done(function(data) {
@@ -77,11 +77,11 @@ $(document).on("pageinit", function(){
             {
 //                alert("in if valid == true");
 
-                // redirect to searchCarPage (search car page)
-                $(location).attr('href', '#searchCarPage');
+                // redirect to addRunPage
+                $(location).attr('href', '#addRunPage');
 
                 // changeHash false => don't save current page in navigation history (but no current page...)
-//                $.mobile.changePage('#searchCarPage', {reverse: false, changeHash: false});
+//                $.mobile.changePage('#addRunPage', {reverse: false, changeHash: false});
             }
 
             else  //{"VALID":"false"}
@@ -89,10 +89,10 @@ $(document).on("pageinit", function(){
                 //alert user
 //                alert ("invalid");
 
-                //redirect to registrationPage
-                $(location).attr('href', '#registrationPage');
+                //redirect to firstTimePage
+                $(location).attr('href', '#firstTimePage');
                 // changeHash false => don't save current page in navigation history (but no current page...)
-//                $.mobile.changePage('#registrationPage', {reverse: false, changeHash: false});
+//                $.mobile.changePage('#firstTimePage', {reverse: false, changeHash: false});
             }
         })
         .always(function() { /* always execute this code */ })
@@ -102,42 +102,86 @@ $(document).on("pageinit", function(){
             toast("Error Connecting to Webservice - authenticate.<br/>Try again", standardDurationToast, standardDelayToast);
         });
     }
-    else  // not existing; go to Registration page
+    else  // not existing; go to firstTimePage
     {
 //        alert("local storage empty");
 
-        //redirect to Registration page
-        $(location).attr('href', '#registrationPage');
+        //redirect to firstTimePage page
+        $(location).attr('href', '#firstTimePage');
     }
 
 
     // ref: https://jqmtricks.wordpress.com/2014/07/13/pagecontainerbeforechange/
     // handler for event before any page change
     // check to see if the page changing to is registrationPage (registration page)
-    $(document).on("pagecontainerbeforechange", function ( event, data ) {
+    // $(document).on("pagecontainerbeforechange", function ( event, data ) {
 
-      //  alert("pagecontainerbeforechange triggered");
+		// alert("pagecontainerbeforechange triggered");
 
-        var toPage = data.toPage;
-        var absUrl = data.absUrl ? $.mobile.path.parseUrl(data.absUrl).hash.split("#")[1] : "";
+        // var toPage = data.toPage;
+        // var absUrl = data.absUrl ? $.mobile.path.parseUrl(data.absUrl).hash.split("#")[1] : "";
 
-        var detailsStored = (window.localStorage.getItem("OAuth") != null || window.localStorage.getItem("Email") != null);
-       // alert("pagecontainerbeforechange triggered 2");
+        // var detailsStored = (window.localStorage.getItem("OAuth") != null || window.localStorage.getItem("Email") != null);
+       // // alert("pagecontainerbeforechange triggered 2");
 
-        if ( typeof toPage == "object" && absUrl == "registrationPage" && detailsStored)
-        {
-           // alert("pagecontainerbeforechange triggered 3");
-            data.toPage[0] = $("#searchCarPage")[0];
+        // if ( typeof toPage == "object" && absUrl == "registrationPage" && detailsStored)
+        // {
+           // // alert("pagecontainerbeforechange triggered 3");
+            // data.toPage[0] = $("#searchCarPage")[0];
 
-            $.extend(data.options, {
-                transition: "flip",
-                changeHash: false
-            });
-        }
-    });
+            // $.extend(data.options, {
+                // transition: "flip",
+                // changeHash: false
+            // });
+        // }
+    // });
 
     // load the global array of brands
-    loadBrandsArrayGlobal();
+    // loadBrandsArrayGlobal();
+	
+	
+	
+	// btn click
+    $("#btnGoToRegister").on("click", function(){
+        
+		alert ("button clicked");
+
+		//redirect to registrationPage
+		$(location).attr('href', '#registrationPage');		
+    });
+	
+	
+	
+	// btn click
+    $("#btnAddRun").on("click", function(){
+        
+		alert ("button clicked");
+		// add run
+		$.ajax({
+			type: "POST",
+			url: rootURL + 'run/',
+			data: stringifyRunDetails(),
+			dataType: 'json',
+		})
+		.done(function(data) {
+	//        alert("this is data: " + data);
+
+			if (data)  // insert run succeeded
+			{
+				// run creation successful; display msg to user
+				toast("Run was successful saved", standardDurationToast, standardDelayToast);
+			}
+			else  // insert run failed
+			{
+				// insert run did not go through; display msg to user
+				toast("Sorry run was not saved<br/>Please try again", standardDurationToast, standardDelayToast);
+			}
+		})
+		.always(function() { /* always execute this code */ })
+		.fail(function(data){
+			toast("Error Connecting to Webservice.<br/>Try again.", standardDurationToast, standardDelayToast);
+		});
+    });
              
 });  // end document on pageinit
 
@@ -223,3 +267,42 @@ function toast(message, duration, delayAmount) {
     $toast.appendTo($.mobile.pageContainer).delay(delayAmount);  //2000
     $toast.fadeOut(duration, removeToast);
 }
+
+// make json string
+function stringifyRunDetails()
+{
+   alert("stringify run details");
+		
+	var date 		= $("#dateRun").val();
+	var routeName 	= $("#txtRouteName").val();
+	var km 			= $("#txtKm").val();
+	var seconds 	= $("#txtSeconds").val();
+	var feeling 	= $("#txtFeeling").val();
+	
+	var customerId = 2;
+	
+	// alert("date: " + date + "\nrouteName: " + routeName + 
+			// "\nkm: " + km + "\nseconds: " + seconds + "\nfeeling: " + feeling);
+
+    // create runDetails object
+    var runDetails = new Object();
+
+    // add properties to object
+    //runDetails.customerId = window.localStorage.getItem("Id");
+   // runDetails.email = window.localStorage.getItem("Email");
+    //runDetails.authenticationKey = window.localStorage.getItem("OAuth");
+    runDetails.date = date;
+    runDetails.routeName = routeName;
+    runDetails.km = km;
+    runDetails.seconds = seconds;
+    runDetails.feeling = feeling;
+    runDetails.customerId = customerId;
+
+    // serialize it
+    var jsonStringRunDetails = JSON.stringify(runDetails);
+
+//    alert(jsonStringRunDetails);
+
+    return jsonStringRunDetails;
+
+}  // end stringifyRunDetails()

@@ -54,6 +54,7 @@ $("#registrationPage, #myProfilePage, #editProfilePage").on("pageinit", function
 
     // btn click
     $("#btnSubmitRegisterProfile").on("click", function(){
+		alert("button clicked");
         registerUser();
     });
 
@@ -77,46 +78,37 @@ $("#registrationPage, #myProfilePage, #editProfilePage").on("pageinit", function
 function registerUser()
 {
     // get user input
-    var firstName = $("#txtRegisterFirstname").val().trim();
-    var lastName = $("#txtRegisterLastname").val().trim();
-    var licenceNo = $("#txtRegisterLicence").val().trim();
+    var name = $("#txtRegisterName").val().trim();
     var email = $("#txtRegisterEmail").val().trim();
-    var mobile = $("#txtRegisterMobile").val().trim();
     var password = $("#txtRegisterPassword").val();
 
     // validate
-    var isFirstNameOk = firstName.length > 0;
-    var isLastNameOk = lastName.length > 0;
-    var isLicenceNoOk = isNumberFormatOk(licenceNo, 9);
+    var isNameOk = name.length > 0;
     var isEmailOk = isEmailValidFormat(email);
-    var isMobileOk = isNumberFormatOk(mobile, 10);
     var isPasswordOk = isNewPasswordFormatOK(password);
 
     //only try to register if ALL ok (format wise)
-    if (isFirstNameOk && isLastNameOk && isLicenceNoOk && isEmailOk && isMobileOk && isPasswordOk)
+    if (isNameOk && isEmailOk && isPasswordOk)
     {
         // do registration
-        register(firstName, lastName, licenceNo, email, mobile, password);
+        register(name, email, password);
     }
 
     // make red background for relevant fields
-    doRedBackground(isFirstNameOk, "#txtRegisterFirstname");
-    doRedBackground(isLastNameOk, "#txtRegisterLastname");
-    doRedBackground(isLicenceNoOk, "#txtRegisterLicence");
+    doRedBackground(isNameOk, "#txtRegisterName");
     doRedBackground(isEmailOk, "#txtRegisterEmail");
-    doRedBackground(isMobileOk, "#txtRegisterMobile");
     doRedBackground(isPasswordOk, "#txtRegisterPassword");
 }
 
 
 // do the registration
-function register(aFname, aLname, aLicence, anEmail, aMob, aPwd)
+function register(aName, anEmail, aPwd)
 {
-//    alert("register");
+   alert("register");
     $.ajax({
         type: "POST",
-        url: rootURL + '/customer',
-        data: stringifyRegisterDetails(aFname, aLname, aLicence, anEmail, aMob, aPwd),
+        url: rootURL + 'customer/',
+        data: stringifyRegisterDetails(aName, anEmail, aPwd),
         dataType: 'json',
     })
     .done(function(data) {
@@ -131,7 +123,7 @@ function register(aFname, aLname, aLicence, anEmail, aMob, aPwd)
         }
         else  // data is not null, so email is unique
         {
-    //            alert(data.fldFirstName);
+    //            alert(data.fldName);
 
             // prepare local storage on mobile phone
             var storage = window.localStorage;
@@ -143,11 +135,11 @@ function register(aFname, aLname, aLicence, anEmail, aMob, aPwd)
 
             toast("Registered", standardDurationToast, standardDelayToast);
 
-            // redirect to searchCarPage (search car page)
-            $(location).attr('href', '#searchCarPage');
+            // redirect to addRunPage
+            $(location).attr('href', '#addRunPage');
 
             // changeHash false => don't save current page in navigation history (registration page)
-//            $.mobile.changePage('#searchCarPage', {reverse: false, changeHash: false});
+//            $.mobile.changePage('#addRunPage', {reverse: false, changeHash: false});
         }
     })
     .always(function() { /* always execute this code */ })
@@ -159,17 +151,14 @@ function register(aFname, aLname, aLicence, anEmail, aMob, aPwd)
 
 
 // make json string
-function stringifyRegisterDetails(aFname, aLname, aLicence, anEmail, aMob, aPwd)
+function stringifyRegisterDetails(aName, anEmail, aPwd)
 {
     //create registerDetails object
     var registerDetails = new Object();
 
     //add properties to object
-    registerDetails.firstName = aFname;
-    registerDetails.lastName = aLname;
-    registerDetails.licenceNo = aLicence;
+    registerDetails.name = aName;
     registerDetails.email = anEmail;
-    registerDetails.mobile = aMob;
     registerDetails.password = aPwd;
 
     //serialize it

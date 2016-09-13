@@ -48,11 +48,11 @@
     <script src="jQuery/jquery.mobile-1.4.5.js"></script>
     <script src="DateBox/js/jtsage-datebox.min.js"></script>
 
-    <title>Prototype</title>
+    <title>More Fit More Fun</title>
 </head>
 
 <body id="CarsEzyBody">
-<div data-role="page" id="searchCarPage"><!--Start page-->
+<div data-role="page" id="addRunPage"><!--Start page-->
     <div data-role="header">
         <a href="#mypanel" class="ui-btn ui-corner-all ui-icon-bars ui-btn-icon-notext">Bars Icon</a>
         <h1>More Fit More Fun</h1>
@@ -60,26 +60,75 @@
 
     <div data-role="content">
         <!--datebox-->
-        <label for="datePickUp">Pick up Date *</label>
-        <input type="text" data-role="datebox" data-options='{"mode":"datebox"}' name="datePickUp" id="datePickUp">
+        <label for="dateRun">Date *</label>
+        <input type="text" data-role="datebox" data-options='{"mode":"datebox"}' name="dateRun" id="dateRun">
 
-        <!--datebox-->
-        <label for="dateReturn">Return Date *</label>
-        <input type="text" data-role="datebox" data-options='{"mode":"datebox"}' name="dateReturn" id="dateReturn">
-
-        <!--drop down-->
+        <!--text input route name -->
         <div data-role="fieldcontain">
-            <label for="selSuburb" class="select">Select Suburb</label>
-            <select name="selSuburb" id="selSuburb">
-                <!--dynamically build in js file-->
-            </select>
+            <label for="txtRouteName">Route name *</label>
+            <input type="text" name="txtRouteName" id="txtRouteName" value="just test route"  />
+        </div>
+		
+        <!--km -->
+        <div data-role="fieldcontain">
+            <label for="txtKm">Km *</label>
+            <input type="number" name="txtKm" id="txtKm" value="5.5"  />
+        </div>
+		
+        <!--seconds -->
+        <div data-role="fieldcontain">
+            <label for="txtSeconds">Seconds *</label>
+            <input type="number" name="txtSeconds" id="txtSeconds" value="12356"  />
         </div>
 
-        <input id="btnSearchCar" type="button" value="Search">
+        <!--text input feeling -->
+        <div data-role="fieldcontain">
+            <label for="txtFeeling">Notes</label>
+            <input type="text" name="txtFeeling" id="txtFeeling" value="test knee"  />
+        </div>
+		
+        <input id="btnAddRun" type="button" value="Add Run">
 
     </div>
-    <div data-role="footer" data-position="fixed">
-        <h4>Kirstine Nielsen 100527988</h4>
+</div><!--End page-->
+
+
+
+<div data-role="page" id="firstTimePage"><!--Start page-->
+    <div data-role="header">
+        <h1>More Fit More Fun</h1>
+    </div>
+    <div data-role="content">
+
+        <b>Welcome</b>		
+		
+        <input id="btnGoToLogin" type="button" value="Login">
+		
+        <input id="btnGoToRegister" type="button" value="Register">
+    </div>
+</div><!--End page-->
+
+
+
+<div data-role="page" id="loginPage"><!--Start page-->
+    <div data-role="header">
+        <h1>Login</h1>
+    </div>
+    <div data-role="content">
+
+        <!--text input Email -->
+        <div data-role="fieldcontain">
+            <label for="txtLoginEmail">Email *</label>
+            <input type="email" name="txtLoginEmail" id="txtLoginEmail" value=""  />
+        </div>
+
+        <!--text input Password test with 'mypass'-->
+        <div data-role="fieldcontain">
+            <label for="txtLoginPassword">Password *</label>
+            <input type="password" name="txtLoginPassword" id="txtLoginPassword" value=""  />
+        </div>
+
+        <input id="btnLogin" type="button" value="Login">
     </div>
 </div><!--End page-->
 
@@ -87,43 +136,23 @@
 
 <div data-role="page" id="registrationPage"><!--Start page-->
     <div data-role="header">
-        <h1>Cars Ezy Registration</h1>
+        <h1>Register</h1>
     </div>
     <div data-role="content">
 
-        <b>Enter registration details</b>
+        <!--text input Email -->
+        <div data-role="fieldcontain">
+            <label for="txtRegisterEmail">Email *</label>
+            <input type="email" name="txtRegisterEmail" id="txtRegisterEmail" value="k@k"  />
+        </div>
 
         <!--text input First name -->
         <div data-role="fieldcontain">
-            <label for="txtRegisterFirstname">First name *</label>
-            <input type="text" name="txtRegisterFirstname" id="txtRegisterFirstname" value=""  />
+            <label for="txtRegisterName">Name *</label>
+            <input type="text" name="txtRegisterName" id="txtRegisterName" value="kirsti"  />
         </div>
 
-        <!--text input Last name -->
-        <div data-role="fieldcontain">
-            <label for="txtRegisterLastname">Last name *</label>
-            <input type="text" name="txtRegisterLastname" id="txtRegisterLastname" value=""  />
-        </div>
-
-        <!--number input Licence no -->
-        <div data-role="fieldcontain">
-            <label for="txtRegisterLicence">Licence no (9 digits) *</label>
-            <input type="number" name="txtRegisterLicence" id="txtRegisterLicence" value=""  />
-        </div>
-
-        <!--text input Email -->
-        <div data-role="fieldcontain">
-            <label for="txtRegisterEmail">Email (used as username) *</label>
-            <input type="email" name="txtRegisterEmail" id="txtRegisterEmail" value=""  />
-        </div>
-
-        <!--number input Mobile -->
-        <div data-role="fieldcontain">
-            <label for="txtRegisterMobile">Mobile (10 digits) *</label>
-            <input type="number" name="txtRegisterMobile" id="txtRegisterMobile" value=""  />
-        </div>
-
-        <!--text input Password test with mypass-->
+        <!--text input Password test with 'mypass'-->
         <div data-role="fieldcontain">
             <label for="txtRegisterPassword">Password (min 3 chars, no space) *</label>
             <input type="password" name="txtRegisterPassword" id="txtRegisterPassword" value=""  />
