@@ -224,16 +224,22 @@ function isNameValidFormat(name)
 // when editing My Profile the system must check if password entered is correct password
 function submitProfileChanges(nameFromLocalStorage, akeyFromLocalStorage)
 {
-   alert ("in submitProfileChanges");
+   // alert ("in submitProfileChanges");
     // validate user input
     var email = $("#txtEditEmail").val().trim();
+   alert ("email length: " + email.length);
 	var emailFormatOK = true;
 	
-	// only check if email not null
-	if (email != null)
+	// check if an email is entered
+	if (email.length == 0)
 	{
-		emailFormatOK = isEmailValidFormat(mobile);
-//    alert ("returned emailFormatOK: " + emailFormatOK);
+		email = null;
+	}
+	else  // only check for valid email format if email was entered
+	{
+		alert("email is not null");
+		emailFormatOK = isEmailValidFormat(email);
+		alert ("returned emailFormatOK: " + emailFormatOK);
 	}
 
     var currentPassword = $("#pwdPasswordProve").val();
@@ -495,13 +501,22 @@ function populateCustomerDetails(nameFromLocalStorage, akeyFromLocalStorage)
 //        alert("in done populateCustomerDetails");
 
         // Execute when ajax successfully completes
+		
         // build the html
         var str = "";
         str += "<p>" +  data.fldName + "</p>";
-        str += "<p>" +  data.fldEmail + "</p>";
+		
+		// check if there is an email
+		if (data.fldEmail == null)
+		{
+			str += "<p><em>no email</em></p>";
+		}
+		else
+		{
+			str += "<p>" + data.fldEmail + "</p>";
+		}        
 
         $("#profileCustomerDetails").html(str);
-
     })
     .always(function() { /* always execute this code */ })
     .fail(function(data){
@@ -524,7 +539,7 @@ function fillMobileTextFields(nameFromLocalStorage, akeyFromLocalStorage)
 //        alert("in done fillMobileTextFields");
 
         // Execute when ajax successfully completes
-
+		alert("the email to fill: " + data.fldEmail);
         // fill field
         $("#txtEditEmail").val(data.fldEmail);
     })
