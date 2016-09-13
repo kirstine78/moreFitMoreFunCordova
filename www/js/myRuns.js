@@ -73,8 +73,8 @@ function loadMyRunsTable(data)
                 data[i].fldKm + "</td><td>" +
                 data[i].fldSeconds + "</td><td>" +
                 "hoho" + "</td><td>" +
-                data[i].fldFeeling + "</td><td>" +
-                data[i].fldRouteName + "</td></tr>";
+                data[i].fldRouteName + "</td><td>" +
+                data[i].fldFeeling + "</td></tr>";
     }
 
     // add str to html, find closest element, refresh table, trigger
