@@ -1,7 +1,7 @@
 /*
  Name:  Kirstine Nielsen
- Id:    100527988
- Date:  08.08.2016
+ Date:  13.09.2016
+ App: 	MoreFitMoreFun
 */
 
 /////////////////////////////////////////Variable Declaration
@@ -54,7 +54,7 @@ $("#registrationPage, #myProfilePage, #editProfilePage").on("pageinit", function
 
     // btn click
     $("#btnSubmitRegisterProfile").on("click", function(){
-		alert("button clicked");
+		// alert("button clicked");
         registerUser();
     });
 
@@ -82,7 +82,7 @@ function registerUser()
     var email = $("#txtRegisterEmail").val().trim();
     var password = $("#txtRegisterPassword").val();
 	
-	alert("email: " + email);
+	alert("name: " + name);
 	
     // validate
     var isNameOk = isNameValidFormat(name);
@@ -113,7 +113,7 @@ function registerUser()
 // do the registration
 function register(aName, anEmail, aPwd)
 {
-   alert("register");
+   // alert("register");
     $.ajax({
         type: "POST",
         url: rootURL + 'customer/',
@@ -121,7 +121,7 @@ function register(aName, anEmail, aPwd)
         dataType: 'json',
     })
     .done(function(data) {
-           alert("inside done");
+           // alert("inside done");
 
         // check if data is null which means that name was not unique
         if (data == null)

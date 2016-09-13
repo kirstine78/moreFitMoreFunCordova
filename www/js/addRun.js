@@ -1,6 +1,7 @@
 /*
  Name:  Kirstine Nielsen
  Date:  13.09.2016
+ App: 	MoreFitMoreFun
 */
 
 /////////////////////////////////////////Variable Declaration
@@ -42,33 +43,45 @@ $("#addRunPage").on("pageinit", function(){
 
     // btn click
     $("#btnAddRun").on("click", function(){
-        
 		alert ("button clicked");
-		// add run
-		$.ajax({
-			type: "POST",
-			url: rootURL + 'run/',
-			data: stringifyRunDetails(),
-			dataType: 'json',
-		})
-		.done(function(data) {
-	//        alert("this is data: " + data);
+		
+        var date = $("#dateRun").val();
+       alert("date: " + date);
 
-			if (data)  // insert run succeeded
-			{
-				// run creation successful; display msg to user
-				toast("Run was successful saved", standardDurationToast, standardDelayToast);
-			}
-			else  // insert run failed
-			{
-				// insert run did not go through; display msg to user
-				toast("Sorry run was not saved<br/>Please try again", standardDurationToast, standardDelayToast);
-			}
-		})
-		.always(function() { /* always execute this code */ })
-		.fail(function(data){
-			toast("Error Connecting to Webservice.<br/>Try again.", standardDurationToast, standardDelayToast);
-		});
+        var dateOk = isDateValid(date);
+       alert(dateOk);
+
+        // only if dateOk continue with add run process
+        if (dateOk)
+		{
+			// add run
+			$.ajax({
+				type: "POST",
+				url: rootURL + 'run/',
+				data: stringifyRunDetails(),
+				dataType: 'json',
+			})
+			.done(function(data) {
+		//        alert("this is data: " + data);
+
+				if (data)  // insert run succeeded
+				{
+					// run creation successful; display msg to user
+					toast("Run was successfully saved", standardDurationToast, standardDelayToast);
+				}
+				else  // insert run failed
+				{
+					// insert run did not go through; display msg to user
+					toast("Sorry run was not saved<br/>Please try again", standardDurationToast, standardDelayToast);
+				}
+			})
+			.always(function() { /* always execute this code */ })
+			.fail(function(data){
+				toast("Error Connecting to Webservice.<br/>Try again.", standardDurationToast, standardDelayToast);
+			});
+			
+		}
+		
     });
              
 });  // end on pageinit
@@ -130,6 +143,36 @@ function populateDropDownMenuSuburbs()
 //        alert("Error Connecting to Webservice.\nTry again.");
         toast("Error Connecting to Webservice - populateDropDownMenuSuburbs.<br/>Try again.", standardDurationToast, standardDelayToast);
     });
+}
+
+// check if date is ok
+function isDateValid(aDate)
+{
+    // clear red background
+    doRedBackground(true, "#dateRun");
+
+    // flag
+    var dateOk = false;
+
+    var isPickupDateOk = false;
+    var isReturnDateOk = false;
+
+    // check if aDate field is filled out
+    if (aDate.length == 0)
+    {
+        // empty field
+       // alert("date empty");
+
+        // color error
+        doRedBackground(false, "#dateRun");
+    }
+    else
+    {
+		// update flag
+		var dateOk = true;
+    }
+
+    return dateOk;
 }
 
 

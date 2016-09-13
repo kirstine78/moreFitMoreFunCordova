@@ -1,6 +1,7 @@
 /*
  Name:  Kirstine Nielsen
  Date:  13.09.2016
+ App: 	MoreFitMoreFun
 */
 
 function initPanel()
@@ -62,7 +63,7 @@ function getRunsForCustomer()
         else  // zero rows were returned
         {
             // display msg to user
-            toast("You have no Runs", standardDurationToast, standardDelayToast);
+            toast("No runs to display", standardDurationToast, standardDelayToast);
         }
     })
     .always(function() { /* always execute this code */ })
