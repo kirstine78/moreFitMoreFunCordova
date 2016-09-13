@@ -7,15 +7,15 @@
 /////////////////////////////////////////Variable Declaration
 
 // 10.0.2.2 is the same as Localhost of WService running in Emulator.
- var rootURL = "http://10.0.2.2/sites/MoreFitMoreFun/index.php/";
-//var rootURL = "http://kirstine.byethost14.com/sites/MoreFitMoreFun/index.php/";
-//var rootURL = "http://kirstine.comli.com/sites/MoreFitMoreFun/index.php/";
-//var rootURL = "http://localhost/sites/MoreFitMoreFun/index.php/";  // for the browser tester
+ var rootURL = "http://10.0.2.2/sites/Health/index.php/";
+//var rootURL = "http://kirstine.byethost14.com/sites/Health/index.php/";
+//var rootURL = "http://kirstine.comli.com/sites/Health/index.php/";
+//var rootURL = "http://localhost/sites/Health/index.php/";  // for the browser tester
 
 var pageinited = false;
 
 // reuse panel on multiple pages
-var panel = '<div data-role="panel" id="mypanel" data-position="left" data-display="overlay" data-theme="a"><ul data-role="listview"><li><a href="#searchCarPage" data-rel="close">Home - Search Car</a></li><li><a id="linkMyBookings" href="#myBookingsPage" data-rel="close">My Bookings</a></li><li><a href="#brandsPage" data-rel="close">Brands</a></li><li><a id="linkReturnCar" href="#returnCarDetailsPage" data-rel="close">Return Car</a></li><li><a href="#myProfilePage" data-rel="close">My Profile</a></li></ul></div>';
+var panel = '<div data-role="panel" id="mypanel" data-position="left" data-display="overlay" data-theme="a"><ul data-role="listview"><li><a href="#addRunPage" data-rel="close">Add Run</a></li><li><a id="linkMyRuns" href="#myRunsPage" data-rel="close">My Runs</a></li><li><li><li><a href="#myProfilePage" data-rel="close">My Profile</a></li></ul></div>';
 
 var standardDurationToast = 500;
 var standardDelayToast = 2000;

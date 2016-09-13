@@ -30,7 +30,7 @@ $("#registrationPage, #myProfilePage, #editProfilePage").on("pageinit", function
     $("#myProfilePage").on("pagebeforeshow", function(event){
 //              alert("before myProfilePage show");   // from dreamweaver
         // get customer details
-        populateCustomerDetails(window.localStorage.getItem("Email"), window.localStorage.getItem("OAuth"));
+        //populateCustomerDetails(window.localStorage.getItem("Email"), window.localStorage.getItem("OAuth"));
         console.log('before myProfilePage show'); // from Eclipse
     });
 
