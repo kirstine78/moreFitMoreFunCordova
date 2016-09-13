@@ -365,8 +365,6 @@ function stringifyRunDetails()
 	var seconds 	= $("#txtSeconds").val();
 	var feeling 	= $("#txtFeeling").val();
 	
-	var customerId = 2;
-	
 	// alert("date: " + date + "\nrouteName: " + routeName + 
 			// "\nkm: " + km + "\nseconds: " + seconds + "\nfeeling: " + feeling);
 
@@ -374,15 +372,14 @@ function stringifyRunDetails()
     var runDetails = new Object();
 
     // add properties to object
-    //runDetails.customerId = window.localStorage.getItem("Id");
-   // runDetails.email = window.localStorage.getItem("Email");
-    //runDetails.authenticationKey = window.localStorage.getItem("OAuth");
+    runDetails.customerId = window.localStorage.getItem("Id");
+	runDetails.email = window.localStorage.getItem("Email");
+    runDetails.authenticationKey = window.localStorage.getItem("OAuth");
     runDetails.date = date;
     runDetails.routeName = routeName;
     runDetails.km = km;
     runDetails.seconds = seconds;
     runDetails.feeling = feeling;
-    runDetails.customerId = customerId;
 
     // serialize it
     var jsonStringRunDetails = JSON.stringify(runDetails);

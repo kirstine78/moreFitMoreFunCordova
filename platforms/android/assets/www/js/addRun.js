@@ -354,5 +354,40 @@ function doSearchAvailableCars(pickupDate, returnDate, suburbId)
 }
 
 
+// make json string
+function stringifyRunDetails()
+{
+   alert("stringify run details");
+		
+	var date 		= $("#dateRun").val();
+	var routeName 	= $("#txtRouteName").val();
+	var km 			= $("#txtKm").val();
+	var seconds 	= $("#txtSeconds").val();
+	var feeling 	= $("#txtFeeling").val();
+	
+	// alert("date: " + date + "\nrouteName: " + routeName + 
+			// "\nkm: " + km + "\nseconds: " + seconds + "\nfeeling: " + feeling);
+
+    // create runDetails object
+    var runDetails = new Object();
+
+    // add properties to object
+    runDetails.customerId = window.localStorage.getItem("Id");
+	runDetails.email = window.localStorage.getItem("Email");
+    runDetails.authenticationKey = window.localStorage.getItem("OAuth");
+    runDetails.date = date;
+    runDetails.routeName = routeName;
+    runDetails.km = km;
+    runDetails.seconds = seconds;
+    runDetails.feeling = feeling;
+
+    // serialize it
+    var jsonStringRunDetails = JSON.stringify(runDetails);
+
+//    alert(jsonStringRunDetails);
+
+    return jsonStringRunDetails;
+
+}  // end stringifyRunDetails()
 
 
