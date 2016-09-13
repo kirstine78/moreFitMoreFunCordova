@@ -153,39 +153,6 @@ $(document).on("pageinit", function(){
 		//redirect to registrationPage
 		$(location).attr('href', '#registrationPage');		
     });
-	
-	
-	
-	// // btn click
-    // $("#btnAddRun").on("click", function(){
-        
-		// alert ("button clicked");
-		// // add run
-		// $.ajax({
-			// type: "POST",
-			// url: rootURL + 'run/',
-			// data: stringifyRunDetails(),
-			// dataType: 'json',
-		// })
-		// .done(function(data) {
-	// //        alert("this is data: " + data);
-
-			// if (data)  // insert run succeeded
-			// {
-				// // run creation successful; display msg to user
-				// toast("Run was successful saved", standardDurationToast, standardDelayToast);
-			// }
-			// else  // insert run failed
-			// {
-				// // insert run did not go through; display msg to user
-				// toast("Sorry run was not saved<br/>Please try again", standardDurationToast, standardDelayToast);
-			// }
-		// })
-		// .always(function() { /* always execute this code */ })
-		// .fail(function(data){
-			// toast("Error Connecting to Webservice.<br/>Try again.", standardDurationToast, standardDelayToast);
-		// });
-    // });
              
 });  // end document on pageinit
 
@@ -271,42 +238,3 @@ function toast(message, duration, delayAmount) {
     $toast.appendTo($.mobile.pageContainer).delay(delayAmount);  //2000
     $toast.fadeOut(duration, removeToast);
 }
-
-// // make json string
-// function stringifyRunDetails()
-// {
-   // alert("stringify run details");
-		
-	// var date 		= $("#dateRun").val();
-	// var routeName 	= $("#txtRouteName").val();
-	// var km 			= $("#txtKm").val();
-	// var seconds 	= $("#txtSeconds").val();
-	// var feeling 	= $("#txtFeeling").val();
-	
-	// var customerId = 2;
-	
-	// // alert("date: " + date + "\nrouteName: " + routeName + 
-			// // "\nkm: " + km + "\nseconds: " + seconds + "\nfeeling: " + feeling);
-
-    // // create runDetails object
-    // var runDetails = new Object();
-
-    // // add properties to object
-    // //runDetails.customerId = window.localStorage.getItem("Id");
-   // // runDetails.email = window.localStorage.getItem("Email");
-    // //runDetails.authenticationKey = window.localStorage.getItem("OAuth");
-    // runDetails.date = date;
-    // runDetails.routeName = routeName;
-    // runDetails.km = km;
-    // runDetails.seconds = seconds;
-    // runDetails.feeling = feeling;
-    // runDetails.customerId = customerId;
-
-    // // serialize it
-    // var jsonStringRunDetails = JSON.stringify(runDetails);
-
-// //    alert(jsonStringRunDetails);
-
-    // return jsonStringRunDetails;
-
-// }  // end stringifyRunDetails()
