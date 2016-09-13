@@ -1,0 +1,15 @@
+.row_highlight {
+	background: #99D699;
+}
+
+#CarsEzyBody .errorRedBackground {
+	background-color: #ffb2b2;
+}
+
+.hidden, td.hidden, tr.hidden {
+    display: none;
+}
+
+.redText {
+    color: red;
+}

@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+     KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<html>
+<head>
+    <!--
+    Customize this policy to fit your own app's needs. For more guidance, see:
+        https://github.com/apache/cordova-plugin-whitelist/blob/master/README.md#content-security-policy
+    Some notes:
+        * gap: is required only on iOS (when using UIWebView) and is needed for JS->native communication
+        * https://ssl.gstatic.com is required only on Android and is needed for TalkBack to function properly
+        * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
+            * Enable inline JS: add 'unsafe-inline' to default-src
+    -->
+    <!--meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *"-->
+    <meta name="format-detection" content="telephone=no">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+
+    <link rel="stylesheet" type="text/css" href="css/index.css">
+    <link rel="stylesheet" type="text/css" href="css/my_main.css">
+
+    <link rel="stylesheet" type="text/css" href="DateBox/css/jtsage-datebox.min.css">
+
+    <link rel="stylesheet" type="text/css" href="css/jquery.mobile-1.4.5.min.css">
+
+    <!--link the themeroller-->
+    <link rel="stylesheet" href="themes/blueGreen.min.css" />
+    <link rel="stylesheet" href="themes/jquery.mobile.icons.min.css" />
+
+    <script src="jQuery/jquery-1.12.0.js"></script>
+    <script src="jQuery/jquery.mobile-1.4.5.js"></script>
+    <script src="DateBox/js/jtsage-datebox.min.js"></script>
+
+    <title>Prototype</title>
+</head>
+
+<body id="CarsEzyBody">
+<div data-role="page" id="searchCarPage"><!--Start page-->
+    <div data-role="header">
+        <a href="#mypanel" class="ui-btn ui-corner-all ui-icon-bars ui-btn-icon-notext">Bars Icon</a>
+        <h1>More Fit More Fun</h1>
+    </div>
+
+    <div data-role="content">
+        <!--datebox-->
+        <label for="datePickUp">Pick up Date *</label>
+        <input type="text" data-role="datebox" data-options='{"mode":"datebox"}' name="datePickUp" id="datePickUp">
+
+        <!--datebox-->
+        <label for="dateReturn">Return Date *</label>
+        <input type="text" data-role="datebox" data-options='{"mode":"datebox"}' name="dateReturn" id="dateReturn">
+
+        <!--drop down-->
+        <div data-role="fieldcontain">
+            <label for="selSuburb" class="select">Select Suburb</label>
+            <select name="selSuburb" id="selSuburb">
+                <!--dynamically build in js file-->
+            </select>
+        </div>
+
+        <input id="btnSearchCar" type="button" value="Search">
+
+    </div>
+    <div data-role="footer" data-position="fixed">
+        <h4>Kirstine Nielsen 100527988</h4>
+    </div>
+</div><!--End page-->
+
+
+
+<div data-role="page" id="registrationPage"><!--Start page-->
+    <div data-role="header">
+        <h1>Cars Ezy Registration</h1>
+    </div>
+    <div data-role="content">
+
+        <b>Enter registration details</b>
+
+        <!--text input First name -->
+        <div data-role="fieldcontain">
+            <label for="txtRegisterFirstname">First name *</label>
+            <input type="text" name="txtRegisterFirstname" id="txtRegisterFirstname" value=""  />
+        </div>
+
+        <!--text input Last name -->
+        <div data-role="fieldcontain">
+            <label for="txtRegisterLastname">Last name *</label>
+            <input type="text" name="txtRegisterLastname" id="txtRegisterLastname" value=""  />
+        </div>
+
+        <!--number input Licence no -->
+        <div data-role="fieldcontain">
+            <label for="txtRegisterLicence">Licence no (9 digits) *</label>
+            <input type="number" name="txtRegisterLicence" id="txtRegisterLicence" value=""  />
+        </div>
+
+        <!--text input Email -->
+        <div data-role="fieldcontain">
+            <label for="txtRegisterEmail">Email (used as username) *</label>
+            <input type="email" name="txtRegisterEmail" id="txtRegisterEmail" value=""  />
+        </div>
+
+        <!--number input Mobile -->
+        <div data-role="fieldcontain">
+            <label for="txtRegisterMobile">Mobile (10 digits) *</label>
+            <input type="number" name="txtRegisterMobile" id="txtRegisterMobile" value=""  />
+        </div>
+
+        <!--text input Password test with mypass-->
+        <div data-role="fieldcontain">
+            <label for="txtRegisterPassword">Password (min 3 chars, no space) *</label>
+            <input type="password" name="txtRegisterPassword" id="txtRegisterPassword" value=""  />
+        </div>
+
+        <input id="btnSubmitRegisterProfile" type="button" value="Register">
+    </div>
+</div><!--End page-->
+
+
+
+<div data-role="page" id="availableCarsPage" ><!--Start page-->
+    <div data-role="header" data-position="fixed">
+        <a href="#mypanel" class="ui-btn ui-corner-all ui-icon-bars ui-btn-icon-notext">Bars Icon</a>
+        <h1>Cars Ezy Available</h1>
+    </div>
+    <div data-role="content">
+        <h3 id="titleAvailable"></h3>
+        <b>Select row</b>
+        <br/>
+        <br/>
+
+        <table data-role="table" data-mode="columntoggle" class="ui-responsive" id="carsAvailableTable">
+            <thead>
+                <tr>
+                    <th>Brand</th>
+                    <th data-priority="1">Seat</th>
+                    <th data-priority="1">$/day</th>
+                    <th data-priority="1">Street</th>
+                    <th class="hidden"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <!--dynamically build in js file-->
+            </tbody>
+        </table>
+
+    </div>
+</div><!--End page-->
+
+
+
+<div data-role="page" id="confirmBookingPage"><!--Start page-->
+    <div data-role="header">
+        <a href="#mypanel" class="ui-btn ui-corner-all ui-icon-bars ui-btn-icon-notext">Bars Icon</a>
+        <h1>Cars Ezy Confirm</h1>
+    </div>
+    <div data-role="content">
+        <h3>Please confirm the booking</h3>
+
+        <table data-role="table" data-mode="columntoggle" class="ui-responsive" id="confirmBookingTable">
+            <thead>
+                <tr>
+                    <th data-priority="1">What and Where</th>
+                    <th>Your Booking details</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!--dynamically build in js file-->
+            </tbody>
+        </table>
+
+        <p id="carImg"></p>
+
+        <input id="btnConfirmCarHire" type="button" value="Confirm">
+
+    </div>
+</div><!--End page-->
+
+
+
+<div data-role="page" id="myBookingsPage"><!--Start page-->
+
+    <div data-role="header">
+        <a href="#mypanel" class="ui-btn ui-corner-all ui-icon-bars ui-btn-icon-notext">Bars Icon</a>
+        <h1>Cars Ezy My Bookings</h1>
+    </div>
+    <div data-role="content">
+        <h3>Your Full Booking List</h3>
+        <p><em>(returned, active, and future)</em></p>
+        <b>Click row for more details</b>
+        <br/>
+        <br/>
+
+        <table data-role="table" data-mode="columntoggle" class="ui-responsive" id="myBookingsTable">
+            <thead>
+            <tr>
+                <th>Pickup</th>
+                <th data-priority="1">Drop off</th>
+                <th data-priority="1">RegoNo</th>
+                <th data-priority="1">Seat</th>
+                <th data-priority="1">$/day</th>
+            </tr>
+            </thead>
+            <tbody>
+                <!--dynamically build in js file-->
+            </tbody>
+        </table>
+
+    </div>
+</div><!--End page-->
+
+
+
+<div data-role="page" id="returnCarDetailsPage"><!--Start page-->
+    <div data-role="header">
+        <a href="#mypanel" class="ui-btn ui-corner-all ui-icon-bars ui-btn-icon-notext">Bars Icon</a>
+        <h1>Cars Ezy Return Car</h1>
+    </div>
+    <div data-role="content">
+        <h3 id="returnCarTitle"></h3>
+
+        <!--number input Odometer-->
+        <div data-role="fieldcontain">
+            <label for="txtOdomFinish">Odometer *</label>
+            <input type="number" name="txtOdomFinish" id="txtOdomFinish" value=""  />
+        </div>
+
+        <!--check box Full Tank-->
+        <div data-role="fieldcontain">
+            <fieldset data-role="controlgroup">
+                <input type="checkbox" name="chkFullTank" id="chkFullTank" class="custom"  value=""/>
+                <label for="chkFullTank">I return car with full tank</label>
+            </fieldset>
+        </div>
+
+        <input id="btnReturnCar" type="button" value="Return Car">
+
+
+    </div>
+</div><!--End page-->
+
+
+
+<div data-role="page" id="brandsPage"><!--Start page-->
+    <div data-role="header">
+        <a href="#mypanel" class="ui-btn ui-corner-all ui-icon-bars ui-btn-icon-notext">Bars Icon</a>
+        <h1>Cars Ezy Brands</h1>
+    </div>
+    <div data-role="content" id="allBrands">
+        <h3>Brands at Cars Ezy</h3>
+        <table id="brandsTable"></table>
+    </div>
+</div><!--End page-->
+
+
+
+<div data-role="page" id="myProfilePage"><!--Start page-->
+    <div data-role="header">
+        <a href="#mypanel" class="ui-btn ui-corner-all ui-icon-bars ui-btn-icon-notext">Bars Icon</a>
+        <h1>Cars Ezy My Profile</h1>
+    </div>
+    <div data-role="content">
+        <div class="ui-grid-a">
+            <div class="ui-block-a">
+                <p>First name</p>
+                <p>Last name</p>
+                <p>Licence no</p>
+                <p>Email</p>
+                <p>Mobile</p>
+            </div>
+
+            <div class="ui-block-b" id="profileCustomerDetails">
+                <!--generate dynamically-->
+            </div>
+        </div>
+
+        <input id="btnEditProfile" type="button" value="Edit">
+
+    </div>
+</div><!--End page-->
+
+
+
+<div data-role="page" id="editProfilePage"><!--Start page-->
+    <div data-role="header">
+        <a href="#mypanel" class="ui-btn ui-corner-all ui-icon-bars ui-btn-icon-notext">Bars Icon</a>
+        <h1>Cars Ezy Edit Profile</h1>
+    </div>
+    <div data-role="content">
+        Edit Profile details
+
+        <!--number input Mobile -->
+        <div data-role="fieldcontain">
+            <label for="txtEditMobile">Mobile (10 digits) *</label>
+            <input type="number" name="txtEditMobile" id="txtEditMobile" value=""  />
+        </div>
+
+        <!--password-->
+        <div data-role="fieldcontain">
+            <label for="pwdPasswordProve">Current password *</label>
+            <input type="password" name="pwdPasswordProve" id="pwdPasswordProve" value=""  />
+        </div>
+
+        <!--new password once-->
+        <div data-role="fieldcontain">
+            <label for="pwdPasswordNew1">New password (min 3 chars, no spaces)</label>
+            <input type="password" name="pwdPasswordNew1" id="pwdPasswordNew1" value=""  />
+        </div>
+
+        <!--new password twice-->
+        <div data-role="fieldcontain">
+            <label for="pwdPasswordNew2">Repeat new password (min 3 chars, no spaces)</label>
+            <input type="password" name="pwdPasswordNew2" id="pwdPasswordNew2" value=""  />
+        </div>
+        <input id="btnSubmitChangesProfile" type="button" value="Submit changes">
+
+    </div>
+</div><!--End page-->
+
+<script type="text/javascript" src="cordova.js"></script>
+<script type="text/javascript" src="js/index.js"></script>
+<script src="js/main.js"></script><!--Main js Scripts-->
+<script src="js/userProfile.js"></script><!--userProfile js Scripts-->
+<script src="js/searchCar.js"></script><!--searchCar js Scripts-->
+<script src="js/availableCars.js"></script><!--availableCars js Scripts-->
+<script src="js/confirmCarBooking.js"></script><!--confirmCarBooking js Scripts-->
+<script src="js/myBookings.js"></script><!--myBookings js Scripts-->
+<script src="js/returnCarDetails.js"></script><!--returnCarDetails js Scripts-->
+<script src="js/brands.js"></script><!--brands js Scripts-->
+<script src="js/panelHandler.js"></script><!--panelHandler js Scripts-->
+
+</body>
+</html>
