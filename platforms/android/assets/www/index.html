@@ -164,87 +164,25 @@
 
 
 
-<div data-role="page" id="availableCarsPage" ><!--Start page-->
-    <div data-role="header" data-position="fixed">
-        <a href="#mypanel" class="ui-btn ui-corner-all ui-icon-bars ui-btn-icon-notext">Bars Icon</a>
-        <h1>Cars Ezy Available</h1>
-    </div>
-    <div data-role="content">
-        <h3 id="titleAvailable"></h3>
-        <b>Select row</b>
-        <br/>
-        <br/>
-
-        <table data-role="table" data-mode="columntoggle" class="ui-responsive" id="carsAvailableTable">
-            <thead>
-                <tr>
-                    <th>Brand</th>
-                    <th data-priority="1">Seat</th>
-                    <th data-priority="1">$/day</th>
-                    <th data-priority="1">Street</th>
-                    <th class="hidden"></th>
-                </tr>
-            </thead>
-            <tbody>
-                <!--dynamically build in js file-->
-            </tbody>
-        </table>
-
-    </div>
-</div><!--End page-->
-
-
-
-<div data-role="page" id="confirmBookingPage"><!--Start page-->
-    <div data-role="header">
-        <a href="#mypanel" class="ui-btn ui-corner-all ui-icon-bars ui-btn-icon-notext">Bars Icon</a>
-        <h1>Cars Ezy Confirm</h1>
-    </div>
-    <div data-role="content">
-        <h3>Please confirm the booking</h3>
-
-        <table data-role="table" data-mode="columntoggle" class="ui-responsive" id="confirmBookingTable">
-            <thead>
-                <tr>
-                    <th data-priority="1">What and Where</th>
-                    <th>Your Booking details</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!--dynamically build in js file-->
-            </tbody>
-        </table>
-
-        <p id="carImg"></p>
-
-        <input id="btnConfirmCarHire" type="button" value="Confirm">
-
-    </div>
-</div><!--End page-->
-
-
-
 <div data-role="page" id="myRunsPage"><!--Start page-->
 
     <div data-role="header">
         <a href="#mypanel" class="ui-btn ui-corner-all ui-icon-bars ui-btn-icon-notext">Bars Icon</a>
-        <h1>Cars Ezy My Bookings</h1>
+        <h1>My Runs</h1>
     </div>
     <div data-role="content">
-        <h3>Your Full Booking List</h3>
-        <p><em>(returned, active, and future)</em></p>
-        <b>Click row for more details</b>
+        <b>Click row</b>
         <br/>
         <br/>
 
-        <table data-role="table" data-mode="columntoggle" class="ui-responsive" id="myBookingsTable">
+        <table data-role="table" data-mode="columntoggle" class="ui-responsive" id="myRunsTable">
             <thead>
             <tr>
-                <th>Pickup</th>
-                <th data-priority="1">Drop off</th>
-                <th data-priority="1">RegoNo</th>
-                <th data-priority="1">Seat</th>
-                <th data-priority="1">$/day</th>
+                <th>Date</th>
+                <th data-priority="1">Km</th>
+                <th data-priority="1">Time</th>
+                <th data-priority="1">Km/h</th>
+                <th data-priority="1">Feeling</th>
             </tr>
             </thead>
             <tbody>

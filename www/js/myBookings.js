@@ -6,44 +6,44 @@
 
 /////////////////////////////////////////Variable Declaration
 
-var myBookingsPageInited = false;
+var myRunsPageInited = false;
 
-var myBookings_BookingsArrayGlobal;
+var myRuns_RunsArrayGlobal;
 
 
 /////////////////////////////////////////jquery On pageinit
 
-$("#myBookingsPage").on("pageinit", function(){
+$("#myRunsPage").on("pageinit", function(){
 
-    if(myBookingsPageInited)
+    if(myRunsPageInited)
     {
-//        alert("myBookingsPageInited true");
+//        alert("myRunsPageInited true");
         return;
     }
     else
     {
-//        alert("myBookingsPageInited false");
-        myBookingsPageInited= true;
+//        alert("myRunsPageInited false");
+        myRunsPageInited= true;
     }  // end added code
 
 
-    // myBookingsPage Event Handlers
-    $("#myBookingsPage").on("pagebeforeshow", function(event){
-//        alert("before myBookingsPage show");   // from dreamweaver
+    // myRunsPage Event Handlers
+    $("#myRunsPage").on("pagebeforeshow", function(event){
+//        alert("before myRunsPage show");
 
-        // wipe 'tbody' in the myBookingsTable, find closest element, refresh table, trigger
+        // wipe 'tbody' in the myRunsTable, find closest element, refresh table, trigger
         // make columns toggle work
-        $("#myBookingsTable tbody").html("").closest("table").table("refresh").trigger("create");
+        $("#myRunsTable tbody").html("").closest("table").table("refresh").trigger("create");
 
         // load all bookings for customer into the table to display
-        loadMyBookingsTable(myBookings_BookingsArrayGlobal);
+        loadMyRunsTable(myRuns_RunsArrayGlobal);
 
-        console.log('before myBookingsPage show'); // from Eclipse
+        console.log('before myRunsPage show'); // from Eclipse
     });
 
 
     // click row
-    $("#myBookingsTable").on("click", ".clickable-row", function(evt){
+    $("#myRunsTable").on("click", ".clickable-row", function(evt){
 //        alert("row was clicked");
 
         // $(this) is the jQuery object
@@ -52,37 +52,38 @@ $("#myBookingsPage").on("pageinit", function(){
         showExtraBookingDetails(rowElementClicked);
     });
              
-});  // end #myBookingsPage on pageinit
+});  // end #myRunsPage on pageinit
 
 
-///////////////////////////////////////// END jquery On #myBookingsPage Ready
+///////////////////////////////////////// END jquery On #myRunsPage Ready
 
 
 // takes array of records as param
-function loadMyBookingsTable(data)
+function loadMyRunsTable(data)
 {
-//    alert("inside fct loadMyBookingsTable");
+   alert("inside fct loadMyRunsTable");
     var str = "";
 
-    // build string to populate my bookings table
+    // build string to populate my runs table
     for (var i = 0; i < data.length; i++)
     {
         // build html dynamically
-        str += "<tr class='clickable-row' id='" + data[i].fldBookingNo + "'><td>" +
-                data[i].fldStartDate + "</td><td>" +
-                data[i].fldReturnDate + "</td><td>" +
-                data[i].fldRegoNo + "</td><td>" +
-                data[i].fldSeating + "</td><td>" +
-                data[i].fldHirePricePerDay + "</td>" +
-                "<td class='hidden suburb'>" + data[i].fldSuburb + "</td>" +
-                "<td class='hidden streetName'>" + data[i].fldStreetName + "</td>" +
-                "<td class='hidden description'>" + data[i].fldDescription + "</td></tr>";
+        str += "<tr class='clickable-row' id='" + data[i].fldRunId + "'><td>" +
+                data[i].fldDate + "</td><td>" +
+                data[i].fldKm + "</td><td>" +
+                data[i].fldSeconds + "</td><td>" +
+                "hoho" + "</td><td>" +
+                data[i].fldFeeling + "</td></tr>";
     }
 
     // add str to html, find closest element, refresh table, trigger
     // make columns toggle work
-    $("#myBookingsTable tbody").html(str).closest("table").table("refresh").trigger("create");
+    $("#myRunsTable tbody").html(str).closest("table").table("refresh").trigger("create");
 }
+
+
+
+
 
 
 // to show more details about a booking
