@@ -30,7 +30,7 @@ $("#registrationPage, #myProfilePage, #editProfilePage").on("pageinit", function
     $("#myProfilePage").on("pagebeforeshow", function(event){
 //              alert("before myProfilePage show");   // from dreamweaver
         // get customer details
-        //populateCustomerDetails(window.localStorage.getItem("Email"), window.localStorage.getItem("OAuth"));
+        populateCustomerDetails(window.localStorage.getItem("Name"), window.localStorage.getItem("OAuth"));
         console.log('before myProfilePage show'); // from Eclipse
     });
 
@@ -474,14 +474,14 @@ function isNewPasswordFormatOK(aPassword)
 
 
 // populate page with customer details
-function populateCustomerDetails(emailFromLocalStorage, akeyFromLocalStorage)
+function populateCustomerDetails(nameFromLocalStorage, akeyFromLocalStorage)
 {
 //    alert("in fct populateCustomerDetails");
 
     // get the customer details
     $.ajax({
         type: 'GET',
-        url: rootURL + '/customer/' + emailFromLocalStorage + '/' + akeyFromLocalStorage,
+        url: rootURL + '/customer/' + nameFromLocalStorage + '/' + akeyFromLocalStorage,
         dataType: "json",
     })
     .done(function(data) {
@@ -490,11 +490,8 @@ function populateCustomerDetails(emailFromLocalStorage, akeyFromLocalStorage)
         // Execute when ajax successfully completes
         // build the html
         var str = "";
-        str += "<p>" +  data.fldFirstName + "</p>";
-        str += "<p>" +  data.fldLastName + "</p>";
-        str += "<p>" +  data.fldLicenceNo + "</p>";
+        str += "<p>" +  data.fldName + "</p>";
         str += "<p>" +  data.fldEmail + "</p>";
-        str += "<p>" +  data.fldMobile + "</p>";
 
         $("#profileCustomerDetails").html(str);
 
