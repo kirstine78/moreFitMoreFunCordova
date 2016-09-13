@@ -140,22 +140,22 @@
     </div>
     <div data-role="content">
 
-        <!--text input Email -->
-        <div data-role="fieldcontain">
-            <label for="txtRegisterEmail">Email *</label>
-            <input type="email" name="txtRegisterEmail" id="txtRegisterEmail" value="k@k"  />
-        </div>
-
         <!--text input First name -->
         <div data-role="fieldcontain">
-            <label for="txtRegisterName">Name *</label>
+            <label for="txtRegisterName">Username *</label>
             <input type="text" name="txtRegisterName" id="txtRegisterName" value="kirsti"  />
+        </div>
+
+        <!--text input Email -->
+        <div data-role="fieldcontain">
+            <label for="txtRegisterEmail">Email (in case you forget password)</label>
+            <input type="email" name="txtRegisterEmail" id="txtRegisterEmail" value="k@k"  />
         </div>
 
         <!--text input Password test with 'mypass'-->
         <div data-role="fieldcontain">
             <label for="txtRegisterPassword">Password (min 3 chars, no space) *</label>
-            <input type="password" name="txtRegisterPassword" id="txtRegisterPassword" value=""  />
+            <input type="password" name="txtRegisterPassword" id="txtRegisterPassword" value="mypass"  />
         </div>
 
         <input id="btnSubmitRegisterProfile" type="button" value="Register">
@@ -190,49 +190,6 @@
             </tbody>
         </table>
 
-    </div>
-</div><!--End page-->
-
-
-
-<div data-role="page" id="returnCarDetailsPage"><!--Start page-->
-    <div data-role="header">
-        <a href="#mypanel" class="ui-btn ui-corner-all ui-icon-bars ui-btn-icon-notext">Bars Icon</a>
-        <h1>Cars Ezy Return Car</h1>
-    </div>
-    <div data-role="content">
-        <h3 id="returnCarTitle"></h3>
-
-        <!--number input Odometer-->
-        <div data-role="fieldcontain">
-            <label for="txtOdomFinish">Odometer *</label>
-            <input type="number" name="txtOdomFinish" id="txtOdomFinish" value=""  />
-        </div>
-
-        <!--check box Full Tank-->
-        <div data-role="fieldcontain">
-            <fieldset data-role="controlgroup">
-                <input type="checkbox" name="chkFullTank" id="chkFullTank" class="custom"  value=""/>
-                <label for="chkFullTank">I return car with full tank</label>
-            </fieldset>
-        </div>
-
-        <input id="btnReturnCar" type="button" value="Return Car">
-
-
-    </div>
-</div><!--End page-->
-
-
-
-<div data-role="page" id="brandsPage"><!--Start page-->
-    <div data-role="header">
-        <a href="#mypanel" class="ui-btn ui-corner-all ui-icon-bars ui-btn-icon-notext">Bars Icon</a>
-        <h1>Cars Ezy Brands</h1>
-    </div>
-    <div data-role="content" id="allBrands">
-        <h3>Brands at Cars Ezy</h3>
-        <table id="brandsTable"></table>
     </div>
 </div><!--End page-->
 
@@ -307,11 +264,6 @@
 <script src="js/userProfile.js"></script><!--userProfile js Scripts-->
 <script src="js/addRun.js"></script><!--addRun js Scripts-->
 <script src="js/myRuns.js"></script><!--myRuns js Scripts-->
-<script src="js/searchCar.js"></script><!--searchCar js Scripts-->
-<script src="js/availableCars.js"></script><!--availableCars js Scripts-->
-<script src="js/confirmCarBooking.js"></script><!--confirmCarBooking js Scripts-->
-<script src="js/returnCarDetails.js"></script><!--returnCarDetails js Scripts-->
-<script src="js/brands.js"></script><!--brands js Scripts-->
 <script src="js/panelHandler.js"></script><!--panelHandler js Scripts-->
 
 </body>

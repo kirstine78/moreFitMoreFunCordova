@@ -50,24 +50,24 @@ $(document).on("pageinit", function(){
         pageinited= true;
     }  // end added code
 
-    // get from local storage id, email, and oaut
+    // get from local storage id, name, and oaut
     var idFromLocalStorage = window.localStorage.getItem("Id");
     var akeyFromLocalStorage = window.localStorage.getItem("OAuth");
-    var emailFromLocalStorage = window.localStorage.getItem("Email");
+    var nameFromLocalStorage = window.localStorage.getItem("Name");
 
 	alert("from storage id: " + idFromLocalStorage
-		   + "\nfrom storage email: " + emailFromLocalStorage
+		   + "\nfrom storage name: " + nameFromLocalStorage
 		   + "\nfrom storage key: " + akeyFromLocalStorage);		   
 
-    // make sure that email and OAuth exist in the local storage
-    if (emailFromLocalStorage != null && akeyFromLocalStorage != null && idFromLocalStorage != null)
+    // make sure that name and OAuth exist in the local storage
+    if (nameFromLocalStorage != null && akeyFromLocalStorage != null && idFromLocalStorage != null)
     {
-		alert("local storage has id, email, and authKey");
+		alert("local storage has id, name, and authKey");
 
         // check if both matches both in database
         $.ajax({
             type: 'GET',
-            url: rootURL + 'authenticate/' + emailFromLocalStorage + '/' + akeyFromLocalStorage,
+            url: rootURL + 'authenticate/' + nameFromLocalStorage + '/' + akeyFromLocalStorage,
             dataType: "json",
         })
         .done(function(data) {
@@ -125,7 +125,7 @@ $(document).on("pageinit", function(){
         // var toPage = data.toPage;
         // var absUrl = data.absUrl ? $.mobile.path.parseUrl(data.absUrl).hash.split("#")[1] : "";
 
-        // var detailsStored = (window.localStorage.getItem("OAuth") != null || window.localStorage.getItem("Email") != null);
+        // var detailsStored = (window.localStorage.getItem("OAuth") != null || window.localStorage.getItem("Name") != null);
        // // alert("pagecontainerbeforechange triggered 2");
 
         // if ( typeof toPage == "object" && absUrl == "registrationPage" && detailsStored)

@@ -29,17 +29,17 @@ function getRunsForCustomer()
 {
    alert("inside getRunsForCustomer");
 
-    // get from local storage id, email, and oaut
+    // get from local storage id, name, and oaut
     var idFromLocalStorage = window.localStorage.getItem("Id");
     var akeyFromLocalStorage = window.localStorage.getItem("OAuth");
-    var emailFromLocalStorage = window.localStorage.getItem("Email");
+    var nameFromLocalStorage = window.localStorage.getItem("Name");
 
-//    alert(idFromLocalStorage + "   " + akeyFromLocalStorage + "   " + emailFromLocalStorage);
+//    alert(idFromLocalStorage + "   " + akeyFromLocalStorage + "   " + nameFromLocalStorage);
 
     // get all runs for this customer
     $.ajax({
         type: 'GET',
-        url: rootURL + 'run/' + idFromLocalStorage + "/" + emailFromLocalStorage + "/" + akeyFromLocalStorage + "/",
+        url: rootURL + 'run/' + idFromLocalStorage + "/" + nameFromLocalStorage + "/" + akeyFromLocalStorage + "/",
         dataType: "json",
     })
     .done(function(data) {
@@ -81,15 +81,15 @@ function searchCarForReturn()
 {
 //    alert("in fct searchCarForReturn");
 
-    // get from local storage id, email, and oaut
+    // get from local storage id, name, and oaut
     var idFromLocalStorage = window.localStorage.getItem("Id");
     var akeyFromLocalStorage = window.localStorage.getItem("OAuth");
-    var emailFromLocalStorage = window.localStorage.getItem("Email");
+    var nameFromLocalStorage = window.localStorage.getItem("Name");
 
-    // get all bookings for this customer ordered by date
+    // get all runs for this customer ordered by date
     $.ajax({
         type: 'GET',
-        url: rootURL + '/unreturnedbookings/' + idFromLocalStorage + "/" + emailFromLocalStorage + "/" + akeyFromLocalStorage,
+        url: rootURL + '/unreturnedbookings/' + idFromLocalStorage + "/" + nameFromLocalStorage + "/" + akeyFromLocalStorage,
         dataType: "json",
     })
     .done(function(data) {

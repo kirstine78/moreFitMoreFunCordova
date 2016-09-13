@@ -81,10 +81,18 @@ function registerUser()
     var name = $("#txtRegisterName").val().trim();
     var email = $("#txtRegisterEmail").val().trim();
     var password = $("#txtRegisterPassword").val();
-
+	
+	alert("email: " + email);
+	
     // validate
-    var isNameOk = name.length > 0;
-    var isEmailOk = isEmailValidFormat(email);
+    var isNameOk = isNameValidFormat(name);
+	var isEmailOk = true;
+	
+	// only check email if user has entered input data
+	if (email != null)
+	{
+		isEmailOk = isEmailValidFormat(email);
+	}
     var isPasswordOk = isNewPasswordFormatOK(password);
 
     //only try to register if ALL ok (format wise)
@@ -101,6 +109,7 @@ function registerUser()
 }
 
 
+
 // do the registration
 function register(aName, anEmail, aPwd)
 {
@@ -112,26 +121,26 @@ function register(aName, anEmail, aPwd)
         dataType: 'json',
     })
     .done(function(data) {
-    //        alert("inside done");
+           alert("inside done");
 
-        // check if data is null which means that email was not unique
+        // check if data is null which means that name was not unique
         if (data == null)
         {
-//            alert("Sorry email must be unique - data is null");
+           alert("Sorry name must be unique - data is null");
 
-            doRedBackground(false, "#txtRegisterEmail");
+            doRedBackground(false, "#txtRegisterName");
         }
-        else  // data is not null, so email is unique
+        else  // data is not null, so name is unique
         {
-    //            alert(data.fldName);
+               alert(data.fldName);
 
             // prepare local storage on mobile phone
             var storage = window.localStorage;
 
-            // store authentication key and email locally on mobile phone
+            // store customerId, authentication key and name locally on mobile phone
             storage.setItem("Id", data.fldCustomerId)  // Pass a key name and its value to add or update that key.
             storage.setItem("OAuth", data.fldAuthenticationKey)  // Pass a key name and its value to add or update that key.
-            storage.setItem("Email", data.fldEmail)  // Pass a key name and its value to add or update that key.
+            storage.setItem("Name", data.fldName)  // Pass a key name and its value to add or update that key.
 
             toast("Registered", standardDurationToast, standardDelayToast);
 
@@ -187,6 +196,28 @@ function isEmailValidFormat(email)
     }
 //    alert("emailValid: " + emailValid);
     return emailValid;
+}
+
+
+// check if email is valid format
+function isNameValidFormat(name)
+{
+   alert("into isNameValidFormat");
+   
+	name.length > 0;
+    var nameValid = false;
+
+    if (name.length < 1 || name.indexOf(' ') >= 0)
+    {
+       alert("invalid name");
+        nameValid = false;  // redundant
+    }
+    else
+    {
+        nameValid = true;
+    }
+   alert("nameValid: " + nameValid);
+    return nameValid;
 }
 
 
