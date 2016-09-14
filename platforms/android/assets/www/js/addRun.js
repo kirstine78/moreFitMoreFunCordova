@@ -240,8 +240,8 @@ function addRunKnownRoute()
 	// add run
 	$.ajax({
 		type: "POST",
-		url: rootURL + 'run/',
-		data: stringifyRunWithoutRouteDetails(),
+		url: rootURL + 'runKnownRoute/',
+		data: stringifyRunKnownRouteDetails(),
 		dataType: 'json',
 	})
 	.done(function(data) {
@@ -292,13 +292,13 @@ function stringifyRunWithoutRouteDetails()
     var runDetails = new Object();
 
     // add properties to object
-    runDetails.customerId = window.localStorage.getItem("Id");
-	runDetails.name = window.localStorage.getItem("Name");
-    runDetails.authenticationKey = window.localStorage.getItem("OAuth");
-    runDetails.date = date;
-    runDetails.distance = distance;
-    runDetails.seconds = seconds;
-    runDetails.feeling = feeling;
+    runDetails.customerId 			= window.localStorage.getItem("Id");
+	runDetails.name 				= window.localStorage.getItem("Name");
+    runDetails.authenticationKey 	= window.localStorage.getItem("OAuth");
+    runDetails.date					= date;
+    runDetails.distance 			= distance;
+    runDetails.seconds 				= seconds;
+    runDetails.feeling 				= feeling;
 
     // serialize it
     var jsonStringRunDetails = JSON.stringify(runDetails);
@@ -317,27 +317,24 @@ function stringifyRunKnownRouteDetails()
 {
    alert("inside stringifyRunKnownRouteDetails");
 		
-	var date 		= $("#dateRun").val();
-	var routeName 	= $("#txtRouteName").val();
-	var km 			= $("#txtKm").val();
-	var seconds 	= $("#txtSeconds").val();
-	var feeling 	= $("#txtFeeling").val();
+	var date 					= $("#dateRun").val();
+	var routeValueSelectMenu 	= $('select[name=selRoute]').val();
+	var seconds 				= $("#txtSeconds").val();
+	var feeling 				= $("#txtFeeling").val().trim();
 	
-	// alert("date: " + date + "\nrouteName: " + routeName + 
-			// "\nkm: " + km + "\nseconds: " + seconds + "\nfeeling: " + feeling);
+	// alert("date: " + date + "\nrouteValueSelectMenu: " + routeValueSelectMenu + "\nseconds: " + seconds + "\nfeeling: " + feeling);
 
     // create runDetails object
     var runDetails = new Object();
 
     // add properties to object
-    runDetails.customerId = window.localStorage.getItem("Id");
-	runDetails.name = window.localStorage.getItem("Name");
-    runDetails.authenticationKey = window.localStorage.getItem("OAuth");
-    runDetails.date = date;
-    runDetails.routeName = routeName;
-    runDetails.km = km;
-    runDetails.seconds = seconds;
-    runDetails.feeling = feeling;
+    runDetails.customerId 			= window.localStorage.getItem("Id");
+	runDetails.name 				= window.localStorage.getItem("Name");
+    runDetails.authenticationKey	= window.localStorage.getItem("OAuth");
+    runDetails.date 				= date;
+    runDetails.routeId 				= routeValueSelectMenu;
+    runDetails.seconds 				= seconds;
+    runDetails.feeling 				= feeling;
 
     // serialize it
     var jsonStringRunDetails = JSON.stringify(runDetails);
