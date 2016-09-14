@@ -18,6 +18,7 @@ var pageinited = false;
 var panel = '<div data-role="panel" id="mypanel" data-position="left" data-display="overlay" data-theme="a"><ul data-role="listview">' + 
 			'<li><a href="#addRunPage" data-rel="close">Add Run</a></li>' +
 			'<li><a id="linkMyRuns" href="#myRunsPage" data-rel="close">My Runs</a></li>' +
+			'<li><a href="#addRoutePage" data-rel="close">Add Route</a></li>' +
 			'<li><a href="#myProfilePage" data-rel="close">My Profile</a></li>' +
 			'</ul></div>';
 
