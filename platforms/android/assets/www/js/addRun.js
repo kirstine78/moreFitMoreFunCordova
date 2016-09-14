@@ -48,7 +48,7 @@ $("#addRunPage").on("pageinit", function(){
 		// get chosen value in select menu for routes
 		var selectedRouteValue = $('select[name=selRoute]').val();
 		
-		alert ("selectedRouteValue: " + selectedRouteValue);
+		// alert ("selectedRouteValue: " + selectedRouteValue);
 		
 		// check if default option is chosen
 		if (selectedRouteValue < 0)
@@ -70,52 +70,41 @@ $("#addRunPage").on("pageinit", function(){
 	
     // btn click
     $("#btnAddRun").on("click", function(){
-		alert ("button clicked");
+		// alert ("button clicked");
 		
         var date = $("#dateRun").val();
-       alert("date: " + date);
+       // alert("date: " + date);
 
         var dateOk = isDateValid(date);
-       alert(dateOk);
+       // alert(dateOk);
 
         // only if dateOk continue with add run process
         if (dateOk)
 		{
-			// add run
-			$.ajax({
-				type: "POST",
-				url: rootURL + 'run/',
-				data: stringifyRunDetails(),
-				dataType: 'json',
-			})
-			.done(function(data) {
-		//        alert("this is data: " + data);
-
-				if (data)  // insert run succeeded
-				{
-					// run creation successful; display msg to user
-					toast("Run was successfully saved", standardDurationToast, standardDelayToast);
-				}
-				else  // insert run failed
-				{
-					// insert run did not go through; display msg to user
-					toast("Sorry run was not saved<br/>Please try again", standardDurationToast, standardDelayToast);
-				}
-			})
-			.always(function() { /* always execute this code */ })
-			.fail(function(data){
-				toast("Error Connecting to Webservice.<br/>Try again.", standardDurationToast, standardDelayToast);
-			});
-			
-		}
+			// decide whether to add run for unknown route or add run for known route
 		
+			// get chosen value in select menu for routes
+			var selectedRouteValue = $('select[name=selRoute]').val();
+			
+			alert ("selectedRouteValue: " + selectedRouteValue);
+			
+			// check if default option is chosen
+			if (selectedRouteValue < 0)
+			{
+				// add run for unknown route		
+				addRunWithoutRoute();
+			}
+			else
+			{
+				// add run for known route		
+				addRunKnownRoute();	
+			}					
+		}		
     });
-             
 });  // end on pageinit
 
 
 ///////////////////////////////////////// END jquery On pageinit
-
 
 
 
@@ -210,10 +199,123 @@ function isDateValid(aDate)
 }
 
 
-// make json string
-function stringifyRunDetails()
+
+// run where there is no route
+function addRunWithoutRoute()
 {
-   alert("stringify run details");
+	// add run
+	$.ajax({
+		type: "POST",
+		url: rootURL + 'run/',
+		data: stringifyRunWithoutRouteDetails(),
+		dataType: 'json',
+	})
+	.done(function(data) {
+//        alert("this is data: " + data);
+
+		if (data)  // insert run succeeded
+		{
+			// run creation successful; display msg to user
+			toast("Run was successfully saved", standardDurationToast, standardDelayToast);
+		}
+		else  // insert run failed
+		{
+			// insert run did not go through; display msg to user
+			toast("Sorry run was not saved<br/>Please try again", standardDurationToast, standardDelayToast);
+		}
+	})
+	.always(function() { /* always execute this code */ })
+	.fail(function(data){
+		toast("Error Connecting to Webservice.<br/>Try again.", standardDurationToast, standardDelayToast);
+	});
+	
+}
+
+
+
+
+// run known route
+function addRunKnownRoute()
+{
+	// add run
+	$.ajax({
+		type: "POST",
+		url: rootURL + 'run/',
+		data: stringifyRunWithoutRouteDetails(),
+		dataType: 'json',
+	})
+	.done(function(data) {
+//        alert("this is data: " + data);
+
+		if (data)  // insert run succeeded
+		{
+			// run creation successful; display msg to user
+			toast("Run was successfully saved", standardDurationToast, standardDelayToast);
+		}
+		else  // insert run failed
+		{
+			// insert run did not go through; display msg to user
+			toast("Sorry run was not saved<br/>Please try again", standardDurationToast, standardDelayToast);
+		}
+	})
+	.always(function() { /* always execute this code */ })
+	.fail(function(data){
+		toast("Error Connecting to Webservice.<br/>Try again.", standardDurationToast, standardDelayToast);
+	});
+	
+}
+
+
+// make json string
+function stringifyRunWithoutRouteDetails()
+{
+   // alert("inside stringifyRunWithoutRouteDetails");
+		
+	var date 		= $("#dateRun").val();
+	var km 			= $("#sliAddRunKm").val();
+	var meter 		= $("#sliAddRunMeter").val();
+	var seconds 	= $("#txtSeconds").val();
+	var feeling 	= $("#txtFeeling").val().trim();
+	
+	var distance = km + "." + meter
+	
+	// check distance
+	if (distance == "0.0")
+	{
+		// set distance to null
+		distance = null;		
+	}
+	
+	// alert("date: " + date + "\ndistance: " + distance + "\nseconds: " + seconds + "\nfeeling: " + feeling);
+
+    // create runDetails object
+    var runDetails = new Object();
+
+    // add properties to object
+    runDetails.customerId = window.localStorage.getItem("Id");
+	runDetails.name = window.localStorage.getItem("Name");
+    runDetails.authenticationKey = window.localStorage.getItem("OAuth");
+    runDetails.date = date;
+    runDetails.distance = distance;
+    runDetails.seconds = seconds;
+    runDetails.feeling = feeling;
+
+    // serialize it
+    var jsonStringRunDetails = JSON.stringify(runDetails);
+
+//    alert(jsonStringRunDetails);
+
+    return jsonStringRunDetails;
+
+}  // end stringifyRunDetails()
+
+
+
+
+// make json string
+function stringifyRunKnownRouteDetails()
+{
+   alert("inside stringifyRunKnownRouteDetails");
 		
 	var date 		= $("#dateRun").val();
 	var routeName 	= $("#txtRouteName").val();
@@ -229,7 +331,7 @@ function stringifyRunDetails()
 
     // add properties to object
     runDetails.customerId = window.localStorage.getItem("Id");
-	runDetails.email = window.localStorage.getItem("Email");
+	runDetails.name = window.localStorage.getItem("Name");
     runDetails.authenticationKey = window.localStorage.getItem("OAuth");
     runDetails.date = date;
     runDetails.routeName = routeName;

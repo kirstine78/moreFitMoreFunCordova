@@ -198,7 +198,7 @@ function isDistanceValid(distance)
 	}
 	else
 	{
-		toast("Distance must be more than 0 km", standardDurationToast, standardDelayToast);
+		toast("Distance can't be 0 km", standardDurationToast, standardDelayToast);
 	}
 	return distanceOk;	
 }
