@@ -140,12 +140,17 @@
             <input type="text" name="txtAddRouteName" id="txtAddRouteName" value="just test route"  />
         </div>
 		
-        <!--km -->
         <div data-role="fieldcontain">
-            <label for="txtAddRouteKm">Km *</label>
-            <input type="number" name="txtAddRouteKm" id="txtAddRouteKm" value="5.5"  />
-        </div>
+			<label for="sliAddRouteKm">Km slider *</label>
+			<input type="range" name="sliAddRouteKm" id="sliAddRouteKm" value="10" min="0" max="20" data-highlight="true"/>
+		</div>
 		
+		
+        <div data-role="fieldcontain">
+			<label for="sliAddRouteMeter">Meter slider *</label>
+			<input type="range" name="sliAddRouteMeter" id="sliAddRouteMeter" value="0" min="0" max="950" step="50" data-highlight="true"/>
+		</div>
+				
         <input id="btnAddRoute" type="button" value="Add Route">
 
     </div>

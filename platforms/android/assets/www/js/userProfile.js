@@ -82,7 +82,7 @@ function registerUser()
     var email = $("#txtRegisterEmail").val().trim();
     var password = $("#txtRegisterPassword").val();
 	
-	alert("name: " + name);
+	// alert("name: " + name);
 	
     // validate
     var isNameOk = isNameValidFormat(name);
@@ -233,7 +233,7 @@ function submitProfileChanges(nameFromLocalStorage, akeyFromLocalStorage)
    // alert ("in submitProfileChanges");
     // validate user input
     var email = $("#txtEditEmail").val().trim();
-   alert ("email length: " + email.length);
+   // alert ("email length: " + email.length);
 	var emailFormatOK = true;
 	
 	// check if an email is entered
@@ -353,7 +353,7 @@ function updateCustomerProfileDetails(anEmail, newPwd)
         // data is not null
         if (data != null)
         {
-           alert("update done in db");
+           // alert("update done in db");
 
            // alert("from returned row data.fldAuthenticationKey: " +  data.fldAuthenticationKey);
 

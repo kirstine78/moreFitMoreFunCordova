@@ -56,14 +56,14 @@ $(document).on("pageinit", function(){
     var akeyFromLocalStorage = window.localStorage.getItem("OAuth");
     var nameFromLocalStorage = window.localStorage.getItem("Name");
 
-	alert("from storage id: " + idFromLocalStorage
-		   + "\nfrom storage name: " + nameFromLocalStorage
-		   + "\nfrom storage key: " + akeyFromLocalStorage);		   
+	// alert("from storage id: " + idFromLocalStorage
+		   // + "\nfrom storage name: " + nameFromLocalStorage
+		   // + "\nfrom storage key: " + akeyFromLocalStorage);		   
 
     // make sure that name and OAuth exist in the local storage
     if (nameFromLocalStorage != null && akeyFromLocalStorage != null && idFromLocalStorage != null)
     {
-		alert("local storage has id, name, and authKey");
+		// alert("local storage has id, name, and authKey");
 
         // check if both matches both in database
         $.ajax({
@@ -149,7 +149,7 @@ $(document).on("pageinit", function(){
 	// btn click
     $("#btnGoToRegister").on("click", function(){
         
-		alert ("button clicked");
+		// alert ("button clicked");
 
 		//redirect to registrationPage
 		$(location).attr('href', '#registrationPage');		
