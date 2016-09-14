@@ -61,19 +61,27 @@
     <div data-role="content">
         <!--datebox-->
         <label for="dateRun">Date *</label>
-        <input type="text" data-role="datebox" data-options='{"mode":"datebox"}' name="dateRun" id="dateRun">
+        <input type="text" data-role="datebox" data-options='{"mode":"datebox"}' name="dateRun" id="dateRun">		
 
-        <!--text input route name -->
+        <!--drop down route name-->
         <div data-role="fieldcontain">
-            <label for="txtRouteName">Route name *</label>
-            <input type="text" name="txtRouteName" id="txtRouteName" value="just test route"  />
-        </div>
+            <label for="selRoute" class="select">Route</label>
+            <select name="selRoute" id="selRoute">
+                <!--dynamically build in js file-->
+            </select>
+        </div>		
 		
-        <!--km -->
-        <div data-role="fieldcontain">
-            <label for="txtKm">Km *</label>
-            <input type="number" name="txtKm" id="txtKm" value="5.5"  />
-        </div>
+		<!-- km -->
+        <div data-role="fieldcontain" id="addRunKmSlider">
+			<label for="sliAddRunKm">Km *</label>
+			<input type="range" name="sliAddRunKm" id="sliAddRunKm" value="10" min="0" max="20" data-highlight="true"/>
+		</div>
+		
+		<!-- meters -->
+        <div data-role="fieldcontain" id="addRunMeterSlider">
+			<label for="sliAddRunMeter">Meter *</label>
+			<input type="range" name="sliAddRunMeter" id="sliAddRunMeter" value="0" min="0" max="950" step="50" data-highlight="true"/>
+		</div>
 		
         <!--seconds -->
         <div data-role="fieldcontain">

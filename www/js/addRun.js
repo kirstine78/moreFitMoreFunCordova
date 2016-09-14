@@ -28,10 +28,11 @@ $("#addRunPage").on("pageinit", function(){
 
     // addRunPage Event Handlers
     $("#addRunPage").on("pagebeforeshow", function(){
-//         alert("Before show addRunPage");
-
-        // populate select menu for Suburbs
-        //populateDropDownMenuSuburbs();
+		
+        // populate select menu for Routes
+        populateDropDownMenuRoutes();
+		
+		
     }); // end addRunPage live beforepageshow
 
 
@@ -40,7 +41,33 @@ $("#addRunPage").on("pageinit", function(){
     }); // end addRunPage live pagebeforehide
     // END addRunPage Event Handlers
 
-
+	
+	// selRoute Event Handlers
+    $("#selRoute").on("change", function(){
+		
+		// get chosen value in select menu for routes
+		var selectedRouteValue = $('select[name=selRoute]').val();
+		
+		alert ("selectedRouteValue: " + selectedRouteValue);
+		
+		// check if default option is chosen
+		if (selectedRouteValue < 0)
+		{
+			// show km and meter sliders
+			$("#addRunKmSlider").show();
+			$("#addRunMeterSlider").show();			
+		}
+		else
+		{
+			// hide km and meter sliders
+			$("#addRunKmSlider").hide();
+			$("#addRunMeterSlider").hide();			
+		}		
+		
+    }); // end selRoute live pagebeforehide
+    // END selRoute Event Handlers
+	
+	
     // btn click
     $("#btnAddRun").on("click", function(){
 		alert ("button clicked");
@@ -92,56 +119,63 @@ $("#addRunPage").on("pageinit", function(){
 
 
 
-// populate drop down menu for Suburbs
-function populateDropDownMenuSuburbs()
+// populate drop down menu for Routes
+function populateDropDownMenuRoutes()
 {
-    // get suburbs
+    var idFromLocalStorage = window.localStorage.getItem("Id");
+    var akeyFromLocalStorage = window.localStorage.getItem("OAuth");
+    var nameFromLocalStorage = window.localStorage.getItem("Name");	
+	
+    // get routes for specific customer
     $.ajax({
         type: 'GET',
-        url: rootURL + '/suburbs',
+        url: rootURL + 'route/' + idFromLocalStorage + "/" + nameFromLocalStorage + "/" + akeyFromLocalStorage + "/",
         dataType: "json",
     })
     .done(function(data) {
-//        alert("in done populateDropDownMenuSuburbs");
+       // alert("in done populateDropDownMenuRoutes");
 
         // Execute when ajax successfully completes
 
         // check that data holding array is longer than zero
         if (data.length > 0)  // at least one row
         {
-//            alert("at least one row returned");
-//            alert("data.length: " + data.length);
+           // alert("at least one row returned");
+           // alert("data.length: " + data.length);
 
             var str = "";
+			
+			// add the default value -1
+            str += "<option value='-1'>Choose Route (optional)</option>";
 
             // build string to populate the drop down
             for (var i = 0; i < data.length; i++)
             {
                 // add to string
-                str += "<option value='" + data[i].fldSuburbId + "'>" + data[i].fldSuburb + "</option>";
+                str += "<option value='" + data[i].fldRouteId + "'>" + data[i].fldRouteName + "</option>";
             }
 
             // add str to element
-            $("#selSuburb").html(str);
+            $("#selRoute").html(str);
 
             // set first option to be selected
-            $("#selSuburb option:first").attr('selected', 'selected');
+            $("#selRoute option:first").attr('selected', 'selected');
 
             //refresh and force rebuild
-            $("#selSuburb").selectmenu('refresh', true);
+            $("#selRoute").selectmenu('refresh', true);
         }
         else  // zero rows were returned
         {
-            // no suburbs returned which means company has no Suburbs which is not realistic
-//            alert("zero rows returned");
-//            alert("data.length: " + data.length);
+            // no Routes returned
+           alert("zero rows returned");
+           alert("data.length: " + data.length);
         }
     })
     .always(function() { /* always execute this code */ })
     .fail(function(data){
         /* Execute when ajax falls over */
 //        alert("Error Connecting to Webservice.\nTry again.");
-        toast("Error Connecting to Webservice - populateDropDownMenuSuburbs.<br/>Try again.", standardDurationToast, standardDelayToast);
+        toast("Error Connecting to Webservice - populateDropDownMenuRoutes.<br/>Try again.", standardDurationToast, standardDelayToast);
     });
 }
 
