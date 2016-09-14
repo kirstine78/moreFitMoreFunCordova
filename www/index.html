@@ -55,7 +55,7 @@
 <div data-role="page" id="addRunPage"><!--Start page-->
     <div data-role="header">
         <a href="#mypanel" class="ui-btn ui-corner-all ui-icon-bars ui-btn-icon-notext">Bars Icon</a>
-        <h1>More Fit More Fun</h1>
+        <h1>Add Run</h1>
     </div>
 
     <div data-role="content">
@@ -91,6 +91,66 @@
 
     </div>
 </div><!--End page-->
+
+
+
+<div data-role="page" id="myRunsPage"><!--Start page-->
+
+    <div data-role="header">
+        <a href="#mypanel" class="ui-btn ui-corner-all ui-icon-bars ui-btn-icon-notext">Bars Icon</a>
+        <h1>My Runs</h1>
+    </div>
+    <div data-role="content">
+        <b>Click row</b>
+        <br/>
+        <br/>
+
+        <table data-role="table" data-mode="columntoggle" class="ui-responsive" id="myRunsTable">
+            <thead>
+            <tr>
+                <th>Date</th>
+                <th data-priority="1">Km</th>
+                <th data-priority="1">Time</th>
+                <th data-priority="1">Km/h</th>
+                <th data-priority="2">Route</th>
+                <th data-priority="3">Feeling</th>
+            </tr>
+            </thead>
+            <tbody>
+                <!--dynamically build in js file-->
+            </tbody>
+        </table>
+
+    </div>
+</div><!--End page-->
+
+
+
+<div data-role="page" id="addRoutePage"><!--Start page-->
+    <div data-role="header">
+        <a href="#mypanel" class="ui-btn ui-corner-all ui-icon-bars ui-btn-icon-notext">Bars Icon</a>
+        <h1>Add Route</h1>
+    </div>
+
+    <div data-role="content">
+
+        <!--text input route name -->
+        <div data-role="fieldcontain">
+            <label for="txtRouteName">Route name *</label>
+            <input type="text" name="txtRouteName" id="txtRouteName" value="just test route"  />
+        </div>
+		
+        <!--km -->
+        <div data-role="fieldcontain">
+            <label for="txtKm">Km *</label>
+            <input type="number" name="txtKm" id="txtKm" value="5.5"  />
+        </div>
+		
+        <input id="btnAddRoute" type="button" value="Add Route">
+
+    </div>
+</div><!--End page-->
+
 
 
 
@@ -159,38 +219,6 @@
         </div>
 
         <input id="btnSubmitRegisterProfile" type="button" value="Register">
-    </div>
-</div><!--End page-->
-
-
-
-<div data-role="page" id="myRunsPage"><!--Start page-->
-
-    <div data-role="header">
-        <a href="#mypanel" class="ui-btn ui-corner-all ui-icon-bars ui-btn-icon-notext">Bars Icon</a>
-        <h1>My Runs</h1>
-    </div>
-    <div data-role="content">
-        <b>Click row</b>
-        <br/>
-        <br/>
-
-        <table data-role="table" data-mode="columntoggle" class="ui-responsive" id="myRunsTable">
-            <thead>
-            <tr>
-                <th>Date</th>
-                <th data-priority="1">Km</th>
-                <th data-priority="1">Time</th>
-                <th data-priority="1">Km/h</th>
-                <th data-priority="2">Route</th>
-                <th data-priority="3">Feeling</th>
-            </tr>
-            </thead>
-            <tbody>
-                <!--dynamically build in js file-->
-            </tbody>
-        </table>
-
     </div>
 </div><!--End page-->
 
