@@ -199,24 +199,30 @@ function isEmailValidFormat(email)
 }
 
 
-// check if email is valid format
+// check if name is valid format
 function isNameValidFormat(name)
 {
-   alert("into isNameValidFormat");
-   
-	name.length > 0;
+   // alert("into isNameValidFormat");   
+	
     var nameValid = false;
-
-    if (name.length < 1 || name.indexOf(' ') >= 0)
-    {
-       alert("invalid name");
-        nameValid = false;  // redundant
-    }
-    else
-    {
-        nameValid = true;
-    }
-   alert("nameValid: " + nameValid);
+	
+	// name length must be more than 2 characters
+	if (name.length > 2)
+	{
+	
+		// name must only contain letters or digits		
+		// reg expr to make sure only letters and digits (case insensitive)
+		var nameRegularExpression = /^[a-z0-9]+$/i;
+		
+		// test the name entered
+		if (nameRegularExpression.test(name))
+		{
+			// alert("name matches reg expr");
+			
+			nameValid = true;
+		}		
+	}
+   // alert("nameValid: " + nameValid);
     return nameValid;
 }
 
@@ -244,9 +250,9 @@ function submitProfileChanges(nameFromLocalStorage, akeyFromLocalStorage)
 
     var currentPassword = $("#pwdPasswordProve").val();
 
-   alert(currentPassword);
-   alert(nameFromLocalStorage);
-   alert(akeyFromLocalStorage);
+   // alert(currentPassword);
+   // alert(nameFromLocalStorage);
+   // alert(akeyFromLocalStorage);
 
     var passwordFormatOK = isStringLengthMoreThanZero(currentPassword);
 //    alert ("returned passwordFormatOK: " + passwordFormatOK);
@@ -349,11 +355,11 @@ function updateCustomerProfileDetails(anEmail, newPwd)
         {
            alert("update done in db");
 
-           alert("from returned row data.fldAuthenticationKey: " +  data.fldAuthenticationKey);
+           // alert("from returned row data.fldAuthenticationKey: " +  data.fldAuthenticationKey);
 
             // update authentication key local storage
             window.localStorage.setItem("OAuth", data.fldAuthenticationKey);  // Pass a key name and its value to add or update that key.
-           alert("update local: " + window.localStorage.getItem("OAuth"));
+           // alert("update local: " + window.localStorage.getItem("OAuth"));
 
             // toast message
             toast("Updated successfully", standardDurationToast, standardDelayToast);
@@ -396,35 +402,35 @@ function stringifyUpdateDetails(anEmail, pwd)
 
 
 // check if number is correct length and digits only
-function isNumberFormatOk(aNumber, aLength)
-{
-    var numberFormatOK = false;
-    var numberLength = aNumber.length;
-//    alert("number length: " + numberLength);
+// function isNumberFormatOk(aNumber, aLength)
+// {
+    // var numberFormatOK = false;
+    // var numberLength = aNumber.length;
+// //    alert("number length: " + numberLength);
 
-    if (numberLength == aLength)
-    {
-//        alert ("ok length");
-        // check if all digits
-        if (aNumber.match(/^[0-9]+$/) != null)
-        {
-//            alert("all digits");
-            numberFormatOK = true;
-        }
-        else
-        {
-//            alert("NOT all digits");
-            console.log("NOT all digits");
-        }
-    }
-    else
-    {
-//         alert("NOT 10 in length");
-            console.log("NOT 10 in length");
-    }
-//    alert("numberFormatOK: " + numberFormatOK);
-    return numberFormatOK;
-}
+    // if (numberLength == aLength)
+    // {
+// //        alert ("ok length");
+        // // check if all digits
+        // if (aNumber.match(/^[0-9]+$/) != null)
+        // {
+// //            alert("all digits");
+            // numberFormatOK = true;
+        // }
+        // else
+        // {
+// //            alert("NOT all digits");
+            // console.log("NOT all digits");
+        // }
+    // }
+    // else
+    // {
+// //         alert("NOT 10 in length");
+            // console.log("NOT 10 in length");
+    // }
+// //    alert("numberFormatOK: " + numberFormatOK);
+    // return numberFormatOK;
+// }
 
 
 // current password must be entered

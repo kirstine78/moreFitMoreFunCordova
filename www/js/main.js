@@ -157,46 +157,6 @@ $(document).on("pageinit", function(){
 });  // end document on pageinit
 
 
-// populate array of Brands
-function loadBrandsArrayGlobal()
-{
-    // instantiate array
-    mainBrandsArrayGlobal = new Array();
-
-    // get all brands
-    $.ajax({
-        type: 'GET',
-        url: rootURL + '/cars/brands',
-        dataType: "json",
-    })
-    .done(function(data) {
-//        alert("in done loadBrandsArrayGlobal");
-
-        // Execute when ajax successfully completes
-
-        if (data.length > 0)
-        {
-            // loop through all rows
-            for (var i = 0; i < data.length; i++)
-            {
-                // add brands to array
-                mainBrandsArrayGlobal[i] = data[i].fldBrand;
-            }
-        }
-        else
-        {
-            // no brands in db
-            toast("Currently no car brands available.", standardDurationToast, standardDelayToast);
-        }
-    })
-    .always(function() { /* always execute this code */ })
-    .fail(function(data){
-        /* Execute when ajax falls over */
-//        alert("Error Connecting to Webservice.\nTry again.");
-        toast("Error Connecting to Webservice - load brands.<br/>Try again.", standardDurationToast, standardDelayToast);
-    });
-}
-
 
 // red background added to element if not valid
 // param:  boolean, string for example "#someId"
