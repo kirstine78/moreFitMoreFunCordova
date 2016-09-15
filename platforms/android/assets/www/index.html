@@ -59,9 +59,13 @@
     </div>
 
     <div data-role="content">
-        <!--datebox-->
+        <!--datebox calendar-->
         <label for="dateRun">Date *</label>
-        <input type="text" data-role="datebox" data-options='{"mode":"datebox"}' name="dateRun" id="dateRun">		
+        <input type="text" data-role="datebox" data-options='{"mode":"datebox"}' name="dateRun" id="dateRun">	
+		
+        <!--datebox duration-->
+        <label for="timeRun">Duration</label>
+        <input type="text" data-role="datebox" data-options='{"mode":"durationbox"}' name="timeRun" id="timeRun" >	
 
         <!--drop down route name-->
         <div data-role="fieldcontain">
@@ -83,12 +87,6 @@
 			<input type="range" name="sliAddRunMeter" id="sliAddRunMeter" value="0" min="0" max="950" step="50" data-highlight="true"/>
 		</div>
 		
-        <!--seconds -->
-        <div data-role="fieldcontain">
-            <label for="txtSeconds">Seconds</label>
-            <input type="number" name="txtSeconds" id="txtSeconds" value="12356"  />
-        </div>
-
         <!--text input feeling -->
         <div data-role="fieldcontain">
             <label for="txtFeeling">Notes</label>

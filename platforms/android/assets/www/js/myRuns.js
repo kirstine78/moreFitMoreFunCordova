@@ -67,11 +67,11 @@ function loadMyRunsTable(data)
     // build string to populate my runs table
     for (var i = 0; i < data.length; i++)
     {
-		var distanceHtml 	= getTextToDisplay(data[i].fldDistance);
-		var secondsHtml 	= getTextToDisplay(data[i].fldSeconds);
-		var kmPerHourHtml 	= getTextToDisplay("hoho");
-		var routeNameHtml 	= getTextToDisplay(data[i].fldRouteName);
-		var feelingHtml 	= getTextToDisplay(data[i].fldFeeling);
+		var distanceHtml 	= convertPossibleNullToDisplayEmptyString(data[i].fldDistance);
+		var secondsHtml 	= convertPossibleNullToDisplayEmptyString(data[i].fldSeconds);
+		var kmPerHourHtml 	= convertPossibleNullToDisplayEmptyString("hoho");
+		var routeNameHtml 	= convertPossibleNullToDisplayEmptyString(data[i].fldRouteName);
+		var feelingHtml 	= convertPossibleNullToDisplayEmptyString(data[i].fldFeeling);
 		
 		// check if any values are null
 		if (data[i].fldDistance == null)
@@ -88,15 +88,6 @@ function loadMyRunsTable(data)
                 kmPerHourHtml + "</td><td>" +
                 routeNameHtml + "</td><td>" +
                 feelingHtml + "</td></tr>";
-		
-        // build html dynamically
-        // str += "<tr class='clickable-row' id='" + data[i].fldRunId + "'><td>" +
-                // data[i].fldDate + "</td><td>" +
-                // data[i].fldDistance + "</td><td>" +
-                // data[i].fldSeconds + "</td><td>" +
-                // "hoho" + "</td><td>" +
-                // data[i].fldRouteName + "</td><td>" +
-                // data[i].fldFeeling + "</td></tr>";
     }
 
     // add str to html, find closest element, refresh table, trigger
@@ -105,7 +96,11 @@ function loadMyRunsTable(data)
 }
 
 
-function getTextToDisplay(value)
+
+/**
+* if value is null in db then display empty string in tables
+*/
+function convertPossibleNullToDisplayEmptyString(value)
 {
 	var str = "";
 	

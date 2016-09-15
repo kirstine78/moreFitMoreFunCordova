@@ -214,22 +214,22 @@ function addRun()
 // make json string
 function stringifyRunDetails()
 {
-   alert("inside stringifyRunDetails");
+   // alert("inside stringifyRunDetails");
 	
 	var date 		= $("#dateRun").val();
 	var distance 	= null;	
-	var seconds 	= $("#txtSeconds").val();
+	var seconds 	= null;
 	var feeling 	= $("#txtFeeling").val().trim();	
 		
 	// get chosen value in select menu for routes
 	var runRouteId = $('select[name=selRoute]').val();
 	
-	alert ("runRouteId: " + runRouteId);
+	// alert ("runRouteId: " + runRouteId);
 	
 	// check if default option is chosen or null
 	if (runRouteId < 0 || runRouteId == null)
 	{
-		alert ("inside if runRouteId < 0 || runRouteId == null");
+		// alert ("inside if runRouteId < 0 || runRouteId == null");
 		
 		// route NOT chosen, set it to null
 		runRouteId = null;
@@ -237,17 +237,27 @@ function stringifyRunDetails()
 		// fill in distance
 		distance = $("#sliAddRunKm").val() + "." + $("#sliAddRunMeter").val();
 		
-		alert ("distance: " + distance);
+		// alert ("distance: " + distance);
 		
 		// check distance
 		if (distance == "0.0")
 		{
 			// set distance to null or else it will look like 0.0 in db
 			distance = null;	
-			alert ("distance: " + distance);			
+			// alert ("distance: " + distance);			
 		}
 	}
-	
+			
+		
+	var duration = $("#timeRun").val();  // return string
+	// alert("duration: " + duration); 
+
+	if (duration != "")
+	{		
+		// set seconds
+		seconds	= convertDurationStringToSeconds(duration);
+	}
+	   
 	// check if feeling was filled out
 	if (feeling.length == 0)
 	{
@@ -277,5 +287,136 @@ function stringifyRunDetails()
 
     return jsonStringRunDetails;
 }  // end stringifyRunDetails()
+
+
+
+function convertDurationStringToSeconds(durationString)
+{
+	var totalSeconds = null;
+	
+	if (durationString == "")
+	{
+		totalSeconds = null;  // redundant
+	}
+	else  // user has entered duration
+	{
+		
+		// else convert to seconds
+		var dayAmount = getDayAmount(durationString);
+		var hourAmount = getHourAmount(durationString);
+		var minutesAmount = getMinuteAmount(durationString);
+		var secondsAmount = getSecondAmount(durationString);	
+
+		// add amounts
+		var totalSeconds = daysToSeconds(dayAmount) + hoursToSeconds(hourAmount) + minutesToSeconds(minutesAmount) + secondsAmount;
+		// alert ("totalSeconds: " + totalSeconds);
+		
+		if (totalSeconds == 0)
+		{
+			totalSeconds = null;
+			// alert ("totalSeconds: " + totalSeconds);
+		}
+				
+		return totalSeconds;
+	}	
+}
+
+
+function daysToSeconds(numberOfDays)
+{
+	var secondsInDay = 86400;
+	return numberOfDays * secondsInDay;
+}
+
+
+function hoursToSeconds(numberOfHours)
+{
+	var secondsInHour = 3600;
+	return numberOfHours * secondsInHour;
+}
+
+
+function minutesToSeconds(numberOfMinutes)
+{
+	var secondsInMinute = 60;
+	return numberOfMinutes * secondsInMinute;
+}
+
+
+
+function getDayAmount(durationString)
+{	
+    var resultArray = getSplitString(durationString, " ")
+	var days = resultArray[0];
+	
+	// convert to number
+	days = Number(days);
+	
+	// alert ("days: " + days);
+	// alert ("type of days: " + typeof(days));
+	
+	return days;
+}
+
+function getHourAmount(durationString)
+{	
+    var resultArray = getSplitString(durationString, " ")
+	var hourMinuteSecond = resultArray[2];
+	
+	var resultArrayHourMinuteSecond = getSplitString(hourMinuteSecond, ":");
+	var hours = resultArrayHourMinuteSecond[0];
+	
+	// convert to number
+	hours = Number(hours);
+	// alert ("hours: " + hours);
+	// alert ("type of hours: " + typeof(hours));
+	
+	return hours;
+}
+
+function getMinuteAmount(durationString)
+{	
+    var resultArray = getSplitString(durationString, " ")
+	var hourMinuteSecond = resultArray[2];
+	
+	var resultArrayHourMinuteSecond = getSplitString(hourMinuteSecond, ":");
+	var minutes = resultArrayHourMinuteSecond[1];
+	
+	// convert to number
+	minutes = Number(minutes);
+	
+	// alert ("minutes: " + minutes);
+	// alert ("type of minutes: " + typeof(minutes));
+	
+	return minutes;
+}
+
+function getSecondAmount(durationString)
+{	
+    var resultArray = getSplitString(durationString, " ")
+	var hourMinuteSecond = resultArray[2];
+	
+	var resultArrayHourMinuteSecond = getSplitString(hourMinuteSecond, ":");
+	var seconds = resultArrayHourMinuteSecond[2];
+	
+	// convert to number
+	seconds = Number(seconds);
+	
+	// alert ("seconds: " + seconds);
+	// alert ("type of seconds: " + typeof(seconds));
+	
+	return seconds;
+}
+
+
+function getSplitString(someString, splitIndication)
+{
+	var resultArray = someString.split(splitIndication);
+	return resultArray;
+}
+
+
+
+
 
 
