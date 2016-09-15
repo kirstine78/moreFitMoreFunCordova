@@ -16,12 +16,12 @@ function initPanel()
 	
 	
     // click link in panel
-    // $("#linkReturnCar").on("click", function(event){
+    $("#linkMyRoutes").on("click", function(event){
 
-        // event.preventDefault();  // don't redirect to return car page
+        event.preventDefault();  // don't redirect to my routes page
 
-        // searchCarForReturn();
-    // });
+        getRoutesForCustomer();  // get all routes for specific customer from db
+    });
 }
 
 
@@ -76,3 +76,54 @@ function getRunsForCustomer()
 }  // end getRunsForCustomer()
 
 
+
+
+// get routes for specific customer
+function getRoutesForCustomer()
+{
+   alert("inside getRoutesForCustomer");
+
+    // get from local storage id, name, and oaut
+    var idFromLocalStorage = window.localStorage.getItem("Id");
+    var akeyFromLocalStorage = window.localStorage.getItem("OAuth");
+    var nameFromLocalStorage = window.localStorage.getItem("Name");
+
+//    alert(idFromLocalStorage + "   " + akeyFromLocalStorage + "   " + nameFromLocalStorage);
+
+    // get all routes for this customer
+    $.ajax({
+        type: 'GET',
+        url: rootURL + 'route/' + idFromLocalStorage + "/" + nameFromLocalStorage + "/" + akeyFromLocalStorage + "/",
+        dataType: "json",
+    })
+    .done(function(data) {
+//        alert("in done getRoutesForCustomer");
+
+        // Execute when ajax successfully completes
+
+        // check that data array is longer than zero
+        if (data.length > 0)  // at least one row
+        {
+//            alert("at least one row returned");
+//            alert("data.length: " + data.length);
+
+            // set the array of routes
+            myRoutes_RoutesArrayGlobal = data;
+
+            // redirect
+            $(location).attr('href', '#myRoutesPage');
+        }
+        else  // zero rows were returned
+        {
+            // display msg to user
+            toast("No routes to display", standardDurationToast, standardDelayToast);
+        }
+    })
+    .always(function() { /* always execute this code */ })
+    .fail(function(data){
+        /* Execute when ajax falls over */
+//        alert("Error Connecting to Webservice.\nTry again.");
+        toast("Error Connecting to Webservice.<br/>Try again.", standardDurationToast, standardDelayToast);
+    });
+
+}  // end getRunsForCustomer()

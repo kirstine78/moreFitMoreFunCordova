@@ -172,7 +172,7 @@ function isRouteKmValid(km)
     }
     else
     {
-		alert("no km input");
+		// alert("no km input");
 		// not valid route name
         // color error
         doRedBackground(false, "#txtAddRouteKm");
@@ -186,7 +186,7 @@ function isRouteKmValid(km)
 // make json string
 function stringifyRouteDetails()
 {
-   alert("stringify route details");
+   // alert("stringify route details");
 		
 	var routeName 	= $("#txtAddRouteName").val().trim();
 	

@@ -6,40 +6,40 @@
 
 /////////////////////////////////////////Variable Declaration
 
-var addRoutePageInited = false;
+var editRoutePageInited = false;
 
 /////////////////////////////////////////jquery On pageinit
 
 
 // only apply to specific page(s)
-$("#addRoutePage").on("pageinit", function(){
+$("#editRoutePage").on("pageinit", function(){
 	
-    if(addRoutePageInited)
+    if(editRoutePageInited)
     {
-//        alert("addRoutePageInited true");
+//        alert("editRoutePageInited true");
         return;
     }
     else
     {
-//        alert("addRoutePageInited false");
-        addRoutePageInited= true;
+//        alert("editRoutePageInited false");
+        editRoutePageInited= true;
     }  // end added code
 
 
-    // addRoutePage Event Handlers
-    $("#addRoutePage").on("pagebeforeshow", function(){
-//         alert("Before show addRoutePage");
-    }); // end addRoutePage live beforepageshow
+    // editRoutePage Event Handlers
+    $("#editRoutePage").on("pagebeforeshow", function(){
+//         alert("Before show editRoutePage");
+    }); // end editRoutePage live beforepageshow
 
 
-    $("#addRoutePage").on("pagebeforehide", function(){
-//         alert("Before hide addRoutePage");
-    }); // end addRoutePage live pagebeforehide
-    // END addRoutePage Event Handlers
+    $("#editRoutePage").on("pagebeforehide", function(){
+//         alert("Before hide editRoutePage");
+    }); // end editRoutePage live pagebeforehide
+    // END editRoutePage Event Handlers
 
 
     // btn click
-    $("#btnAddRoute").on("click", function(){
+    $("#btnEditRoute").on("click", function(){
 		// alert ("button clicked");
 		
         var routeName = $("#txtAddRouteName").val().trim();

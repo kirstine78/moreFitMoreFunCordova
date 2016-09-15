@@ -116,10 +116,10 @@
             <tr>
                 <th>Date</th>
                 <th data-priority="1">Km</th>
-                <th data-priority="1">h:mm:ss</th>
+                <th data-priority="1">Time</th>
                 <th data-priority="1">Km/h</th>
                 <th data-priority="2">Route</th>
-                <th data-priority="3">Feeling</th>
+                <th data-priority="3">Note</th>
             </tr>
             </thead>
             <tbody>
@@ -158,6 +158,69 @@
 		</div>
 				
         <input id="btnAddRoute" type="button" value="Add Route">
+
+    </div>
+</div><!--End page-->
+
+
+
+<div data-role="page" id="myRoutesPage"><!--Start page-->
+
+    <div data-role="header">
+        <a href="#mypanel" class="ui-btn ui-corner-all ui-icon-bars ui-btn-icon-notext">Bars Icon</a>
+        <h1>My Routes</h1>
+    </div>
+    <div data-role="content">
+        <b>Click row</b>
+        <br/>
+        <br/>
+
+        <table data-role="table" data-mode="columntoggle" class="ui-responsive" id="myRoutesTable">
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Km</th>
+            </tr>
+            </thead>
+            <tbody>
+                <!--dynamically build in js file-->
+            </tbody>
+        </table>
+
+    </div>
+</div><!--End page-->
+
+
+
+<div data-role="page" id="editRoutePage"><!--Start page-->
+    <div data-role="header">
+        <a href="#mypanel" class="ui-btn ui-corner-all ui-icon-bars ui-btn-icon-notext">Bars Icon</a>
+        <h1>Edit Route</h1>
+    </div>
+
+    <div data-role="content">
+		<div>
+			Warning if you change route name or km it will affect any previous runs you have saved for the this route.
+		</div>
+
+        <!--text input route name -->
+        <div data-role="fieldcontain">
+            <label for="txtEditRouteName">Route name</label>
+            <input type="text" name="txtEditRouteName" id="txtEditRouteName" value=""  />
+        </div>
+		
+        <div data-role="fieldcontain">
+			<label for="sliEditRouteKm">Km</label>
+			<input type="range" name="sliEditRouteKm" id="sliEditRouteKm" value="10" min="0" max="20" data-highlight="true"/>
+		</div>
+		
+		
+        <div data-role="fieldcontain">
+			<label for="sliEditRouteMeter">Meter</label>
+			<input type="range" name="sliEditRouteMeter" id="sliEditRouteMeter" value="0" min="0" max="950" step="50" data-highlight="true"/>
+		</div>
+				
+        <input id="btnEditRoute" type="button" value="Edit Route">
 
     </div>
 </div><!--End page-->
@@ -302,6 +365,8 @@
 <script src="js/addRun.js"></script><!--addRun js Scripts-->
 <script src="js/myRuns.js"></script><!--myRuns js Scripts-->
 <script src="js/addRoute.js"></script><!--addRoute js Scripts-->
+<script src="js/myRoutes.js"></script><!--myRoutes js Scripts-->
+<script src="js/editRoute.js"></script><!--editRoute js Scripts-->
 <script src="js/durationRelated.js"></script><!--durationRelated js Scripts-->
 <script src="js/panelHandler.js"></script><!--panelHandler js Scripts-->
 
