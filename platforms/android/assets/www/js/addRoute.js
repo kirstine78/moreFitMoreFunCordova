@@ -40,34 +40,8 @@ $("#addRoutePage").on("pageinit", function(){
 
     // btn click
     $("#btnAddRoute").on("click", function(){
-		// alert ("button clicked");
 		
-        var routeName = $("#txtAddRouteName").val().trim();
-       // alert("routeName: " + routeName);
-		
-		// slider input always there
-        var routeKm = $("#sliAddRouteKm").val();
-       // alert("routeKm: " + routeKm);
-		
-        var routeMeter = $("#sliAddRouteMeter").val();
-       // alert("routeMeter: " + routeMeter);
-	   
-	   
-		var routeNameOk = isRouteNameValid(routeName, "#txtAddRouteName");
-       // alert("routeNameOk: " + routeNameOk);
-
-	   var strAdd = routeKm + "." + routeMeter;
-	   // alert("strAdd: " + strAdd);
-	   
-        var routeDistanceOk = isDistanceValid(strAdd);
-       // alert("routeDistanceOk: " + routeDistanceOk);
-	   
-
-        // only if routeNameOk && routeDistanceOk continue with add route process
-        if (routeNameOk && routeDistanceOk)
-		{			
-			addRoute();
-		}
+		handleBtnClickAddRoute();
 		
     });
              
@@ -75,6 +49,36 @@ $("#addRoutePage").on("pageinit", function(){
 
 
 ///////////////////////////////////////// END jquery On pageinit
+
+
+
+function handleBtnClickAddRoute()
+{
+	var routeName = $("#txtAddRouteName").val().trim();
+   // alert("routeName: " + routeName);
+	
+	// slider input always there
+	var routeKm = $("#sliAddRouteKm").val();
+   // alert("routeKm: " + routeKm);
+	
+	var routeMeter = $("#sliAddRouteMeter").val();
+   // alert("routeMeter: " + routeMeter);   
+   
+	var routeNameOk = isRouteNameValid(routeName, "#txtAddRouteName");
+   // alert("routeNameOk: " + routeNameOk);
+
+   var strAdd = routeKm + "." + routeMeter;
+   // alert("strAdd: " + strAdd);
+   
+	var routeDistanceOk = isDistanceValid(strAdd);
+   // alert("routeDistanceOk: " + routeDistanceOk);   
+
+	// only if routeNameOk && routeDistanceOk continue with add route process
+	if (routeNameOk && routeDistanceOk)
+	{			
+		addRoute();
+	}
+}
 
 
 
