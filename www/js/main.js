@@ -10,7 +10,7 @@
  var rootURL = "http://10.0.2.2/sites/Health/index.php/";
 //var rootURL = "http://kirstine.byethost14.com/sites/Health/index.php/";
 //var rootURL = "http://kirstine.comli.com/sites/Health/index.php/";
-//var rootURL = "http://localhost/sites/Health/index.php/";  // for the browser tester
+// var rootURL = "http://localhost/sites/Health/index.php/";  // for the browser tester
 
 var pageinited = false;
 

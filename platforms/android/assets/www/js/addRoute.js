@@ -53,7 +53,7 @@ $("#addRoutePage").on("pageinit", function(){
        alert("routeMeter: " + routeMeter);
 	   
 	   
-		var routeNameOk = isRouteNameValid(routeName);
+		var routeNameOk = isRouteNameValid(routeName, "#txtAddRouteName");
        alert("routeNameOk: " + routeNameOk);
 
 	   var strAdd = routeKm + "." + routeMeter;
@@ -65,33 +65,8 @@ $("#addRoutePage").on("pageinit", function(){
 
         // only if routeNameOk && routeDistanceOk continue with add route process
         if (routeNameOk && routeDistanceOk)
-		{
-			// add route
-			$.ajax({
-				type: "POST",
-				url: rootURL + 'route/',
-				data: stringifyRouteDetails(),
-				dataType: 'json',
-			})
-			.done(function(data) {
-		//        alert("this is data: " + data);
-
-				if (data)  // insert route succeeded
-				{
-					// route creation successful; display msg to user
-					toast("Route was successfully saved", standardDurationToast, standardDelayToast);
-				}
-				else  // insert route failed
-				{
-					// insert route did not go through; display msg to user
-					toast("Sorry route was not saved<br/>Please try again", standardDurationToast, standardDelayToast);
-				}
-			})
-			.always(function() { /* always execute this code */ })
-			.fail(function(data){
-				toast("Error Connecting to Webservice.<br/>Try again.", standardDurationToast, standardDelayToast);
-			});
-			
+		{			
+			addRoute();
 		}
 		
     });
@@ -105,10 +80,10 @@ $("#addRoutePage").on("pageinit", function(){
 
 
 // check if route name is ok
-function isRouteNameValid(aRouteName)
+function isRouteNameValid(aRouteName, elementInHtml)
 {
     // clear red background
-    doRedBackground(true, "#txtAddRouteName");
+    doRedBackground(true, elementInHtml);
 
     // flag
     var routeNameOk = false;
@@ -123,7 +98,7 @@ function isRouteNameValid(aRouteName)
     {
 		// not valid route name
         // color error
-        doRedBackground(false, "#txtAddRouteName");
+        doRedBackground(false, elementInHtml);
     }
 
     return routeNameOk;
@@ -148,37 +123,58 @@ function isDistanceValid(distance)
 
 
 
-// check if route km is ok
-function isRouteKmValid(km)
-{
-    // clear red background
-    doRedBackground(true, "#txtAddRouteKm");
-
-    // flag
-    var routeKmOk = false;
+// // check if route km is ok
+// function isRouteKmValid(km)
+// {
+    // // flag
+    // var routeKmOk = false;
 	
-	// route name must be more than length zero
-	// route name must be less than length 30
+	// // route name must be more than length zero
+	// // route name must be less than length 30
 
-    // check if km field is filled out
-    if (km.length > 0)
-    {
+    // // check if km field is filled out
+    // if (km.length > 0)
+    // {
 		
-		if (km > 0)  // positive number
-		{
-			// update flag
-			var routeKmOk = true;
-		}
-    }
-    else
-    {
-		// alert("no km input");
-		// not valid route name
-        // color error
-        doRedBackground(false, "#txtAddRouteKm");
-    }
+		// if (km > 0)  // positive number
+		// {
+			// // update flag
+			// var routeKmOk = true;
+		// }
+    // }
 
-    return routeKmOk;
+    // return routeKmOk;
+// }
+
+
+
+function addRoute()
+{
+	// add route
+	$.ajax({
+		type: "POST",
+		url: rootURL + 'route/',
+		data: stringifyRouteDetails(),
+		dataType: 'json',
+	})
+	.done(function(data) {
+//        alert("this is data: " + data);
+
+		if (data)  // insert route succeeded
+		{
+			// route creation successful; display msg to user
+			toast("Route was successfully saved", standardDurationToast, standardDelayToast);
+		}
+		else  // insert route failed
+		{
+			// insert route did not go through; display msg to user
+			toast("Sorry route was not saved<br/>Please try again", standardDurationToast, standardDelayToast);
+		}
+	})
+	.always(function() { /* always execute this code */ })
+	.fail(function(data){
+		toast("Error Connecting to Webservice.<br/>Try again.", standardDurationToast, standardDelayToast);
+	});
 }
 
 

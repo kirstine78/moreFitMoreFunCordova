@@ -61,7 +61,7 @@ $("#myRunsPage").on("pageinit", function(){
 // takes array of records as param
 function loadMyRunsTable(data)
 {
-   alert("inside fct loadMyRunsTable");
+   // alert("inside fct loadMyRunsTable");
     var str = "";
 
     // build string to populate my runs table

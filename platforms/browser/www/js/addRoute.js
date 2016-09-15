@@ -6,40 +6,40 @@
 
 /////////////////////////////////////////Variable Declaration
 
-var editRoutePageInited = false;
+var addRoutePageInited = false;
 
 /////////////////////////////////////////jquery On pageinit
 
 
 // only apply to specific page(s)
-$("#editRoutePage").on("pageinit", function(){
+$("#addRoutePage").on("pageinit", function(){
 	
-    if(editRoutePageInited)
+    if(addRoutePageInited)
     {
-//        alert("editRoutePageInited true");
+//        alert("addRoutePageInited true");
         return;
     }
     else
     {
-//        alert("editRoutePageInited false");
-        editRoutePageInited= true;
+//        alert("addRoutePageInited false");
+        addRoutePageInited= true;
     }  // end added code
 
 
-    // editRoutePage Event Handlers
-    $("#editRoutePage").on("pagebeforeshow", function(){
-//         alert("Before show editRoutePage");
-    }); // end editRoutePage live beforepageshow
+    // addRoutePage Event Handlers
+    $("#addRoutePage").on("pagebeforeshow", function(){
+//         alert("Before show addRoutePage");
+    }); // end addRoutePage live beforepageshow
 
 
-    $("#editRoutePage").on("pagebeforehide", function(){
-//         alert("Before hide editRoutePage");
-    }); // end editRoutePage live pagebeforehide
-    // END editRoutePage Event Handlers
+    $("#addRoutePage").on("pagebeforehide", function(){
+//         alert("Before hide addRoutePage");
+    }); // end addRoutePage live pagebeforehide
+    // END addRoutePage Event Handlers
 
 
     // btn click
-    $("#btnEditRoute").on("click", function(){
+    $("#btnAddRoute").on("click", function(){
 		// alert ("button clicked");
 		
         var routeName = $("#txtAddRouteName").val().trim();
@@ -65,33 +65,8 @@ $("#editRoutePage").on("pageinit", function(){
 
         // only if routeNameOk && routeDistanceOk continue with add route process
         if (routeNameOk && routeDistanceOk)
-		{
-			// add route
-			$.ajax({
-				type: "POST",
-				url: rootURL + 'route/',
-				data: stringifyRouteDetails(),
-				dataType: 'json',
-			})
-			.done(function(data) {
-		//        alert("this is data: " + data);
-
-				if (data)  // insert route succeeded
-				{
-					// route creation successful; display msg to user
-					toast("Route was successfully saved", standardDurationToast, standardDelayToast);
-				}
-				else  // insert route failed
-				{
-					// insert route did not go through; display msg to user
-					toast("Sorry route was not saved<br/>Please try again", standardDurationToast, standardDelayToast);
-				}
-			})
-			.always(function() { /* always execute this code */ })
-			.fail(function(data){
-				toast("Error Connecting to Webservice.<br/>Try again.", standardDurationToast, standardDelayToast);
-			});
-			
+		{			
+			addRoute();
 		}
 		
     });
@@ -179,6 +154,37 @@ function isRouteKmValid(km)
     }
 
     return routeKmOk;
+}
+
+
+
+function addRoute()
+{
+	// add route
+	$.ajax({
+		type: "POST",
+		url: rootURL + 'route/',
+		data: stringifyRouteDetails(),
+		dataType: 'json',
+	})
+	.done(function(data) {
+//        alert("this is data: " + data);
+
+		if (data)  // insert route succeeded
+		{
+			// route creation successful; display msg to user
+			toast("Route was successfully saved", standardDurationToast, standardDelayToast);
+		}
+		else  // insert route failed
+		{
+			// insert route did not go through; display msg to user
+			toast("Sorry route was not saved<br/>Please try again", standardDurationToast, standardDelayToast);
+		}
+	})
+	.always(function() { /* always execute this code */ })
+	.fail(function(data){
+		toast("Error Connecting to Webservice.<br/>Try again.", standardDurationToast, standardDelayToast);
+	});
 }
 
 

@@ -29,7 +29,7 @@ $("#myRoutesPage").on("pageinit", function(){
 
     // myRoutesPage Event Handlers
     $("#myRoutesPage").on("pagebeforeshow", function(event){
-//        alert("before myRoutesPage show");
+       // alert("before myRoutesPage show");
 
         // wipe 'tbody' in the myRoutesTable, find closest element, refresh table, trigger
         // make columns toggle work
@@ -44,10 +44,15 @@ $("#myRoutesPage").on("pageinit", function(){
 
     // click row
     $("#myRoutesTable").on("click", ".clickable-row", function(evt){
-//        alert("row was clicked");
+       // alert("row was clicked");
 
         // $(this) is the jQuery object
         var rowElementClicked = $(this);  // this refers to the 'tr' element
+		
+		editOrDeleteRoute_RouteTableRowElementGlobal = rowElementClicked;
+		
+		// redirect 
+		$(location).attr('href', '#editOrDeleteRoutePage');
     });
              
 });  // end #myRoutesPage on pageinit
@@ -59,15 +64,15 @@ $("#myRoutesPage").on("pageinit", function(){
 // takes array of records as param
 function loadMyRoutesTable(data)
 {
-   alert("inside fct loadMyRoutesTable");
+   // alert("inside fct loadMyRoutesTable");
     var str = "";
 
     // build string to populate my runs table
     for (var i = 0; i < data.length; i++)
     {		
         // build html dynamically
-        str += "<tr class='clickable-row' id='" + data[i].fldRouteId + "'><td>" +
-                data[i].fldRouteName + "</td><td>" +
+        str += "<tr class='clickable-row' data-route-id='" + data[i].fldRouteId + "'><td class='routeName'>" +
+                data[i].fldRouteName + "</td><td class='distance'>" +
                 data[i].fldRouteDistance + "</td></tr>";
     }
 
