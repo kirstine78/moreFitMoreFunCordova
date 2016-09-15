@@ -114,6 +114,9 @@ function populateDropDownMenuRoutes()
         {
            // alert("at least one row returned");
            // alert("data.length: " + data.length);
+		   
+		   // show select menu
+			$("#selMenuForRoutes").show();
 
             var str = "";
 			
@@ -139,6 +142,9 @@ function populateDropDownMenuRoutes()
         else  // zero rows were returned
         {
             // no Routes returned
+			// hide select menu
+			$("#selMenuForRoutes").hide();		
+			
            alert("zero rows returned");
            alert("data.length: " + data.length);
         }
