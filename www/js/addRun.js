@@ -118,7 +118,7 @@ function populateDropDownMenuRoutes()
             var str = "";
 			
 			// add the default value -1
-            str += "<option value='null'>Choose Route (optional)</option>";
+            str += "<option value='-1'>Choose Route (optional)</option>";
 
             // build string to populate the drop down
             for (var i = 0; i < data.length; i++)
@@ -227,19 +227,24 @@ function stringifyRunDetails()
 	alert ("runRouteId: " + runRouteId);
 	
 	// check if default option is chosen or null
-	if (runRouteId == null)
+	if (runRouteId < 0 || runRouteId == null)
 	{
+		alert ("inside if runRouteId < 0 || runRouteId == null");
+		
 		// route NOT chosen, set it to null
 		runRouteId = null;
 		
 		// fill in distance
 		distance = $("#sliAddRunKm").val() + "." + $("#sliAddRunMeter").val();
 		
+		alert ("distance: " + distance);
+		
 		// check distance
 		if (distance == "0.0")
 		{
 			// set distance to null or else it will look like 0.0 in db
-			distance = null;		
+			distance = null;	
+			alert ("distance: " + distance);			
 		}
 	}
 	

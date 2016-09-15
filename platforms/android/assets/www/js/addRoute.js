@@ -40,7 +40,7 @@ $("#addRoutePage").on("pageinit", function(){
 
     // btn click
     $("#btnAddRoute").on("click", function(){
-		alert ("button clicked");
+		// alert ("button clicked");
 		
         var routeName = $("#txtAddRouteName").val().trim();
        alert("routeName: " + routeName);
@@ -100,63 +100,6 @@ $("#addRoutePage").on("pageinit", function(){
 
 
 ///////////////////////////////////////// END jquery On pageinit
-
-
-
-
-// populate drop down menu for Suburbs
-// function populateDropDownMenuSuburbs()
-// {
-    // // get suburbs
-    // $.ajax({
-        // type: 'GET',
-        // url: rootURL + '/suburbs',
-        // dataType: "json",
-    // })
-    // .done(function(data) {
-// //        alert("in done populateDropDownMenuSuburbs");
-
-        // // Execute when ajax successfully completes
-
-        // // check that data holding array is longer than zero
-        // if (data.length > 0)  // at least one row
-        // {
-// //            alert("at least one row returned");
-// //            alert("data.length: " + data.length);
-
-            // var str = "";
-
-            // // build string to populate the drop down
-            // for (var i = 0; i < data.length; i++)
-            // {
-                // // add to string
-                // str += "<option value='" + data[i].fldSuburbId + "'>" + data[i].fldSuburb + "</option>";
-            // }
-
-            // // add str to element
-            // $("#selSuburb").html(str);
-
-            // // set first option to be selected
-            // $("#selSuburb option:first").attr('selected', 'selected');
-
-            // //refresh and force rebuild
-            // $("#selSuburb").selectmenu('refresh', true);
-        // }
-        // else  // zero rows were returned
-        // {
-            // // no suburbs returned which means company has no Suburbs which is not realistic
-// //            alert("zero rows returned");
-// //            alert("data.length: " + data.length);
-        // }
-    // })
-    // .always(function() { /* always execute this code */ })
-    // .fail(function(data){
-        // /* Execute when ajax falls over */
-// //        alert("Error Connecting to Webservice.\nTry again.");
-        // toast("Error Connecting to Webservice - populateDropDownMenuSuburbs.<br/>Try again.", standardDurationToast, standardDelayToast);
-    // });
-// }
-
 
 
 
@@ -258,11 +201,11 @@ function stringifyRouteDetails()
     var runDetails = new Object();
 
     // add properties to object
-    runDetails.customerId = window.localStorage.getItem("Id");
-	runDetails.name = window.localStorage.getItem("Name");
-    runDetails.authenticationKey = window.localStorage.getItem("OAuth");
-    runDetails.routeName = routeName;
-    runDetails.routeDistance = distance;
+    runDetails.customerId 			= window.localStorage.getItem("Id");
+	runDetails.name 				= window.localStorage.getItem("Name");
+    runDetails.authenticationKey 	= window.localStorage.getItem("OAuth");
+    runDetails.routeName 			= routeName;
+    runDetails.routeDistance 		= distance;
 
     // serialize it
     var jsonStringRunDetails = JSON.stringify(runDetails);
