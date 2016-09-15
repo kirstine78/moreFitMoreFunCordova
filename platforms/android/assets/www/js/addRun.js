@@ -198,35 +198,6 @@ function handleBtnClickAddRun()
 
 
 
-// check if date is ok
-function isDateValid(aDate)
-{
-    // clear red background
-    doRedBackground(true, "#dateRun");
-
-    // flag
-    var dateOk = false;
-
-    // check if aDate field is filled out
-    if (aDate.length == 0)
-    {
-        // empty field
-       // alert("date empty");
-
-        // color error
-        doRedBackground(false, "#dateRun");
-    }
-    else
-    {
-		// update flag
-		var dateOk = true;
-    }
-
-    return dateOk;
-}
-
-
-
 function addRun()
 {
 	// add run
@@ -297,8 +268,7 @@ function stringifyRunDetails()
 			// alert ("distance: " + distance);			
 		}
 	}
-			
-		
+	
 	var duration = $("#timeRun").val();  // return string
 	// alert("duration: " + duration); 
 

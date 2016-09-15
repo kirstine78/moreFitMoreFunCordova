@@ -127,20 +127,20 @@ function convertPossibleNullToDisplayEmptyString(value)
 
 
 // to show more details about a booking
-function showExtraBookingDetails(rowElement)
-{
-//    alert("inside fct showExtraBookingDetails");
-//    alert("element: " + rowElement.children(".suburb").text());
-//    alert("element: " + rowElement.children(".streetName").text());
-//    alert("element: " + rowElement.children(".description").text());
+// function showExtraBookingDetails(rowElement)
+// {
+// //    alert("inside fct showExtraBookingDetails");
+// //    alert("element: " + rowElement.children(".suburb").text());
+// //    alert("element: " + rowElement.children(".streetName").text());
+// //    alert("element: " + rowElement.children(".description").text());
 
-    // build str with booking details
-    var str = "";
+    // // build str with booking details
+    // var str = "";
 
-    str += rowElement.children(".suburb").text();
-    str += "<br/><br/>" + rowElement.children(".streetName").text();
-    str += "<br/><br/>" + rowElement.children(".description").text();
+    // str += rowElement.children(".suburb").text();
+    // str += "<br/><br/>" + rowElement.children(".streetName").text();
+    // str += "<br/><br/>" + rowElement.children(".description").text();
 
-    // show more details in toast
-    toast(str, 1700, 1700);
-}
+    // // show more details in toast
+    // toast(str, 1700, 1700);
+// }
