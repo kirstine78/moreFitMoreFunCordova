@@ -43,24 +43,24 @@ $("#addRoutePage").on("pageinit", function(){
 		// alert ("button clicked");
 		
         var routeName = $("#txtAddRouteName").val().trim();
-       alert("routeName: " + routeName);
+       // alert("routeName: " + routeName);
 		
 		// slider input always there
         var routeKm = $("#sliAddRouteKm").val();
-       alert("routeKm: " + routeKm);
+       // alert("routeKm: " + routeKm);
 		
         var routeMeter = $("#sliAddRouteMeter").val();
-       alert("routeMeter: " + routeMeter);
+       // alert("routeMeter: " + routeMeter);
 	   
 	   
 		var routeNameOk = isRouteNameValid(routeName, "#txtAddRouteName");
-       alert("routeNameOk: " + routeNameOk);
+       // alert("routeNameOk: " + routeNameOk);
 
 	   var strAdd = routeKm + "." + routeMeter;
-	   alert("strAdd: " + strAdd);
+	   // alert("strAdd: " + strAdd);
 	   
         var routeDistanceOk = isDistanceValid(strAdd);
-       alert("routeDistanceOk: " + routeDistanceOk);
+       // alert("routeDistanceOk: " + routeDistanceOk);
 	   
 
         // only if routeNameOk && routeDistanceOk continue with add route process
@@ -120,31 +120,6 @@ function isDistanceValid(distance)
 	}
 	return distanceOk;	
 }
-
-
-
-// // check if route km is ok
-// function isRouteKmValid(km)
-// {
-    // // flag
-    // var routeKmOk = false;
-	
-	// // route name must be more than length zero
-	// // route name must be less than length 30
-
-    // // check if km field is filled out
-    // if (km.length > 0)
-    // {
-		
-		// if (km > 0)  // positive number
-		// {
-			// // update flag
-			// var routeKmOk = true;
-		// }
-    // }
-
-    // return routeKmOk;
-// }
 
 
 

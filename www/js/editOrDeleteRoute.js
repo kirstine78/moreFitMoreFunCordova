@@ -93,6 +93,7 @@ function fillFields(rowElement)
 	// alert("km: " + km);
 	// alert("meter: " + meter);
 	
+	// set sliders to the correct value
 	$("#sliEditRouteKm").val(km);
 	$("#sliEditRouteMeter").val(meter);	
   
