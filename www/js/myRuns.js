@@ -67,14 +67,27 @@ function loadMyRunsTable(data)
     // build string to populate my runs table
     for (var i = 0; i < data.length; i++)
     {
+		var distanceHtml 	= convertPossibleNullToDisplayEmptyString(data[i].fldDistance);
+		var secondsHtml 	= convertPossibleNullToDisplayEmptyString(data[i].fldSeconds);
+		var kmPerHourHtml 	= convertPossibleNullToDisplayEmptyString("hoho");
+		var routeNameHtml 	= convertPossibleNullToDisplayEmptyString(data[i].fldRouteName);
+		var feelingHtml 	= convertPossibleNullToDisplayEmptyString(data[i].fldFeeling);
+		
+		// check if any values are null
+		if (data[i].fldDistance == null)
+		{
+			distanceHtml = "";
+		}
+		
+		
         // build html dynamically
         str += "<tr class='clickable-row' id='" + data[i].fldRunId + "'><td>" +
                 data[i].fldDate + "</td><td>" +
-                data[i].fldKm + "</td><td>" +
-                data[i].fldSeconds + "</td><td>" +
-                "hoho" + "</td><td>" +
-                data[i].fldRouteName + "</td><td>" +
-                data[i].fldFeeling + "</td></tr>";
+                distanceHtml + "</td><td>" +
+                secondsHtml + "</td><td>" +
+                kmPerHourHtml + "</td><td>" +
+                routeNameHtml + "</td><td>" +
+                feelingHtml + "</td></tr>";
     }
 
     // add str to html, find closest element, refresh table, trigger
@@ -84,7 +97,21 @@ function loadMyRunsTable(data)
 
 
 
-
+/**
+* if value is null in db then display empty string in tables
+*/
+function convertPossibleNullToDisplayEmptyString(value)
+{
+	var str = "";
+	
+	// check if value is NOT null
+	if (value != null)
+	{
+		str = value;
+	}
+	
+	return str;	
+}
 
 
 // to show more details about a booking

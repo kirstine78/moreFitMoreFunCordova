@@ -67,14 +67,36 @@ function loadMyRunsTable(data)
     // build string to populate my runs table
     for (var i = 0; i < data.length; i++)
     {
+		var distanceHtml 	= getTextToDisplay(data[i].fldDistance);
+		var secondsHtml 	= getTextToDisplay(data[i].fldSeconds);
+		var kmPerHourHtml 	= getTextToDisplay("hoho");
+		var routeNameHtml 	= getTextToDisplay(data[i].fldRouteName);
+		var feelingHtml 	= getTextToDisplay(data[i].fldFeeling);
+		
+		// check if any values are null
+		if (data[i].fldDistance == null)
+		{
+			distanceHtml = "";
+		}
+		
+		
         // build html dynamically
         str += "<tr class='clickable-row' id='" + data[i].fldRunId + "'><td>" +
                 data[i].fldDate + "</td><td>" +
-                data[i].fldKm + "</td><td>" +
-                data[i].fldSeconds + "</td><td>" +
-                "hoho" + "</td><td>" +
-                data[i].fldRouteName + "</td><td>" +
-                data[i].fldFeeling + "</td></tr>";
+                distanceHtml + "</td><td>" +
+                secondsHtml + "</td><td>" +
+                kmPerHourHtml + "</td><td>" +
+                routeNameHtml + "</td><td>" +
+                feelingHtml + "</td></tr>";
+		
+        // build html dynamically
+        // str += "<tr class='clickable-row' id='" + data[i].fldRunId + "'><td>" +
+                // data[i].fldDate + "</td><td>" +
+                // data[i].fldDistance + "</td><td>" +
+                // data[i].fldSeconds + "</td><td>" +
+                // "hoho" + "</td><td>" +
+                // data[i].fldRouteName + "</td><td>" +
+                // data[i].fldFeeling + "</td></tr>";
     }
 
     // add str to html, find closest element, refresh table, trigger
@@ -83,8 +105,18 @@ function loadMyRunsTable(data)
 }
 
 
-
-
+function getTextToDisplay(value)
+{
+	var str = "";
+	
+	// check if value is NOT null
+	if (value != null)
+	{
+		str = value;
+	}
+	
+	return str;	
+}
 
 
 // to show more details about a booking
