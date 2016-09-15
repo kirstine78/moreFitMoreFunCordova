@@ -69,24 +69,28 @@ function loadMyRunsTable(data)
     {
 		var distanceHtml 	= convertPossibleNullToDisplayEmptyString(data[i].fldDistance);
 		var durationHtml 	= convertPossibleNullToDisplayEmptyString(data[i].fldSeconds);
-		
+		var kmPerHourHtml 	= "";
+		var routeNameHtml 	= convertPossibleNullToDisplayEmptyString(data[i].fldRouteName);
+		var feelingHtml 	= convertPossibleNullToDisplayEmptyString(data[i].fldFeeling);
+			
 		// if data[i].fldSeconds was NOT null then not empty string
 		if (durationHtml != "")
 		{
 			// convert string to proper message 
 			durationHtml = convertSecondsToHMS(data[i].fldSeconds);
-		}		
-		
-		var kmPerHourHtml 	= convertPossibleNullToDisplayEmptyString("hoho");
-		var routeNameHtml 	= convertPossibleNullToDisplayEmptyString(data[i].fldRouteName);
-		var feelingHtml 	= convertPossibleNullToDisplayEmptyString(data[i].fldFeeling);
-		
-		// check if any values are null
-		if (data[i].fldDistance == null)
-		{
-			distanceHtml = "";
 		}
 		
+		// check if both distance and seconds have values in db
+		if (data[i].fldDistance != null && data[i].fldSeconds != null)
+		{
+			// calculate speed km/h
+			kmPerHourHtml = getSpeedKmPerHour(data[i].fldDistance, data[i].fldSeconds);
+		}
+		else
+		{
+			// no distance and no seconds so speed can't be calculated
+			kmPerHourHtml = "";			
+		}
 		
         // build html dynamically
         str += "<tr class='clickable-row' id='" + data[i].fldRunId + "'><td>" +

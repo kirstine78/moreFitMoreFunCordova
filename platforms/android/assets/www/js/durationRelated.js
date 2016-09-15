@@ -133,9 +133,7 @@ function getSplitString(someString, splitIndication)
 
 
 function convertSecondsToHMS(durationInSeconds)
-{	
-	alert ("inside convertSecondsToHMS");
-	
+{		
 	durationInSeconds = Number(durationInSeconds);
 	
 	var h = Math.floor(durationInSeconds / 3600);
@@ -155,4 +153,10 @@ function convertSecondsToHMS(durationInSeconds)
 }
 
 
+function getSpeedKmPerHour(km, seconds)
+{
+	var hour = 3600;
+	var speed = km * 1.0 / seconds * hour;
 
+	return speed.toFixed(2);
+}
