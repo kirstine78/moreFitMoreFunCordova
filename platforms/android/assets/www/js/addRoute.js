@@ -29,6 +29,10 @@ $("#addRoutePage").on("pageinit", function(){
     // addRoutePage Event Handlers
     $("#addRoutePage").on("pagebeforeshow", function(){
 //         alert("Before show addRoutePage");
+		
+		// reset fields
+		resetFieldsToDefaultAddRoutePage();
+		
     }); // end addRoutePage live beforepageshow
 
 
@@ -49,6 +53,25 @@ $("#addRoutePage").on("pageinit", function(){
 
 
 ///////////////////////////////////////// END jquery On pageinit
+
+
+
+
+function resetFieldsToDefaultAddRoutePage()
+{
+	// route name
+	$("#txtAddRouteName").val("");
+	doRedBackground(true, "#txtAddRouteName");
+
+	// set sliders to the default values
+	$("#sliAddRouteKm").val(10);
+	$("#sliAddRouteMeter").val(0);	
+  
+	// refresh sliders
+	$('#sliAddRouteKm').slider('refresh');
+	$('#sliAddRouteMeter').slider('refresh');
+}
+
 
 
 
@@ -98,6 +121,10 @@ function addRoute()
 		{
 			// route creation successful; display msg to user
 			toast("Route was successfully saved", standardDurationToast, standardDelayToast);
+			
+			// reset fields
+			resetFieldsToDefaultAddRoutePage();
+			$(location).attr('href', '#addRunPage');
 		}
 		else  // insert route failed
 		{
