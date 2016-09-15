@@ -68,7 +68,15 @@ function loadMyRunsTable(data)
     for (var i = 0; i < data.length; i++)
     {
 		var distanceHtml 	= convertPossibleNullToDisplayEmptyString(data[i].fldDistance);
-		var secondsHtml 	= convertPossibleNullToDisplayEmptyString(data[i].fldSeconds);
+		var durationHtml 	= convertPossibleNullToDisplayEmptyString(data[i].fldSeconds);
+		
+		// if data[i].fldSeconds was NOT null then not empty string
+		if (durationHtml != "")
+		{
+			// convert string to proper message 
+			durationHtml = convertSecondsToHMS(data[i].fldSeconds);
+		}		
+		
 		var kmPerHourHtml 	= convertPossibleNullToDisplayEmptyString("hoho");
 		var routeNameHtml 	= convertPossibleNullToDisplayEmptyString(data[i].fldRouteName);
 		var feelingHtml 	= convertPossibleNullToDisplayEmptyString(data[i].fldFeeling);
@@ -84,7 +92,7 @@ function loadMyRunsTable(data)
         str += "<tr class='clickable-row' id='" + data[i].fldRunId + "'><td>" +
                 data[i].fldDate + "</td><td>" +
                 distanceHtml + "</td><td>" +
-                secondsHtml + "</td><td>" +
+                durationHtml + "</td><td>" +
                 kmPerHourHtml + "</td><td>" +
                 routeNameHtml + "</td><td>" +
                 feelingHtml + "</td></tr>";

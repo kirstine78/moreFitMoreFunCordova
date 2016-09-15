@@ -132,7 +132,27 @@ function getSplitString(someString, splitIndication)
 }
 
 
-
+function convertSecondsToHMS(durationInSeconds)
+{	
+	alert ("inside convertSecondsToHMS");
+	
+	durationInSeconds = Number(durationInSeconds);
+	
+	var h = Math.floor(durationInSeconds / 3600);
+	var m = Math.floor(durationInSeconds % 3600 / 60);
+	var s = Math.floor(durationInSeconds % 3600 % 60);
+	
+	if (m < 10)
+	{
+		m = "0" + m;
+	}
+	if (s < 10)
+	{
+		s = "0" + s;
+	}
+	
+	return h + ":" + m + ":" + s;	
+}
 
 
 
