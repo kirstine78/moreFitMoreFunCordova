@@ -17,6 +17,7 @@ function initPanel()
 	
     // click link in panel
     $("#linkMyRoutes").on("click", function(event){
+		alert ("link my routes clicked");
 
         event.preventDefault();  // don't redirect to my routes page
 

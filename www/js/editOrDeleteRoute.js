@@ -48,9 +48,9 @@ $("#editOrDeleteRoutePage").on("pageinit", function(){
     // btn click
     $("#btnEditRoute").on("click", function(){
 		
-		alert ("edit btn clicked");
+		// alert ("edit btn clicked");
 		
-		var userResponse = confirm("Warning: Any runs related to the run will be affected\nAre you sure you want to edit Route?");
+		var userResponse = confirm("Warning!\n\nAny runs related to this Route will be affected\n\nAre you sure you want to edit Route?");
 		if (userResponse == true) 
 		{
 			// ok proceed with edit
@@ -153,7 +153,10 @@ function editRoute()
 		if (data)  // insert route succeeded
 		{
 			// route creation successful; display msg to user
-			toast("Route was successfully saved", standardDurationToast, standardDelayToast);
+			toast("Route was successfully edited", standardDurationToast, standardDelayToast);
+		
+			// redirect to add run page home
+			$(location).attr('href', '#addRunPage');
 		}
 		else  // insert route failed
 		{
