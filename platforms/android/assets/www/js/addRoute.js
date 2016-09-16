@@ -90,10 +90,10 @@ function handleBtnClickAddRoute()
 	var routeNameOk = isRouteNameValid(routeName, "#txtAddRouteName");
    // alert("routeNameOk: " + routeNameOk);
 
-   var strAdd = routeKm + "." + routeMeter;
-   // alert("strAdd: " + strAdd);
+	var strAddKmAndMeter = routeKm + "." + routeMeter;
+   // alert("strAddKmAndMeter: " + strAddKmAndMeter);
    
-	var routeDistanceOk = isDistanceValid(strAdd);
+	var routeDistanceOk = isDistanceValid(strAddKmAndMeter);
    // alert("routeDistanceOk: " + routeDistanceOk);   
 
 	// only if routeNameOk && routeDistanceOk continue with add route process
