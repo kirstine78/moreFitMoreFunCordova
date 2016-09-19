@@ -43,6 +43,8 @@ function isDateValid(aDate)
 // check if route name is ok
 function isRouteNameValid(aRouteName, elementInHtml)
 {
+	var MAX_LENGTH = 20;
+	
     // clear red background
     doRedBackground(true, elementInHtml);
 
@@ -50,7 +52,7 @@ function isRouteNameValid(aRouteName, elementInHtml)
     var routeNameOk = false;
 
     // check if aRouteName field is filled out
-    if (aRouteName.length > 0 && aRouteName.length < 30)
+    if (aRouteName.length > 0 && aRouteName.length <= MAX_LENGTH)
     {
 		// update flag
 		var routeNameOk = true;
