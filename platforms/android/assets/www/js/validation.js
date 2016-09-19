@@ -14,13 +14,13 @@
 function isNameValidFormat(name)
 {
    // alert("into isNameValidFormat");   
+	var MAX_LENGTH = 20;
 	
     var nameValid = false;
 	
-	// name length must be more than 2 characters
-	if (name.length > 2)
-	{
-	
+	// name length must be more than 2 characters and less than or equal to MAX_LENGTH
+	if (name.length > 2 && name.length <= MAX_LENGTH)
+	{	
 		// name must only contain letters or digits		
 		// reg expr to make sure only letters and digits (case insensitive)
 		var nameRegularExpression = /^[a-z0-9]+$/i;
@@ -102,10 +102,11 @@ function isNewPasswordFormatOK(aPassword)
 function isEmailValidFormat(email)
 {
 //    alert("into isEmailValidFormat");
+	var MAX_LENGTH = 40;
 
     var emailValid = false;
 
-    if (email.length < 3 || email.indexOf(' ') >= 0 || email.indexOf('@') < 0)
+    if (email.length < 3 || email.length > MAX_LENGTH || email.indexOf(' ') >= 0 || email.indexOf('@') < 0)
     {
 //        alert("invalid email");
         emailValid = false;  // redundant
