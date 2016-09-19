@@ -140,6 +140,9 @@ function resetFieldsToDefaultAddRunPage()
 	
 	// duration
 	$("#timeRun").val("");
+	
+	// route select menu
+	populateDropDownMenuRoutes();
 
 	// set sliders to the default values
 	$("#sliAddRunKm").val(0);
