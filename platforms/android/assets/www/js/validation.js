@@ -37,6 +37,32 @@ function isDateValid(aDate)
 
 
 
+function isFeelingValid(feeling, elementInHtml)
+{
+	var MAX_LENGTH = 50;
+	
+    // clear red background
+    doRedBackground(true, elementInHtml);
+
+    // flag
+    var feelingOk = false;
+
+    // check if note/feeling field is has less or equal charaters
+    if (feeling.length <= MAX_LENGTH)
+    {
+		// update flag
+		var feelingOk = true;
+    }
+    else
+    {
+		// not valid route name
+        // color error
+        doRedBackground(false, elementInHtml);
+    }
+
+    return feelingOk;	
+}
+
 
 ////////////////////////// addRoute //////////////////////////
 

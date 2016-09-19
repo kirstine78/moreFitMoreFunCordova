@@ -188,9 +188,13 @@ function handleBtnClickAddRun()
 
 	var dateOk = isDateValid(date);
    // alert(dateOk);
+   
+	var feeling = $("#txtFeeling").val().trim();
+	
+	var feelingOk = isFeelingValid(feeling, "#txtFeeling");
 
-	// only if dateOk continue with add run process
-	if (dateOk)
+	// only if dateOk and feelingOk continue with add run process
+	if (dateOk && feelingOk)
 	{			
 		addRun();					
 	}
