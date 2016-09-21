@@ -29,25 +29,30 @@ $("#addRunPage").on("pageinit", function(){
     // addRunPage Event Handlers
     $("#addRunPage").on("pagebeforeshow", function(){
 		
-        // populate select menu for Routes
-        //populateDropDownMenuRoutes();
-		
 		// reset fields
 		resetFieldsToDefaultAddRunPage();		
 		
     }); // end addRunPage beforepageshow
 
-
-    // $("#addRunPage").on("pagebeforehide", function(){
-    // }); // end addRunPage pagebeforehide
-
 	
 	// selRoute Event Handlers
     $("#selRoute").on("change", function(){
 		
-		showOrHideSlidersAddRunPage();
+		var selectedRouteValue = getSelectedRouteValue("selRoute");
 		
-    }); // end selRoute pagebeforehide
+		// check if default option is chosen
+		if (selectedRouteValue < 0)
+		{
+			// show km and meter sliders		
+			showKmAndMeterSliders("#addRunKmSlider", "#addRunMeterSlider");
+		}
+		else
+		{
+			// hide km and meter sliders
+			hideKmAndMeterSliders("#addRunKmSlider", "#addRunMeterSlider");			
+		}		
+		
+    });
 	
 	
     // btn click
@@ -65,7 +70,7 @@ $("#addRunPage").on("pageinit", function(){
 
 
 // populate drop down menu for Routes
-function populateDropDownMenuRoutes(aDivContainer, aSelectElement)
+function populateDropDownMenuRoutes(aDivContainer, aSelectElement, aSelectedOption)
 {
     var idFromLocalStorage = window.localStorage.getItem("Id");
     var akeyFromLocalStorage = window.localStorage.getItem("OAuth");
@@ -94,7 +99,7 @@ function populateDropDownMenuRoutes(aDivContainer, aSelectElement)
             var str = "";
 			
 			// add the default value -1
-            str += "<option value='-1'>Choose Route (optional)</option>";
+            str += "<option value='-1'>No route chosen (optional)</option>";
 
             // build string to populate the drop down
             for (var i = 0; i < data.length; i++)
@@ -105,10 +110,20 @@ function populateDropDownMenuRoutes(aDivContainer, aSelectElement)
 
             // add str to element
             $(aSelectElement).html(str);
-
-            // set first option to be selected
-			var firstOption = aSelectElement + " option:first";
-            $(firstOption).attr('selected', 'selected');
+			
+			// decide which option to set as selected
+			if (aSelectedOption == null)
+			{
+				// set first option to be selected
+				var firstOption = aSelectElement + " option:first";
+				$(firstOption).attr('selected', 'selected');
+			}
+			else  // set the chosen option to selected
+			{
+				var aSelector = aSelectElement + " option[value='" + aSelectedOption + "']";
+				alert ("aSelector: " + aSelector);
+				$(aSelector).attr('selected','selected');
+			}
 
             //refresh and force rebuild
             $(aSelectElement).selectmenu('refresh', true);
@@ -119,8 +134,7 @@ function populateDropDownMenuRoutes(aDivContainer, aSelectElement)
 			// hide select menu
 			$(aDivContainer).hide();		
 			
-           alert("zero rows returned");
-           alert("data.length: " + data.length);
+           alert("zero rows returned\n\ndata.length: " + data.length);
         }
     })
     .always(function() { /* always execute this code */ })
@@ -143,7 +157,7 @@ function resetFieldsToDefaultAddRunPage()
 	$("#timeRun").val("");
 	
 	// route select menu
-	populateDropDownMenuRoutes("#selMenuForRoutes", "#selRoute");
+	populateDropDownMenuRoutes("#selMenuForRoutes", "#selRoute", null);
 
 	// set sliders to the default values
 	$("#sliAddRunKm").val(0);
@@ -162,27 +176,37 @@ function resetFieldsToDefaultAddRunPage()
 }
 
 
-function showOrHideSlidersAddRunPage()
+
+function getSelectedRouteValue(aSelMenuId)
 {
-	// get chosen value in select menu for routes
-	var selectedRouteValue = $('select[name=selRoute]').val();
+	// build selector string
+	var selectorString = "select[name=" + aSelMenuId + "]";
 	
-	// alert ("selectedRouteValue: " + selectedRouteValue);
+	// get chosen value in select menu for routes	
+	var selectedRouteValue = $(selectorString).val();
 	
-	// check if default option is chosen
-	if (selectedRouteValue < 0)
-	{
-		// show km and meter sliders
-		$("#addRunKmSlider").show();
-		$("#addRunMeterSlider").show();			
-	}
-	else
-	{
-		// hide km and meter sliders
-		$("#addRunKmSlider").hide();
-		$("#addRunMeterSlider").hide();			
-	}	
+	return selectedRouteValue;
 }
+
+
+function showKmAndMeterSliders(kmSlider, meterSlider)
+{
+	// show km and meter sliders
+	$(kmSlider).show();
+	$(meterSlider).show();
+}
+
+
+
+
+function hideKmAndMeterSliders(kmSlider, meterSlider)
+{
+	// hide km and meter sliders
+	$(kmSlider).hide();
+	$(meterSlider).hide();
+}
+
+
 
 
 function handleBtnClickAddRun()
@@ -190,7 +214,7 @@ function handleBtnClickAddRun()
 	var date = $("#dateRun").val();
    // alert("date: " + date);
 
-	var dateOk = isDateValid(date);
+	var dateOk = isDateValid(date, "#dateRun");
    // alert(dateOk);
    
 	var feeling = $("#txtFeeling").val().trim();
@@ -212,7 +236,14 @@ function addRun()
 	$.ajax({
 		type: "POST",
 		url: rootURL + 'run/',
-		data: stringifyRunDetails(),
+		data: stringifyRunDetails(	"#dateRun", 
+									"#txtFeeling", 
+									"selRoute", 
+									"#sliAddRunKm", 
+									"#sliAddRunMeter", 
+									"#timeRun", 
+									false, 
+									editRun_RunTableRowElementGlobal),
 		dataType: 'json',
 	})
 	.done(function(data) {
@@ -240,45 +271,53 @@ function addRun()
 
 
 
+
 // make json string
-function stringifyRunDetails()
+function stringifyRunDetails(	aDateElement, 
+								aFeelingElement, 
+								aRouteElement, 
+								aKmSliderElement, 
+								aMeterSliderElement, 
+								aDurationElement, 
+								isEditRun, 
+								aRowElement)
 {
-   // alert("inside stringifyRunDetails");
+   alert("inside stringifyRunDetails");
 	
-	var date 		= $("#dateRun").val();
+	var date 		= $(aDateElement).val();
 	var distance 	= null;	
 	var seconds 	= null;
-	var feeling 	= $("#txtFeeling").val().trim();	
+	var feeling 	= $(aFeelingElement).val().trim();	
 		
 	// get chosen value in select menu for routes
-	var runRouteId = $('select[name=selRoute]').val();
-	
-	// alert ("runRouteId: " + runRouteId);
+	var runRouteId = getSelectedRouteValue(aRouteElement);
+		
+	alert ("runRouteId: " + runRouteId);
 	
 	// check if default option is chosen or null
 	if (runRouteId < 0 || runRouteId == null)
 	{
-		// alert ("inside if runRouteId < 0 || runRouteId == null");
+		alert ("inside if runRouteId < 0 || runRouteId == null");
 		
 		// route NOT chosen, set it to null
 		runRouteId = null;
 		
 		// fill in distance
-		distance = $("#sliAddRunKm").val() + "." + $("#sliAddRunMeter").val();
+		distance = $(aKmSliderElement).val() + "." + $(aMeterSliderElement).val();
 		
-		// alert ("distance: " + distance);
+		alert ("distance: " + distance);
 		
 		// check distance
 		if (distance == "0.0")
 		{
 			// set distance to null or else it will look like 0.0 in db
 			distance = null;	
-			// alert ("distance: " + distance);			
+			alert ("distance: " + distance);			
 		}
 	}
 	
-	var duration = $("#timeRun").val();  // return string
-	// alert("duration: " + duration); 
+	var duration = $(aDurationElement).val();  // return string
+	alert("duration: " + duration); 
 
 	if (duration != "")
 	{		
@@ -307,6 +346,14 @@ function stringifyRunDetails()
     runDetails.seconds 				= seconds;
     runDetails.feeling 				= feeling;
     runDetails.runRouteId			= runRouteId;
+	
+	if (isEditRun)
+	{
+		alert("edit run is true");
+		// also add runId
+		runDetails.runId = aRowElement.data("runId");
+		alert("in stringify, runId: " + runDetails.runId);
+	}
 
     // serialize it
     var jsonStringRunDetails = JSON.stringify(runDetails);
@@ -315,6 +362,93 @@ function stringifyRunDetails()
 
     return jsonStringRunDetails;
 }  // end stringifyRunDetails()
+
+
+
+
+// // make json string
+// function stringifyRunDetails(aDateElement, aFeelingElement, aRouteElement, aKmSliderElement, aMeterSliderElement, aDurationElement, isEditRun)
+// {
+   // // alert("inside stringifyRunDetails");
+	
+	// var date 		= $("#dateRun").val();
+	// var distance 	= null;	
+	// var seconds 	= null;
+	// var feeling 	= $("#txtFeeling").val().trim();	
+		
+	// // get chosen value in select menu for routes
+	// // var runRouteId = $('select[name=selRoute]').val();
+	// var runRouteId = getSelectedRouteValue("selRoute");
+		
+	// // alert ("runRouteId: " + runRouteId);
+	
+	// // check if default option is chosen or null
+	// if (runRouteId < 0 || runRouteId == null)
+	// {
+		// // alert ("inside if runRouteId < 0 || runRouteId == null");
+		
+		// // route NOT chosen, set it to null
+		// runRouteId = null;
+		
+		// // fill in distance
+		// distance = $("#sliAddRunKm").val() + "." + $("#sliAddRunMeter").val();
+		
+		// // alert ("distance: " + distance);
+		
+		// // check distance
+		// if (distance == "0.0")
+		// {
+			// // set distance to null or else it will look like 0.0 in db
+			// distance = null;	
+			// // alert ("distance: " + distance);			
+		// }
+	// }
+	
+	// var duration = $("#timeRun").val();  // return string
+	// // alert("duration: " + duration); 
+
+	// if (duration != "")
+	// {		
+		// // set seconds
+		// seconds	= convertDurationStringToSeconds(duration);
+	// }
+	   
+	// // check if feeling was filled out
+	// if (feeling.length == 0)
+	// {
+		// // empty
+		// feeling = null;		
+	// }
+	
+	// // alert("date: " + date + "\ndistance: " + distance + "\nseconds: " + seconds + "\nfeeling: " + feeling);
+
+    // // create runDetails object
+    // var runDetails = new Object();
+
+    // // add properties to object
+    // runDetails.runCustomerId		= window.localStorage.getItem("Id");
+	// runDetails.name 				= window.localStorage.getItem("Name");
+    // runDetails.authenticationKey 	= window.localStorage.getItem("OAuth");
+    // runDetails.date					= date;
+    // runDetails.distance 			= distance;
+    // runDetails.seconds 				= seconds;
+    // runDetails.feeling 				= feeling;
+    // runDetails.runRouteId			= runRouteId;
+	
+	// if (isEditRun)
+	// {
+		// // also add runId
+		// runDetails.runId		= editRun_RunTableRowElementGlobal.data("runId");
+		// alert("in stringify, runId: " + runId);
+	// }
+
+    // // serialize it
+    // var jsonStringRunDetails = JSON.stringify(runDetails);
+
+// //    alert(jsonStringRunDetails);
+
+    // return jsonStringRunDetails;
+// }  // end stringifyRunDetails()
 
 
 

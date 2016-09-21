@@ -81,9 +81,7 @@ $("#editRunPage").on("pageinit", function(){
 
     // btn click
     $("#btnEditRun").on("click", function(){
-		
-		alert ("edit btn clicked");
-		
+				
 		handleBtnClickEditRun();
 		
     });
@@ -97,8 +95,6 @@ $("#editRunPage").on("pageinit", function(){
 
 function fillFieldsEditRun(rowElement)
 {
-	alert (JSON.stringify(editRun_RunTableRowElementGlobal));
-	alert (JSON.stringify(rowElement));
 	alert("runId: " + rowElement.data("runId"));	
 	alert("routeId: " + rowElement.children(".runRouteName").data("runrouteId"));	
 	
@@ -111,7 +107,7 @@ function fillFieldsEditRun(rowElement)
 	var duration = rowElement.children(".runDuration").text();
 	
 	// check format, 1:00:01 should be 01:00:01
-	if (duration.length < 8)
+	if (duration.length > 0 && duration.length < 8)
 	{
 		// add zero
 		duration = "0" + duration;
@@ -198,7 +194,8 @@ function handleBtnClickEditRun()
 
 function editRun()
 {
-	alert("inside editRun");
+	// alert("inside editRun");
+	
 	// edit run
 	$.ajax({
 		type: "PUT",

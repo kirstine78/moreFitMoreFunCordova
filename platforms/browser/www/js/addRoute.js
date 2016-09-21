@@ -171,6 +171,6 @@ function stringifyRouteDetails()
 
     return jsonStringRunDetails;
 
-}  // end stringifyRunDetails()
+}  // end stringifyRouteDetails()
 
 

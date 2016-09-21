@@ -204,5 +204,5 @@ function stringifyEditRouteDetails()
 
     return jsonStringRunDetails;
 
-}  // end stringifyRunDetails()
+}  // end stringifyEditRouteDetails()
 
