@@ -52,6 +52,7 @@
 </head>
 
 <body id="moreFitMoreFunBody">
+
 <div data-role="page" id="addRunPage"><!--Start page-->
     <div data-role="header">
         <a href="#mypanel" class="ui-btn ui-corner-all ui-icon-bars ui-btn-icon-notext">Bars Icon</a>
@@ -126,6 +127,54 @@
                 <!--dynamically build in js file-->
             </tbody>
         </table>
+
+    </div>
+</div><!--End page-->
+
+
+
+<div data-role="page" id="editRunPage"><!--Start page-->
+    <div data-role="header">
+        <a href="#mypanel" class="ui-btn ui-corner-all ui-icon-bars ui-btn-icon-notext">Bars Icon</a>
+        <h1>Edit Run</h1>
+    </div>
+
+    <div data-role="content">
+        <!--datebox calendar-->
+        <label for="dateEditRun">Date</label>
+        <input type="text" data-role="datebox" data-options='{"mode":"datebox"}' name="dateEditRun" id="dateEditRun">	
+		
+        <!--datebox duration-->
+        <label for="timeEditRun">Duration</label>
+        <input type="text" data-role="datebox" data-options='{"mode":"durationbox"}' name="timeEditRun" id="timeEditRun" >	
+
+        <!--drop down route name-->
+        <div data-role="fieldcontain" id="selMenuForRoutesEditRun">
+            <label for="selRouteEditRun" class="select">Route</label>
+            <select name="selRouteEditRun" id="selRouteEditRun">
+                <!--dynamically build in js file-->
+            </select>
+        </div>		
+		
+		<!-- km -->
+        <div data-role="fieldcontain" id="addRunKmSliderEditRun">
+			<label for="sliAddRunKmEditRun">Km</label>
+			<input type="range" name="sliAddRunKmEditRun" id="sliAddRunKmEditRun" min="0" max="20" data-highlight="true"/>
+		</div>
+		
+		<!-- meters -->
+        <div data-role="fieldcontain" id="addRunMeterSliderEditRun">
+			<label for="sliAddRunMeterEditRun">Meter</label>
+			<input type="range" name="sliAddRunMeterEditRun" id="sliAddRunMeterEditRun" min="0" max="950" step="50" data-highlight="true"/>
+		</div>
+		
+        <!--text input feeling -->
+        <div data-role="fieldcontain">
+            <label for="txtFeelingEditRun">Notes (max 50 chars)</label>
+            <input type="text" name="txtFeelingEditRun" id="txtFeelingEditRun" value=""  />
+        </div>
+		
+        <input id="btnEditRun" type="button" value="Edit Run">
 
     </div>
 </div><!--End page-->
