@@ -125,10 +125,10 @@ function isEmailValidFormat(email)
 ////////////////////////// addRun //////////////////////////
 
 // check if date is ok
-function isDateValid(aDate, anElementId)
+function isDateValid(aDate)
 {
     // clear red background
-    doRedBackground(true, anElementId);
+    doRedBackground(true, "#dateRun");
 
     // flag
     var dateOk = false;
@@ -140,7 +140,7 @@ function isDateValid(aDate, anElementId)
        // alert("date empty");
 
         // color error
-        doRedBackground(false, anElementId);
+        doRedBackground(false, "#dateRun");
     }
     else
     {

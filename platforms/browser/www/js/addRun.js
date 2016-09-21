@@ -30,60 +30,33 @@ $("#addRunPage").on("pageinit", function(){
     $("#addRunPage").on("pagebeforeshow", function(){
 		
         // populate select menu for Routes
-        populateDropDownMenuRoutes();
+        //populateDropDownMenuRoutes();
 		
+		// reset fields
+		resetFieldsToDefaultAddRunPage();		
 		
-    }); // end addRunPage live beforepageshow
+    }); // end addRunPage beforepageshow
 
 
-    $("#addRunPage").on("pagebeforehide", function(){
-//         alert("Before hide addRunPage");
-    }); // end addRunPage live pagebeforehide
-    // END addRunPage Event Handlers
+    // $("#addRunPage").on("pagebeforehide", function(){
+    // }); // end addRunPage pagebeforehide
 
 	
 	// selRoute Event Handlers
     $("#selRoute").on("change", function(){
 		
-		// get chosen value in select menu for routes
-		var selectedRouteValue = $('select[name=selRoute]').val();
+		showOrHideSlidersAddRunPage();
 		
-		// alert ("selectedRouteValue: " + selectedRouteValue);
-		
-		// check if default option is chosen
-		if (selectedRouteValue < 0)
-		{
-			// show km and meter sliders
-			$("#addRunKmSlider").show();
-			$("#addRunMeterSlider").show();			
-		}
-		else
-		{
-			// hide km and meter sliders
-			$("#addRunKmSlider").hide();
-			$("#addRunMeterSlider").hide();			
-		}		
-		
-    }); // end selRoute live pagebeforehide
-    // END selRoute Event Handlers
+    }); // end selRoute pagebeforehide
 	
 	
     // btn click
     $("#btnAddRun").on("click", function(){
-		// alert ("button clicked");
 		
-        var date = $("#dateRun").val();
-       // alert("date: " + date);
-
-        var dateOk = isDateValid(date);
-       // alert(dateOk);
-
-        // only if dateOk continue with add run process
-        if (dateOk)
-		{			
-			addRun();					
-		}		
+		handleBtnClickAddRun();
+		
     });
+	
 });  // end on pageinit
 
 
@@ -92,7 +65,7 @@ $("#addRunPage").on("pageinit", function(){
 
 
 // populate drop down menu for Routes
-function populateDropDownMenuRoutes()
+function populateDropDownMenuRoutes(aDivContainer, aSelectElement)
 {
     var idFromLocalStorage = window.localStorage.getItem("Id");
     var akeyFromLocalStorage = window.localStorage.getItem("OAuth");
@@ -116,7 +89,7 @@ function populateDropDownMenuRoutes()
            // alert("data.length: " + data.length);
 		   
 		   // show select menu
-			$("#selMenuForRoutes").show();
+			$(aDivContainer).show();
 
             var str = "";
 			
@@ -131,19 +104,20 @@ function populateDropDownMenuRoutes()
             }
 
             // add str to element
-            $("#selRoute").html(str);
+            $(aSelectElement).html(str);
 
             // set first option to be selected
-            $("#selRoute option:first").attr('selected', 'selected');
+			var firstOption = aSelectElement + " option:first";
+            $(firstOption).attr('selected', 'selected');
 
             //refresh and force rebuild
-            $("#selRoute").selectmenu('refresh', true);
+            $(aSelectElement).selectmenu('refresh', true);
         }
         else  // zero rows were returned
         {
             // no Routes returned
 			// hide select menu
-			$("#selMenuForRoutes").hide();		
+			$(aDivContainer).hide();		
 			
            alert("zero rows returned");
            alert("data.length: " + data.length);
@@ -157,31 +131,77 @@ function populateDropDownMenuRoutes()
     });
 }
 
-// check if date is ok
-function isDateValid(aDate)
+
+
+function resetFieldsToDefaultAddRunPage()
 {
-    // clear red background
-    doRedBackground(true, "#dateRun");
+	// date
+	$("#dateRun").val("");
+	doRedBackground(true, "#dateRun");
+	
+	// duration
+	$("#timeRun").val("");
+	
+	// route select menu
+	populateDropDownMenuRoutes("#selMenuForRoutes", "#selRoute");
 
-    // flag
-    var dateOk = false;
+	// set sliders to the default values
+	$("#sliAddRunKm").val(0);
+	$("#sliAddRunMeter").val(0);	
+  
+	// refresh sliders
+	$('#sliAddRunKm').slider('refresh');
+	$('#sliAddRunMeter').slider('refresh');	
+	
+	// slider notes		
+	$("#txtFeeling").val("");
+	
+	// show km and meter sliders
+	$("#addRunKmSlider").show();
+	$("#addRunMeterSlider").show();	
+}
 
-    // check if aDate field is filled out
-    if (aDate.length == 0)
-    {
-        // empty field
-       // alert("date empty");
 
-        // color error
-        doRedBackground(false, "#dateRun");
-    }
-    else
-    {
-		// update flag
-		var dateOk = true;
-    }
+function showOrHideSlidersAddRunPage()
+{
+	// get chosen value in select menu for routes
+	var selectedRouteValue = $('select[name=selRoute]').val();
+	
+	// alert ("selectedRouteValue: " + selectedRouteValue);
+	
+	// check if default option is chosen
+	if (selectedRouteValue < 0)
+	{
+		// show km and meter sliders
+		$("#addRunKmSlider").show();
+		$("#addRunMeterSlider").show();			
+	}
+	else
+	{
+		// hide km and meter sliders
+		$("#addRunKmSlider").hide();
+		$("#addRunMeterSlider").hide();			
+	}	
+}
 
-    return dateOk;
+
+function handleBtnClickAddRun()
+{
+	var date = $("#dateRun").val();
+   // alert("date: " + date);
+
+	var dateOk = isDateValid(date);
+   // alert(dateOk);
+   
+	var feeling = $("#txtFeeling").val().trim();
+	
+	var feelingOk = isFeelingValid(feeling, "#txtFeeling");
+
+	// only if dateOk and feelingOk continue with add run process
+	if (dateOk && feelingOk)
+	{			
+		addRun();					
+	}
 }
 
 
@@ -202,6 +222,9 @@ function addRun()
 		{
 			// run creation successful; display msg to user
 			toast("Run was successfully saved", standardDurationToast, standardDelayToast);
+			
+			// reset fields
+			resetFieldsToDefaultAddRunPage();			
 		}
 		else  // insert run failed
 		{
@@ -253,8 +276,7 @@ function stringifyRunDetails()
 			// alert ("distance: " + distance);			
 		}
 	}
-			
-		
+	
 	var duration = $("#timeRun").val();  // return string
 	// alert("duration: " + duration); 
 

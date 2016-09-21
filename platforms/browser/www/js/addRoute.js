@@ -29,6 +29,10 @@ $("#addRoutePage").on("pageinit", function(){
     // addRoutePage Event Handlers
     $("#addRoutePage").on("pagebeforeshow", function(){
 //         alert("Before show addRoutePage");
+		
+		// reset fields
+		resetFieldsToDefaultAddRoutePage();
+		
     }); // end addRoutePage live beforepageshow
 
 
@@ -40,34 +44,8 @@ $("#addRoutePage").on("pageinit", function(){
 
     // btn click
     $("#btnAddRoute").on("click", function(){
-		// alert ("button clicked");
 		
-        var routeName = $("#txtAddRouteName").val().trim();
-       alert("routeName: " + routeName);
-		
-		// slider input always there
-        var routeKm = $("#sliAddRouteKm").val();
-       alert("routeKm: " + routeKm);
-		
-        var routeMeter = $("#sliAddRouteMeter").val();
-       alert("routeMeter: " + routeMeter);
-	   
-	   
-		var routeNameOk = isRouteNameValid(routeName);
-       alert("routeNameOk: " + routeNameOk);
-
-	   var strAdd = routeKm + "." + routeMeter;
-	   alert("strAdd: " + strAdd);
-	   
-        var routeDistanceOk = isDistanceValid(strAdd);
-       alert("routeDistanceOk: " + routeDistanceOk);
-	   
-
-        // only if routeNameOk && routeDistanceOk continue with add route process
-        if (routeNameOk && routeDistanceOk)
-		{			
-			addRoute();
-		}
+		handleBtnClickAddRoute();
 		
     });
              
@@ -79,81 +57,50 @@ $("#addRoutePage").on("pageinit", function(){
 
 
 
-// check if route name is ok
-function isRouteNameValid(aRouteName)
+function resetFieldsToDefaultAddRoutePage()
 {
-    // clear red background
-    doRedBackground(true, "#txtAddRouteName");
+	// route name
+	$("#txtAddRouteName").val("");
+	doRedBackground(true, "#txtAddRouteName");
 
-    // flag
-    var routeNameOk = false;
-
-    // check if aRouteName field is filled out
-    if (aRouteName.length > 0 && aRouteName.length < 30)
-    {
-		// update flag
-		var routeNameOk = true;
-    }
-    else
-    {
-		// not valid route name
-        // color error
-        doRedBackground(false, "#txtAddRouteName");
-    }
-
-    return routeNameOk;
-}
-
-
-function isDistanceValid(distance)
-{
-	var distanceOk = false;
-	
-	// check if distance > 0
-	if (distance > 0)
-	{
-		distanceOk = true;		
-	}
-	else
-	{
-		toast("Distance can't be 0 km", standardDurationToast, standardDelayToast);
-	}
-	return distanceOk;	
+	// set sliders to the default values
+	$("#sliAddRouteKm").val(10);
+	$("#sliAddRouteMeter").val(0);	
+  
+	// refresh sliders
+	$('#sliAddRouteKm').slider('refresh');
+	$('#sliAddRouteMeter').slider('refresh');
 }
 
 
 
-// check if route km is ok
-function isRouteKmValid(km)
+
+function handleBtnClickAddRoute()
 {
-    // clear red background
-    doRedBackground(true, "#txtAddRouteKm");
-
-    // flag
-    var routeKmOk = false;
+	var routeName = $("#txtAddRouteName").val().trim();
+   // alert("routeName: " + routeName);
 	
-	// route name must be more than length zero
-	// route name must be less than length 30
+	// slider input always there
+	var routeKm = $("#sliAddRouteKm").val();
+   // alert("routeKm: " + routeKm);
+	
+	var routeMeter = $("#sliAddRouteMeter").val();
+   // alert("routeMeter: " + routeMeter);   
+   
+	var routeNameOk = isRouteNameValid(routeName, "#txtAddRouteName");
+   // alert("routeNameOk: " + routeNameOk);
 
-    // check if km field is filled out
-    if (km.length > 0)
-    {
-		
-		if (km > 0)  // positive number
-		{
-			// update flag
-			var routeKmOk = true;
-		}
-    }
-    else
-    {
-		// alert("no km input");
-		// not valid route name
-        // color error
-        doRedBackground(false, "#txtAddRouteKm");
-    }
+	var strAddKmAndMeter = routeKm + "." + routeMeter;
+   // alert("strAddKmAndMeter: " + strAddKmAndMeter);
+   
+	var routeDistanceOk = isDistanceValid(strAddKmAndMeter);
+   // alert("routeDistanceOk: " + routeDistanceOk);   
 
-    return routeKmOk;
+	// only if routeNameOk && routeDistanceOk continue with add route process
+	if (routeNameOk && routeDistanceOk)
+	{			
+		addRoute();
+	}
 }
 
 
@@ -174,6 +121,10 @@ function addRoute()
 		{
 			// route creation successful; display msg to user
 			toast("Route was successfully saved", standardDurationToast, standardDelayToast);
+			
+			// reset fields
+			resetFieldsToDefaultAddRoutePage();
+			$(location).attr('href', '#addRunPage');
 		}
 		else  // insert route failed
 		{

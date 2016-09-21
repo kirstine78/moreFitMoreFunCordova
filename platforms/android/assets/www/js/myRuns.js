@@ -48,8 +48,15 @@ $("#myRunsPage").on("pageinit", function(){
 
         // $(this) is the jQuery object
         var rowElementClicked = $(this);  // this refers to the 'tr' element
+		
+		editRun_RunTableRowElementGlobal = rowElementClicked;
 
-        showExtraBookingDetails(rowElementClicked);
+        // Check to see if background color is set or if it's set to white.
+        rowElementClicked.toggleClass('row_highlight');
+		
+		// redirect 
+		$(location).attr('href', '#editRunPage');
+		
     });
              
 });  // end #myRunsPage on pageinit
@@ -92,14 +99,16 @@ function loadMyRunsTable(data)
 			kmPerHourHtml = "";			
 		}
 		
+		// alert ("data[i].fldRouteId: " + data[i].fldRouteId);
+		
         // build html dynamically
-        str += "<tr class='clickable-row' id='" + data[i].fldRunId + "'><td>" +
-                data[i].fldDate + "</td><td>" +
-                distanceHtml + "</td><td>" +
-                durationHtml + "</td><td>" +
-                kmPerHourHtml + "</td><td>" +
-                routeNameHtml + "</td><td>" +
-                feelingHtml + "</td></tr>";
+        str += "<tr class='clickable-row' data-run-id='" + data[i].fldRunId + "'><td class='runDate'>" +
+                data[i].fldDate + "</td><td class='runDistance'>" +
+                distanceHtml + "</td><td class='runDuration'>" +
+                durationHtml + "</td><td class='runKmPerHour'>" +
+                kmPerHourHtml + "</td><td class='runRouteName' data-runroute-id='" + data[i].fldRouteId + "'>" +
+                routeNameHtml + "</td><td class='runFeeling'>" +
+                feelingHtml + "</td></tr>";			
     }
 
     // add str to html, find closest element, refresh table, trigger
@@ -125,22 +134,3 @@ function convertPossibleNullToDisplayEmptyString(value)
 	return str;	
 }
 
-
-// to show more details about a booking
-// function showExtraBookingDetails(rowElement)
-// {
-// //    alert("inside fct showExtraBookingDetails");
-// //    alert("element: " + rowElement.children(".suburb").text());
-// //    alert("element: " + rowElement.children(".streetName").text());
-// //    alert("element: " + rowElement.children(".description").text());
-
-    // // build str with booking details
-    // var str = "";
-
-    // str += rowElement.children(".suburb").text();
-    // str += "<br/><br/>" + rowElement.children(".streetName").text();
-    // str += "<br/><br/>" + rowElement.children(".description").text();
-
-    // // show more details in toast
-    // toast(str, 1700, 1700);
-// }

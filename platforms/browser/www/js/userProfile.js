@@ -178,53 +178,7 @@ function stringifyRegisterDetails(aName, anEmail, aPwd)
 }
 
 
-// check if email is valid format
-function isEmailValidFormat(email)
-{
-//    alert("into isEmailValidFormat");
 
-    var emailValid = false;
-
-    if (email.length < 3 || email.indexOf(' ') >= 0 || email.indexOf('@') < 0)
-    {
-//        alert("invalid email");
-        emailValid = false;  // redundant
-    }
-    else
-    {
-        emailValid = true;
-    }
-//    alert("emailValid: " + emailValid);
-    return emailValid;
-}
-
-
-// check if name is valid format
-function isNameValidFormat(name)
-{
-   // alert("into isNameValidFormat");   
-	
-    var nameValid = false;
-	
-	// name length must be more than 2 characters
-	if (name.length > 2)
-	{
-	
-		// name must only contain letters or digits		
-		// reg expr to make sure only letters and digits (case insensitive)
-		var nameRegularExpression = /^[a-z0-9]+$/i;
-		
-		// test the name entered
-		if (nameRegularExpression.test(name))
-		{
-			// alert("name matches reg expr");
-			
-			nameValid = true;
-		}		
-	}
-   // alert("nameValid: " + nameValid);
-    return nameValid;
-}
 
 
 // when editing My Profile the system must check if password entered is correct password
@@ -433,63 +387,7 @@ function stringifyUpdateDetails(anEmail, pwd)
 // }
 
 
-// current password must be entered
-function isStringLengthMoreThanZero(aPassword)
-{
-    var passwordFormatOK = false;
-    var length = aPassword.length;
-//    alert("Password length: " + length);
 
-    if (length > 0)
-    {
-//        alert ("ok length");
-        // check if space exists
-        if (aPassword.indexOf(' ') >= 0)
-        {
-//            alert("whitespace exists");
-            console.log("whitespace in password");
-        }
-        else
-        {
-//            alert("no whitespace");
-            passwordFormatOK = true;
-        }
-    }
-//    alert("passwordFormatOK: " + passwordFormatOK);
-    return passwordFormatOK;
-}
-
-
-// New password must be at least 3 chars, no spaces
-function isNewPasswordFormatOK(aPassword)
-{
-    var passwordFormatOK = false;
-    var length = aPassword.length;
-//    alert("Password length: " + length);
-
-    if (length > 2)
-    {
-//        alert ("ok length");
-        // check if space exists
-        if (aPassword.indexOf(' ') >= 0)
-        {
-//            alert("whitespace exists");
-            console.log("whitespace in password");
-        }
-        else
-        {
-//            alert("no whitespace");
-            passwordFormatOK = true;
-        }
-    }
-    else
-    {
-//         alert("< 3");
-        console.log("password less than 3");
-    }
-//    alert("passwordFormatOK: " + passwordFormatOK);
-    return passwordFormatOK;
-}
 
 
 // populate page with customer details

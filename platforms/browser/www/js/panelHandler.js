@@ -17,6 +17,7 @@ function initPanel()
 	
     // click link in panel
     $("#linkMyRoutes").on("click", function(event){
+		alert ("link my routes clicked");
 
         event.preventDefault();  // don't redirect to my routes page
 
@@ -28,7 +29,7 @@ function initPanel()
 // get runs for specific customer
 function getRunsForCustomer()
 {
-   alert("inside getRunsForCustomer");
+   // alert("inside getRunsForCustomer");
 
     // get from local storage id, name, and oaut
     var idFromLocalStorage = window.localStorage.getItem("Id");
@@ -81,7 +82,7 @@ function getRunsForCustomer()
 // get routes for specific customer
 function getRoutesForCustomer()
 {
-   alert("inside getRoutesForCustomer");
+   // alert("inside getRoutesForCustomer");
 
     // get from local storage id, name, and oaut
     var idFromLocalStorage = window.localStorage.getItem("Id");

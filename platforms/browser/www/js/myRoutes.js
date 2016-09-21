@@ -38,7 +38,8 @@ $("#myRoutesPage").on("pageinit", function(){
         // load all bookings for customer into the table to display
         loadMyRoutesTable(myRoutes_RoutesArrayGlobal);
 
-        console.log('before myRoutesPage show'); // from Eclipse
+        // make sure to remove highlight on the rows
+        $(".clickable-row").removeClass('row_highlight');
     });
 
 
@@ -50,6 +51,9 @@ $("#myRoutesPage").on("pageinit", function(){
         var rowElementClicked = $(this);  // this refers to the 'tr' element
 		
 		editOrDeleteRoute_RouteTableRowElementGlobal = rowElementClicked;
+
+        // Check to see if background color is set or if it's set to white.
+        rowElementClicked.toggleClass('row_highlight');
 		
 		// redirect 
 		$(location).attr('href', '#editOrDeleteRoutePage');

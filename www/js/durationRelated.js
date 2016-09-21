@@ -18,13 +18,13 @@ function convertDurationStringToSeconds(durationString)
 	{
 		
 		// else convert to seconds
-		var dayAmount = getDayAmount(durationString);
+		// var dayAmount = getDayAmount(durationString);
 		var hourAmount = getHourAmount(durationString);
 		var minutesAmount = getMinuteAmount(durationString);
 		var secondsAmount = getSecondAmount(durationString);	
 
 		// add amounts
-		var totalSeconds = daysToSeconds(dayAmount) + hoursToSeconds(hourAmount) + minutesToSeconds(minutesAmount) + secondsAmount;
+		var totalSeconds = hoursToSeconds(hourAmount) + minutesToSeconds(minutesAmount) + secondsAmount;
 		// alert ("totalSeconds: " + totalSeconds);
 		
 		if (totalSeconds == 0)
@@ -38,11 +38,11 @@ function convertDurationStringToSeconds(durationString)
 }
 
 
-function daysToSeconds(numberOfDays)
-{
-	var secondsInDay = 86400;
-	return numberOfDays * secondsInDay;
-}
+// function daysToSeconds(numberOfDays)
+// {
+	// var secondsInDay = 86400;
+	// return numberOfDays * secondsInDay;
+// }
 
 
 function hoursToSeconds(numberOfHours)
@@ -60,27 +60,24 @@ function minutesToSeconds(numberOfMinutes)
 
 
 
-function getDayAmount(durationString)
-{	
-    var resultArray = getSplitString(durationString, " ")
-	var days = resultArray[0];
+// function getDayAmount(durationString)
+// {	
+    // var resultArray = getSplitString(durationString, " ")
+	// var days = resultArray[0];
 	
-	// convert to number
-	days = Number(days);
+	// // convert to number
+	// days = Number(days);
 	
-	// alert ("days: " + days);
-	// alert ("type of days: " + typeof(days));
+	// // alert ("days: " + days);
+	// // alert ("type of days: " + typeof(days));
 	
-	return days;
-}
+	// return days;
+// }
 
 function getHourAmount(durationString)
 {	
-    var resultArray = getSplitString(durationString, " ")
-	var hourMinuteSecond = resultArray[2];
-	
-	var resultArrayHourMinuteSecond = getSplitString(hourMinuteSecond, ":");
-	var hours = resultArrayHourMinuteSecond[0];
+    var resultArray = getSplitString(durationString, ":");
+	var hours = resultArray[0];
 	
 	// convert to number
 	hours = Number(hours);
@@ -92,11 +89,8 @@ function getHourAmount(durationString)
 
 function getMinuteAmount(durationString)
 {	
-    var resultArray = getSplitString(durationString, " ")
-	var hourMinuteSecond = resultArray[2];
-	
-	var resultArrayHourMinuteSecond = getSplitString(hourMinuteSecond, ":");
-	var minutes = resultArrayHourMinuteSecond[1];
+    var resultArray = getSplitString(durationString, ":");
+	var minutes = resultArray[1];
 	
 	// convert to number
 	minutes = Number(minutes);
@@ -109,11 +103,8 @@ function getMinuteAmount(durationString)
 
 function getSecondAmount(durationString)
 {	
-    var resultArray = getSplitString(durationString, " ")
-	var hourMinuteSecond = resultArray[2];
-	
-	var resultArrayHourMinuteSecond = getSplitString(hourMinuteSecond, ":");
-	var seconds = resultArrayHourMinuteSecond[2];
+    var resultArray = getSplitString(durationString, ":");
+	var seconds = resultArray[2];
 	
 	// convert to number
 	seconds = Number(seconds);
