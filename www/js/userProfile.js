@@ -317,9 +317,6 @@ function updateCustomerProfileDetails(anEmail, newPwd)
 
             // toast message
             toast("Updated successfully", standardDurationToast, standardDelayToast);
-
-            // redirect to addRunPage
-            $(location).attr('href', '#addRunPage');
         }
         else  // data == null
         {
@@ -327,6 +324,9 @@ function updateCustomerProfileDetails(anEmail, newPwd)
             // toast message
             toast("Update failed", standardDurationToast, standardDelayToast);
         }
+
+		// redirect to myProfilePage
+		$(location).attr('href', '#myProfilePage');
     })
     .always(function() { /* always execute this code */ })
     .fail(function(data){

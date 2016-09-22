@@ -29,9 +29,10 @@ $("#myRunsPage").on("pageinit", function(){
 
     // myRunsPage Event Handlers
     $("#myRunsPage").on("pagebeforeshow", function(event){
-       alert("before myRunsPage show");
+       // alert("before myRunsPage show");
 		
-		alert("myRuns_RunsArrayGlobal: " + myRuns_RunsArrayGlobal);
+		// alert("myRuns_RunsArrayGlobal: " + myRuns_RunsArrayGlobal);
+		
 		// check if there are any runs to display
 		if (myRuns_RunsArrayGlobal != null)
 		{
@@ -40,8 +41,10 @@ $("#myRunsPage").on("pageinit", function(){
 			$("#myRunsTable tbody").html("").closest("table").table("refresh").trigger("create");
 
 			// load all runs for customer into the table to display
-			loadMyRunsTable(myRuns_RunsArrayGlobal);
-			// alert("after load");
+			loadMyRunsTable(myRuns_RunsArrayGlobal);			
+
+			// make sure to remove highlight on the rows
+			$(".clickable-row").removeClass('row_highlight');
 		}
         
         // console.log('before myRunsPage show'); // from Eclipse
