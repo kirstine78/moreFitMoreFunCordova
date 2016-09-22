@@ -85,6 +85,14 @@ $("#editRunPage").on("pageinit", function(){
 		handleBtnClickEditRun();
 		
     });
+
+
+    // btn click
+    $("#btnDeleteRun").on("click", function(){
+				
+		handleBtnClickDeleteRun(editRun_RunTableRowElementGlobal);
+		
+    });
 	
 });  // end #editRunPage on pageinit
 
@@ -234,4 +242,66 @@ function editRun()
 
 
 
+function handleBtnClickDeleteRun(aRowElement)
+{
+	alert("in handleBtnClickDeleteRun");
+	var runId = aRowElement.data("runId");
+   alert("runId: " + runId);
+	
+	deleteRun(runId);
+}
 
+
+
+function deleteRun(aRunId)
+{
+	alert("inside deleteRun");
+	
+	// delete run
+	$.ajax({
+		type: "DELETE",
+		url: rootURL + 'run/',
+		data: stringifyDeleteRunDetails(aRunId),
+		dataType: 'json',
+	})
+	.done(function(data) {
+//        alert("this is data: " + data);
+
+		if (data)  // delete run succeeded
+		{
+			// run deletion successful; display msg to user
+			toast("Run was successfully deleted", standardDurationToast, standardDelayToast);					
+		}
+		else  // delete run failed
+		{
+			// delete run did not go through; display msg to user
+			toast("Sorry run was not deleted<br/>Please try again", standardDurationToast, standardDelayToast);
+		}
+	})
+	.always(function() { /* always execute this code */ })
+	.fail(function(data){
+		toast("Error Connecting to Webservice.<br/>Try again.", standardDurationToast, standardDelayToast);
+	});	
+}
+
+
+function stringifyDeleteRunDetails(aRunId)
+{
+	alert("inside stringifyDeleteRunDetails");
+	
+	// create runDetails object
+    var runDetails = new Object();
+
+    // add properties to object
+    runDetails.runCustomerId		= window.localStorage.getItem("Id");
+	runDetails.name 				= window.localStorage.getItem("Name");
+    runDetails.authenticationKey 	= window.localStorage.getItem("OAuth");
+    runDetails.runId				= aRunId;
+
+    // serialize it
+    var jsonStringRunDetails = JSON.stringify(runDetails);
+
+//    alert(jsonStringRunDetails);
+
+    return jsonStringRunDetails;
+}
