@@ -1,14 +1,14 @@
 /*
  Name:  Kirstine Nielsen
- Id:    100527988
- Date:  08.08.2016
+ Date:  13.09.2016
+ App: 	MoreFitMoreFun
 */
 
 /////////////////////////////////////////Variable Declaration
 
 var myRoutesPageInited = false;
 
-var myRoutes_RoutesArrayGlobal;
+var myRoutes_RoutesArrayGlobal = null;
 
 
 /////////////////////////////////////////jquery On pageinit
@@ -29,17 +29,24 @@ $("#myRoutesPage").on("pageinit", function(){
 
     // myRoutesPage Event Handlers
     $("#myRoutesPage").on("pagebeforeshow", function(event){
-       // alert("before myRoutesPage show");
+       // alert("before myRoutesPage show");	   
+		
+		// alert("myRoutes_RoutesArrayGlobal: " + myRoutes_RoutesArrayGlobal);
+		
+		// check if there are any routes to display
+		if (myRoutes_RoutesArrayGlobal != null)
+		{
+			// wipe 'tbody' in the myRoutesTable, find closest element, refresh table, trigger
+			// make columns toggle work
+			$("#myRoutesTable tbody").html("").closest("table").table("refresh").trigger("create");
 
-        // wipe 'tbody' in the myRoutesTable, find closest element, refresh table, trigger
-        // make columns toggle work
-        $("#myRoutesTable tbody").html("").closest("table").table("refresh").trigger("create");
+			// load all bookings for customer into the table to display
+			loadMyRoutesTable(myRoutes_RoutesArrayGlobal);
 
-        // load all bookings for customer into the table to display
-        loadMyRoutesTable(myRoutes_RoutesArrayGlobal);
-
-        // make sure to remove highlight on the rows
-        $(".clickable-row").removeClass('row_highlight');
+			// make sure to remove highlight on the rows
+			$(".clickable-row").removeClass('row_highlight');
+		}
+		
     });
 
 

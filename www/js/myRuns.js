@@ -1,7 +1,7 @@
 /*
  Name:  Kirstine Nielsen
- Id:    100527988
- Date:  08.08.2016
+ Date:  13.09.2016
+ App: 	MoreFitMoreFun
 */
 
 /////////////////////////////////////////Variable Declaration
@@ -30,7 +30,8 @@ $("#myRunsPage").on("pageinit", function(){
     // myRunsPage Event Handlers
     $("#myRunsPage").on("pagebeforeshow", function(event){
        alert("before myRunsPage show");
-	   
+		
+		alert("myRuns_RunsArrayGlobal: " + myRuns_RunsArrayGlobal);
 		// check if there are any runs to display
 		if (myRuns_RunsArrayGlobal != null)
 		{
@@ -40,7 +41,7 @@ $("#myRunsPage").on("pageinit", function(){
 
 			// load all runs for customer into the table to display
 			loadMyRunsTable(myRuns_RunsArrayGlobal);
-			alert("after load");
+			// alert("after load");
 		}
         
         // console.log('before myRunsPage show'); // from Eclipse
@@ -73,13 +74,13 @@ $("#myRunsPage").on("pageinit", function(){
 // takes array of records as param
 function loadMyRunsTable(data)
 {
-   alert("inside fct loadMyRunsTable");
+   // alert("inside fct loadMyRunsTable");
     var str = "";
 
     // build string to populate my runs table
     for (var i = 0; i < data.length; i++)
     {
-		alert("in for loop");
+		// alert("in for loop");
 		var distanceHtml 	= convertPossibleNullToDisplayEmptyString(data[i].fldDistance);
 		var durationHtml 	= convertPossibleNullToDisplayEmptyString(data[i].fldSeconds);
 		var kmPerHourHtml 	= "";
@@ -117,7 +118,7 @@ function loadMyRunsTable(data)
                 feelingHtml + "</td></tr>";			
     }
 	
-	alert("end");
+	// alert("end");
 	
     // add str to html, find closest element, refresh table, trigger
     // make columns toggle work

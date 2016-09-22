@@ -1,7 +1,7 @@
 /*
  Name:  Kirstine Nielsen
- Id:    100527988
- Date:  08.08.2016
+ Date:  13.09.2016
+ App: 	MoreFitMoreFun
 */
 
 /////////////////////////////////////////Variable Declaration
@@ -71,19 +71,12 @@ $("#editOrDeleteRoutePage").on("pageinit", function(){
 		
 		// alert ("delete btn clicked");
 		
-		var userResponse = confirm("Warning!\n\nAre you sure you want to delete Route?");
+		var userResponse = confirm("Are you sure you want to delete Route?");
 		if (userResponse == true) 
 		{
 			// ok proceed with delete
 			deleteRoute();
-		} 
-		else 
-		{
-			// cancel
-			
-			// redirect
-			//$(location).attr('href', '#addRunPage');
-		}		
+		} 	
     });
 	
 });  // end #editOrDeleteRoutePage on pageinit
@@ -251,6 +244,9 @@ function deleteRoute()
 			// delete route did not go through; display msg to user
 			toast("Sorry route was not deleted<br/>Please try again", standardDurationToast, standardDelayToast);
 		}
+
+		// update global array myRoutes_RoutesArrayGlobal and redirect to my runs page implicit
+		getRoutesForCustomer();
 	})
 	.always(function() { /* always execute this code */ })
 	.fail(function(data){

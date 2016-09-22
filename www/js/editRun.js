@@ -1,7 +1,7 @@
 /*
  Name:  Kirstine Nielsen
- Id:    100527988
- Date:  08.08.2016
+ Date:  13.09.2016
+ App: 	MoreFitMoreFun
 */
 
 /////////////////////////////////////////Variable Declaration

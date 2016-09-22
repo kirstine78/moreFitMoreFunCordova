@@ -48,7 +48,7 @@ function getRunsForCustomer()
 //        alert("in done getRunsForCustomer");
 
         // Execute when ajax successfully completes
-		alert(data.length);
+		// alert(data.length);
 
         // check that data array is longer than zero
         if (data.length > 0)  // at least one row
@@ -65,13 +65,11 @@ function getRunsForCustomer()
         }
         else  // zero rows were returned
         {
-            // display msg to user
-            // toast("No runs to display", standardDurationToast, standardDelayToast);	
-			alert("the array before: " + myRuns_RunsArrayGlobal);
+			// alert("the array before: " + myRuns_RunsArrayGlobal);
 			
 			// no runs so set array to null again
 			myRuns_RunsArrayGlobal = null;
-			alert("the array after: " + myRuns_RunsArrayGlobal);
+			// alert("the array after: " + myRuns_RunsArrayGlobal);
 			
 			// hide runsToDisplayDiv and show noRunsMsgDiv
 			$("#runsToDisplayDiv").hide();
@@ -124,15 +122,27 @@ function getRoutesForCustomer()
 
             // set the array of routes
             myRoutes_RoutesArrayGlobal = data;
-
-            // redirect
-            $(location).attr('href', '#myRoutesPage');
+			
+			// show routesToDisplayDiv and hide noRoutesMsgDiv
+			$("#routesToDisplayDiv").show();
+			$("#noRoutesMsgDiv").hide();
         }
         else  // zero rows were returned
         {
-            // display msg to user
-            toast("No routes to display", standardDurationToast, standardDelayToast);
+			
+			// alert("the array before: " + myRoutes_RoutesArrayGlobal);
+			
+			// no routes so set array to null again
+			myRoutes_RoutesArrayGlobal = null;
+			// alert("the array after: " + myRoutes_RoutesArrayGlobal);
+			
+			// hide routesToDisplayDiv and show noRoutesMsgDiv
+			$("#routesToDisplayDiv").hide();
+			$("#noRoutesMsgDiv").show();
         }
+
+		// redirect
+		$(location).attr('href', '#myRoutesPage');
     })
     .always(function() { /* always execute this code */ })
     .fail(function(data){

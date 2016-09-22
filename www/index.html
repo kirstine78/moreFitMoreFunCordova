@@ -226,22 +226,28 @@
         <h1>My Routes</h1>
     </div>
     <div data-role="content">
-        <b>Click row to edit or delete</b>
-        <br/>
-        <br/>
+	
+		<div id="noRoutesMsgDiv">No Routes to display</div>
+		
+		<div id="routesToDisplayDiv">
+		
+			<b>Click row to edit or delete</b>
+			<br/>
+			<br/>
 
-        <table data-role="table" data-mode="columntoggle" class="ui-responsive" id="myRoutesTable">
-            <thead>
-            <tr>
-                <th>Name</th>
-                <th>Km</th>
-            </tr>
-            </thead>
-            <tbody>
-                <!--dynamically build in js file-->
-            </tbody>
-        </table>
-
+			<table data-role="table" data-mode="columntoggle" class="ui-responsive" id="myRoutesTable">
+				<thead>
+				<tr>
+					<th>Name</th>
+					<th>Km</th>
+				</tr>
+				</thead>
+				<tbody>
+					<!--dynamically build in js file-->
+				</tbody>
+			</table>
+		</div>
+		
     </div>
 </div><!--End page-->
 
