@@ -55,13 +55,6 @@ $("#editOrDeleteRoutePage").on("pageinit", function(){
 		{
 			// ok proceed with edit
 			submitRouteChanges();
-		} 
-		else 
-		{
-			// cancel
-			
-			// redirect
-			$(location).attr('href', '#addRunPage');
 		}		
     });
 
@@ -176,6 +169,9 @@ function editRoute()
 			// insert route did not go through; display msg to user
 			toast("Sorry route was not saved<br/>Please try again", standardDurationToast, standardDelayToast);
 		}
+
+		// update global array myRoutes_RoutesArrayGlobal and redirect to my runs page implicit
+		getRoutesForCustomer();
 	})
 	.always(function() { /* always execute this code */ })
 	.fail(function(data){
