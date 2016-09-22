@@ -121,7 +121,7 @@ function populateDropDownMenuRoutes(aDivContainer, aSelectElement, aSelectedOpti
 			else  // set the chosen option to selected
 			{
 				var aSelector = aSelectElement + " option[value='" + aSelectedOption + "']";
-				alert ("aSelector: " + aSelector);
+				// alert ("aSelector: " + aSelector);
 				$(aSelector).attr('selected','selected');
 			}
 

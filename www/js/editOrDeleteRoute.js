@@ -62,8 +62,28 @@ $("#editOrDeleteRoutePage").on("pageinit", function(){
 			
 			// redirect
 			$(location).attr('href', '#addRunPage');
-		}
+		}		
+    });
+
+
+    // btn click
+    $("#btnDeleteRoute").on("click", function(){
 		
+		// alert ("delete btn clicked");
+		
+		var userResponse = confirm("Warning!\n\nAre you sure you want to delete Route?");
+		if (userResponse == true) 
+		{
+			// ok proceed with delete
+			deleteRoute();
+		} 
+		else 
+		{
+			// cancel
+			
+			// redirect
+			//$(location).attr('href', '#addRunPage');
+		}		
     });
 	
 });  // end #editOrDeleteRoutePage on pageinit
@@ -140,7 +160,7 @@ function submitRouteChanges()
 
 function editRoute()
 {
-	// add route
+	// update route
 	$.ajax({
 		type: "PUT",
 		url: rootURL + 'route/',
@@ -186,23 +206,83 @@ function stringifyEditRouteDetails()
 	var distance = routeKm + "." + routeMeter;
 	// alert("distance: " + distance);	  
 
-    // create runDetails object
-    var runDetails = new Object();
+    // create routeDetails object
+    var routeDetails = new Object();
 
     // add properties to object
-    runDetails.customerId 			= window.localStorage.getItem("Id");
-	runDetails.name 				= window.localStorage.getItem("Name");
-    runDetails.authenticationKey 	= window.localStorage.getItem("OAuth");
-    runDetails.routeName 			= routeName;
-    runDetails.routeDistance 		= distance;
-    runDetails.routeId 				= editOrDeleteRoute_RouteTableRowElementGlobal.data("routeId");
+    routeDetails.customerId 			= window.localStorage.getItem("Id");
+	routeDetails.name 				= window.localStorage.getItem("Name");
+    routeDetails.authenticationKey 	= window.localStorage.getItem("OAuth");
+    routeDetails.routeName 			= routeName;
+    routeDetails.routeDistance 		= distance;
+    routeDetails.routeId 				= editOrDeleteRoute_RouteTableRowElementGlobal.data("routeId");
 	
     // serialize it
-    var jsonStringRunDetails = JSON.stringify(runDetails);
-
-//    alert(jsonStringRunDetails);
+    var jsonStringRunDetails = JSON.stringify(routeDetails);
 
     return jsonStringRunDetails;
 
 }  // end stringifyEditRouteDetails()
+
+
+
+function deleteRoute()
+{
+	// delete route
+	$.ajax({
+		type: "DELETE",
+		url: rootURL + 'route/',
+		data: stringifyDeleteRouteDetails(),
+		dataType: 'json',
+	})
+	.done(function(data) {
+//        alert("this is data: " + data);
+
+		if (data)  // delete route succeeded
+		{
+			// route creation successful; display msg to user
+			toast("Route was successfully delited", standardDurationToast, standardDelayToast);
+		
+			// redirect to add run page home
+			// $(location).attr('href', '#addRunPage');
+		}
+		else  // delete route failed
+		{
+			// delete route did not go through; display msg to user
+			toast("Sorry route was not deleted<br/>Please try again", standardDurationToast, standardDelayToast);
+		}
+	})
+	.always(function() { /* always execute this code */ })
+	.fail(function(data){
+		toast("Error Connecting to Webservice.<br/>Try again.", standardDurationToast, standardDelayToast);
+	});
+}
+
+
+
+// make json string
+function stringifyDeleteRouteDetails()
+{
+    // create routeDetails object
+    var routeDetails = new Object();
+
+    // add properties to object
+    routeDetails.customerId 		= window.localStorage.getItem("Id");
+	routeDetails.name 				= window.localStorage.getItem("Name");
+    routeDetails.authenticationKey 	= window.localStorage.getItem("OAuth");
+    routeDetails.routeId 			= editOrDeleteRoute_RouteTableRowElementGlobal.data("routeId");
+	
+    // serialize it
+    var jsonStringRunDetails = JSON.stringify(routeDetails);
+
+    return jsonStringRunDetails;
+
+}  // end stringifyDeleteRouteDetails()
+
+
+
+
+
+
+
 
