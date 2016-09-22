@@ -6,31 +6,31 @@
 
 /////////////////////////////////////////Variable Declaration
 
-var editRunPageInited = false;
+var editOrDeleteRunPageInited = false;
 
 var editRun_RunTableRowElementGlobal;
 
 
 /////////////////////////////////////////jquery On pageinit
 
-$("#editRunPage").on("pageinit", function(){
+$("#editOrDeleteRunPage").on("pageinit", function(){
 
-    if(editRunPageInited)
+    if(editOrDeleteRunPageInited)
     {
-//        alert("editRunPageInited true");
+//        alert("editOrDeleteRunPageInited true");
         return;
     }
     else
     {
-//        alert("editRunPageInited false");
-        editRunPageInited= true;
+//        alert("editOrDeleteRunPageInited false");
+        editOrDeleteRunPageInited= true;
     }  // end added code
 
 
-    // editRunPage Event Handlers
-    $("#editRunPage").on("pagebeforeshow", function(event){
+    // editOrDeleteRunPage Event Handlers
+    $("#editOrDeleteRunPage").on("pagebeforeshow", function(event){
 		
-//        alert("before editRunPage show");
+//        alert("before editOrDeleteRunPage show");
 		
 		// show km and meter sliders		
 		showKmAndMeterSliders("#editRunKmSlider", "#editRunMeterSlider");
@@ -50,10 +50,10 @@ $("#editRunPage").on("pageinit", function(){
     });
 
 
-    // editRunPage Event Handlers
-    $("#editRunPage").on("pagebeforehide", function(event){
+    // editOrDeleteRunPage Event Handlers
+    $("#editOrDeleteRunPage").on("pagebeforehide", function(event){
 
-//        alert("before editRunPage hide");
+//        alert("before editOrDeleteRunPage hide");
 		editRun_RunTableRowElementGlobal = null;
 
     });
@@ -102,10 +102,10 @@ $("#editRunPage").on("pageinit", function(){
 		
     });
 	
-});  // end #editRunPage on pageinit
+});  // end #editOrDeleteRunPage on pageinit
 
 
-///////////////////////////////////////// END jquery On #editRunPage Ready
+///////////////////////////////////////// END jquery On #editOrDeleteRunPage Ready
 
 
 

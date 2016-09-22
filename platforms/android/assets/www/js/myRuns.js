@@ -64,7 +64,7 @@ $("#myRunsPage").on("pageinit", function(){
         rowElementClicked.toggleClass('row_highlight');
 		
 		// redirect 
-		$(location).attr('href', '#editRunPage');
+		$(location).attr('href', '#editOrDeleteRunPage');
 		
     });
              
