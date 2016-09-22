@@ -89,8 +89,16 @@ $("#editRunPage").on("pageinit", function(){
 
     // btn click
     $("#btnDeleteRun").on("click", function(){
-				
-		handleBtnClickDeleteRun(editRun_RunTableRowElementGlobal);
+		
+		// alert ("delete btn clicked");
+		
+		var userResponse = confirm("Are you sure you want to delete Run?");
+		
+		if (userResponse == true) 
+		{
+			// ok proceed with delete
+			handleBtnClickDeleteRun(editRun_RunTableRowElementGlobal);
+		}	
 		
     });
 	
@@ -226,13 +234,16 @@ function editRun()
 			// run creation successful; display msg to user
 			toast("Run was successfully updated", standardDurationToast, standardDelayToast);
 			
-			doRedBackground(true, "#dateEditRun");			
+			doRedBackground(true, "#dateEditRun");		
 		}
 		else  // update run failed
 		{
 			// update run did not go through; display msg to user
 			toast("Sorry run was not updated<br/>Please try again", standardDurationToast, standardDelayToast);
 		}
+
+		// update global array myRuns_RunsArrayGlobal and redirect to my runs page implicit
+		getRunsForCustomer();
 	})
 	.always(function() { /* always execute this code */ })
 	.fail(function(data){
@@ -277,6 +288,9 @@ function deleteRun(aRunId)
 			// delete run did not go through; display msg to user
 			toast("Sorry run was not deleted<br/>Please try again", standardDurationToast, standardDelayToast);
 		}
+
+		// update global array myRuns_RunsArrayGlobal and redirect to my runs page implicit
+		getRunsForCustomer();
 	})
 	.always(function() { /* always execute this code */ })
 	.fail(function(data){

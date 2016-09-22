@@ -241,7 +241,7 @@ function deleteRoute()
 		if (data)  // delete route succeeded
 		{
 			// route creation successful; display msg to user
-			toast("Route was successfully delited", standardDurationToast, standardDelayToast);
+			toast("Route was successfully deleted", standardDurationToast, standardDelayToast);
 		
 			// redirect to add run page home
 			// $(location).attr('href', '#addRunPage');

@@ -8,7 +8,7 @@
 
 var myRunsPageInited = false;
 
-var myRuns_RunsArrayGlobal;
+var myRuns_RunsArrayGlobal = null;
 
 
 /////////////////////////////////////////jquery On pageinit
@@ -29,16 +29,21 @@ $("#myRunsPage").on("pageinit", function(){
 
     // myRunsPage Event Handlers
     $("#myRunsPage").on("pagebeforeshow", function(event){
-//        alert("before myRunsPage show");
+       alert("before myRunsPage show");
+	   
+		// check if there are any runs to display
+		if (myRuns_RunsArrayGlobal != null)
+		{
+			// wipe 'tbody' in the myRunsTable, find closest element, refresh table, trigger
+			// make columns toggle work
+			$("#myRunsTable tbody").html("").closest("table").table("refresh").trigger("create");
 
-        // wipe 'tbody' in the myRunsTable, find closest element, refresh table, trigger
-        // make columns toggle work
-        $("#myRunsTable tbody").html("").closest("table").table("refresh").trigger("create");
-
-        // load all bookings for customer into the table to display
-        loadMyRunsTable(myRuns_RunsArrayGlobal);
-
-        console.log('before myRunsPage show'); // from Eclipse
+			// load all runs for customer into the table to display
+			loadMyRunsTable(myRuns_RunsArrayGlobal);
+			alert("after load");
+		}
+        
+        // console.log('before myRunsPage show'); // from Eclipse
     });
 
 
@@ -68,12 +73,13 @@ $("#myRunsPage").on("pageinit", function(){
 // takes array of records as param
 function loadMyRunsTable(data)
 {
-   // alert("inside fct loadMyRunsTable");
+   alert("inside fct loadMyRunsTable");
     var str = "";
 
     // build string to populate my runs table
     for (var i = 0; i < data.length; i++)
     {
+		alert("in for loop");
 		var distanceHtml 	= convertPossibleNullToDisplayEmptyString(data[i].fldDistance);
 		var durationHtml 	= convertPossibleNullToDisplayEmptyString(data[i].fldSeconds);
 		var kmPerHourHtml 	= "";
@@ -110,7 +116,9 @@ function loadMyRunsTable(data)
                 routeNameHtml + "</td><td class='runFeeling'>" +
                 feelingHtml + "</td></tr>";			
     }
-
+	
+	alert("end");
+	
     // add str to html, find closest element, refresh table, trigger
     // make columns toggle work
     $("#myRunsTable tbody").html(str).closest("table").table("refresh").trigger("create");

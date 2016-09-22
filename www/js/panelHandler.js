@@ -48,6 +48,7 @@ function getRunsForCustomer()
 //        alert("in done getRunsForCustomer");
 
         // Execute when ajax successfully completes
+		alert(data.length);
 
         // check that data array is longer than zero
         if (data.length > 0)  // at least one row
@@ -57,15 +58,28 @@ function getRunsForCustomer()
 
             // set the array of runs
             myRuns_RunsArrayGlobal = data;
-
-            // redirect
-            $(location).attr('href', '#myRunsPage');
+			
+			// show runsToDisplayDiv and hide noRunsMsgDiv
+			$("#runsToDisplayDiv").show();
+			$("#noRunsMsgDiv").hide();
         }
         else  // zero rows were returned
         {
             // display msg to user
-            toast("No runs to display", standardDurationToast, standardDelayToast);
+            // toast("No runs to display", standardDurationToast, standardDelayToast);	
+			alert("the array before: " + myRuns_RunsArrayGlobal);
+			
+			// no runs so set array to null again
+			myRuns_RunsArrayGlobal = null;
+			alert("the array after: " + myRuns_RunsArrayGlobal);
+			
+			// hide runsToDisplayDiv and show noRunsMsgDiv
+			$("#runsToDisplayDiv").hide();
+			$("#noRunsMsgDiv").show();
         }
+		
+		// redirect
+		$(location).attr('href', '#myRunsPage');
     })
     .always(function() { /* always execute this code */ })
     .fail(function(data){
@@ -127,4 +141,4 @@ function getRoutesForCustomer()
         toast("Error Connecting to Webservice.<br/>Try again.", standardDurationToast, standardDelayToast);
     });
 
-}  // end getRunsForCustomer()
+}  // end getRoutesForCustomer()

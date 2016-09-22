@@ -108,26 +108,31 @@
         <h1>My Runs</h1>
     </div>
     <div data-role="content">
-        <b>Click row to edit or delete</b>
-        <br/>
-        <br/>
+	
+		<div id="noRunsMsgDiv">No Runs to display</div>
+		
+		<div id="runsToDisplayDiv">
+			<b>Click row to edit or delete</b>
+			<br/>
+			<br/>
 
-        <table data-role="table" data-mode="columntoggle" class="ui-responsive" id="myRunsTable">
-            <thead>
-            <tr>
-                <th>Date</th>
-                <th data-priority="1">Km</th>
-                <th data-priority="1">Time</th>
-                <th data-priority="1">Km/h</th>
-                <th data-priority="2">Route</th>
-                <th data-priority="3">Note</th>
-            </tr>
-            </thead>
-            <tbody>
-                <!--dynamically build in js file-->
-            </tbody>
-        </table>
-
+			<table data-role="table" data-mode="columntoggle" class="ui-responsive" id="myRunsTable">
+				<thead>
+				<tr>
+					<th>Date</th>
+					<th data-priority="1">Km</th>
+					<th data-priority="1">Time</th>
+					<th data-priority="1">Km/h</th>
+					<th data-priority="2">Route</th>
+					<th data-priority="3">Note</th>
+				</tr>
+				</thead>
+				<tbody>
+					<!--dynamically build in js file-->
+				</tbody>
+			</table>
+		</div>
+		
     </div>
 </div><!--End page-->
 
