@@ -103,8 +103,8 @@ $("#editRunPage").on("pageinit", function(){
 
 function fillFieldsEditRun(rowElement)
 {
-	alert("runId: " + rowElement.data("runId"));	
-	alert("routeId: " + rowElement.children(".runRouteName").data("runrouteId"));	
+	// alert("runId: " + rowElement.data("runId"));	
+	// alert("routeId: " + rowElement.children(".runRouteName").data("runrouteId"));	
 	
 	// fill fields
 	
@@ -244,9 +244,9 @@ function editRun()
 
 function handleBtnClickDeleteRun(aRowElement)
 {
-	alert("in handleBtnClickDeleteRun");
+	// alert("in handleBtnClickDeleteRun");
 	var runId = aRowElement.data("runId");
-   alert("runId: " + runId);
+   // alert("runId: " + runId);
 	
 	deleteRun(runId);
 }
@@ -255,7 +255,7 @@ function handleBtnClickDeleteRun(aRowElement)
 
 function deleteRun(aRunId)
 {
-	alert("inside deleteRun");
+	// alert("inside deleteRun");
 	
 	// delete run
 	$.ajax({
@@ -287,7 +287,7 @@ function deleteRun(aRunId)
 
 function stringifyDeleteRunDetails(aRunId)
 {
-	alert("inside stringifyDeleteRunDetails");
+	// alert("inside stringifyDeleteRunDetails");
 	
 	// create runDetails object
     var runDetails = new Object();
