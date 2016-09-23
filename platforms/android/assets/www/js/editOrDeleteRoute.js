@@ -160,9 +160,8 @@ function editRoute()
 		{
 			// route creation successful; display msg to user
 			toast("Route was successfully edited", standardDurationToast, standardDelayToast);
-		
-			// redirect to add run page home
-			$(location).attr('href', '#addRunPage');
+			
+			doRedBackground(true, "#txtEditRouteName");	
 		}
 		else  // insert route failed
 		{

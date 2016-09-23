@@ -45,6 +45,14 @@
     <link rel="stylesheet" href="themes/jquery.mobile.icons.min.css" />
 
     <script src="jQuery/jquery-1.12.0.js"></script>
+	
+	<script>
+		$(document).on("mobileinit", function() {
+			$.mobile.autoInitializePage = false;
+		});        
+	</script>
+		
+		
     <script src="jQuery/jquery.mobile-1.4.5.js"></script>
     <script src="DateBox/js/jtsage-datebox.min.js"></script>
 
@@ -108,35 +116,40 @@
         <h1>My Runs</h1>
     </div>
     <div data-role="content">
-        <b>Click row</b>
-        <br/>
-        <br/>
+	
+		<div id="noRunsMsgDiv">No Runs to display</div>
+		
+		<div id="runsToDisplayDiv">
+			<b>Click row to edit or delete</b>
+			<br/>
+			<br/>
 
-        <table data-role="table" data-mode="columntoggle" class="ui-responsive" id="myRunsTable">
-            <thead>
-            <tr>
-                <th>Date</th>
-                <th data-priority="1">Km</th>
-                <th data-priority="1">Time</th>
-                <th data-priority="1">Km/h</th>
-                <th data-priority="2">Route</th>
-                <th data-priority="3">Note</th>
-            </tr>
-            </thead>
-            <tbody>
-                <!--dynamically build in js file-->
-            </tbody>
-        </table>
-
+			<table data-role="table" data-mode="columntoggle" class="ui-responsive" id="myRunsTable">
+				<thead>
+				<tr>
+					<th>Date</th>
+					<th data-priority="1">Km</th>
+					<th data-priority="1">Time</th>
+					<th data-priority="1">Km/h</th>
+					<th data-priority="2">Route</th>
+					<th data-priority="3">Note</th>
+				</tr>
+				</thead>
+				<tbody>
+					<!--dynamically build in js file-->
+				</tbody>
+			</table>
+		</div>
+		
     </div>
 </div><!--End page-->
 
 
 
-<div data-role="page" id="editRunPage"><!--Start page-->
+<div data-role="page" id="editOrDeleteRunPage"><!--Start page-->
     <div data-role="header">
         <a href="#mypanel" class="ui-btn ui-corner-all ui-icon-bars ui-btn-icon-notext">Bars Icon</a>
-        <h1>Edit Run</h1>
+        <h1>Edit or Delete Run</h1>
     </div>
 
     <div data-role="content">
@@ -175,6 +188,7 @@
         </div>
 		
         <input id="btnEditRun" type="button" value="Edit Run">
+        <input id="btnDeleteRun" type="button" value="Delete Run">
 
     </div>
 </div><!--End page-->
@@ -220,22 +234,28 @@
         <h1>My Routes</h1>
     </div>
     <div data-role="content">
-        <b>Click row</b>
-        <br/>
-        <br/>
+	
+		<div id="noRoutesMsgDiv">No Routes to display</div>
+		
+		<div id="routesToDisplayDiv">
+		
+			<b>Click row to edit or delete</b>
+			<br/>
+			<br/>
 
-        <table data-role="table" data-mode="columntoggle" class="ui-responsive" id="myRoutesTable">
-            <thead>
-            <tr>
-                <th>Name</th>
-                <th>Km</th>
-            </tr>
-            </thead>
-            <tbody>
-                <!--dynamically build in js file-->
-            </tbody>
-        </table>
-
+			<table data-role="table" data-mode="columntoggle" class="ui-responsive" id="myRoutesTable">
+				<thead>
+				<tr>
+					<th>Name</th>
+					<th>Km</th>
+				</tr>
+				</thead>
+				<tbody>
+					<!--dynamically build in js file-->
+				</tbody>
+			</table>
+		</div>
+		
     </div>
 </div><!--End page-->
 
@@ -249,7 +269,7 @@
 
     <div data-role="content">
 		<div>
-			Warning!!! If you Edit route name or km it will affect any previous runs you have saved for the this route.
+			Warning!!! If you Edit route name or km it will affect any previous runs attached to this route.
 		</div>
 
         <!--text input route name -->
@@ -261,8 +281,7 @@
         <div data-role="fieldcontain">
 			<label for="sliEditRouteKm">Km</label>
 			<input type="range" name="sliEditRouteKm" id="sliEditRouteKm" value="10" min="0" max="20" data-highlight="true"/>
-		</div>
-		
+		</div>		
 		
         <div data-role="fieldcontain">
 			<label for="sliEditRouteMeter">Meter</label>
@@ -284,9 +303,11 @@
     </div>
     <div data-role="content">
 
-        <b>Welcome</b>		
+        <b>Please login or register</b>		
 		
         <input id="btnGoToLogin" type="button" value="Login">
+		
+		<br/>
 		
         <input id="btnGoToRegister" type="button" value="Register">
     </div>
@@ -300,19 +321,20 @@
     </div>
     <div data-role="content">
 
-        <!--text input Email -->
+        <!--text input User name -->
         <div data-role="fieldcontain">
-            <label for="txtLoginEmail">Email *</label>
-            <input type="email" name="txtLoginEmail" id="txtLoginEmail" value=""  />
+            <label for="txtLoginName">Username *</label>
+            <input type="text" name="txtLoginName" id="txtLoginName" value="kirsti"  />
         </div>
 
         <!--text input Password test with 'mypass'-->
         <div data-role="fieldcontain">
             <label for="txtLoginPassword">Password *</label>
-            <input type="password" name="txtLoginPassword" id="txtLoginPassword" value=""  />
+            <input type="password" name="txtLoginPassword" id="txtLoginPassword" value="mypass"  />
         </div>
 
         <input id="btnLogin" type="button" value="Login">
+        <input id="btnCancelLogin" type="button" value="Cancel">
     </div>
 </div><!--End page-->
 
@@ -324,7 +346,7 @@
     </div>
     <div data-role="content">
 
-        <!--text input First name -->
+        <!--text input User name -->
         <div data-role="fieldcontain">
             <label for="txtRegisterName">Username (letters and digits only max 20 chars) *</label>
             <input type="text" name="txtRegisterName" id="txtRegisterName" value="kirsti"  />
@@ -343,6 +365,7 @@
         </div>
 
         <input id="btnSubmitRegisterProfile" type="button" value="Register">
+        <input id="btnCancelRegistration" type="button" value="Cancel">
     </div>
 </div><!--End page-->
 
@@ -416,7 +439,7 @@
 <script src="js/userProfile.js"></script>
 <script src="js/addRun.js"></script>
 <script src="js/myRuns.js"></script>
-<script src="js/editRun.js"></script>
+<script src="js/editOrDeleteRun.js"></script>
 <script src="js/addRoute.js"></script>
 <script src="js/myRoutes.js"></script>
 <script src="js/editOrDeleteRoute.js"></script>

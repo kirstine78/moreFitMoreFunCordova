@@ -1,14 +1,14 @@
 /*
  Name:  Kirstine Nielsen
- Id:    100527988
- Date:  08.08.2016
+ Date:  13.09.2016
+ App: 	MoreFitMoreFun
 */
 
 /////////////////////////////////////////Variable Declaration
 
 var myRunsPageInited = false;
 
-var myRuns_RunsArrayGlobal;
+var myRuns_RunsArrayGlobal = null;
 
 
 /////////////////////////////////////////jquery On pageinit
@@ -29,16 +29,25 @@ $("#myRunsPage").on("pageinit", function(){
 
     // myRunsPage Event Handlers
     $("#myRunsPage").on("pagebeforeshow", function(event){
-//        alert("before myRunsPage show");
+       // alert("before myRunsPage show");
+		
+		// alert("myRuns_RunsArrayGlobal: " + myRuns_RunsArrayGlobal);
+		
+		// check if there are any runs to display
+		if (myRuns_RunsArrayGlobal != null)
+		{
+			// wipe 'tbody' in the myRunsTable, find closest element, refresh table, trigger
+			// make columns toggle work
+			$("#myRunsTable tbody").html("").closest("table").table("refresh").trigger("create");
 
-        // wipe 'tbody' in the myRunsTable, find closest element, refresh table, trigger
-        // make columns toggle work
-        $("#myRunsTable tbody").html("").closest("table").table("refresh").trigger("create");
+			// load all runs for customer into the table to display
+			loadMyRunsTable(myRuns_RunsArrayGlobal);			
 
-        // load all bookings for customer into the table to display
-        loadMyRunsTable(myRuns_RunsArrayGlobal);
-
-        console.log('before myRunsPage show'); // from Eclipse
+			// make sure to remove highlight on the rows
+			$(".clickable-row").removeClass('row_highlight');
+		}
+        
+        // console.log('before myRunsPage show'); // from Eclipse
     });
 
 
@@ -55,7 +64,10 @@ $("#myRunsPage").on("pageinit", function(){
         rowElementClicked.toggleClass('row_highlight');
 		
 		// redirect 
-		$(location).attr('href', '#editRunPage');
+		// $(location).attr('href', '#editOrDeleteRunPage');
+		
+		$.mobile.changePage('#editOrDeleteRunPage', {allowSamePageTransition: true, changeHash: false});
+		// $.mobile.changePage('#editOrDeleteRunPage');
 		
     });
              
@@ -74,6 +86,7 @@ function loadMyRunsTable(data)
     // build string to populate my runs table
     for (var i = 0; i < data.length; i++)
     {
+		// alert("in for loop");
 		var distanceHtml 	= convertPossibleNullToDisplayEmptyString(data[i].fldDistance);
 		var durationHtml 	= convertPossibleNullToDisplayEmptyString(data[i].fldSeconds);
 		var kmPerHourHtml 	= "";
@@ -110,7 +123,9 @@ function loadMyRunsTable(data)
                 routeNameHtml + "</td><td class='runFeeling'>" +
                 feelingHtml + "</td></tr>";			
     }
-
+	
+	// alert("end");
+	
     // add str to html, find closest element, refresh table, trigger
     // make columns toggle work
     $("#myRunsTable tbody").html(str).closest("table").table("refresh").trigger("create");

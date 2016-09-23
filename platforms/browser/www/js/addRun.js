@@ -10,7 +10,7 @@ var addRunPageInited = false;
 
 /////////////////////////////////////////jquery On pageinit
 
-
+	
 // only apply to specific page(s)
 $("#addRunPage").on("pageinit", function(){
 	
@@ -34,7 +34,8 @@ $("#addRunPage").on("pageinit", function(){
 		
     }); // end addRunPage beforepageshow
 
-	
+
+
 	// selRoute Event Handlers
     $("#selRoute").on("change", function(){
 		
@@ -86,6 +87,7 @@ function populateDropDownMenuRoutes(aDivContainer, aSelectElement, aSelectedOpti
        // alert("in done populateDropDownMenuRoutes");
 
         // Execute when ajax successfully completes
+		// alert(data.length);
 
         // check that data holding array is longer than zero
         if (data.length > 0)  // at least one row
@@ -121,7 +123,7 @@ function populateDropDownMenuRoutes(aDivContainer, aSelectElement, aSelectedOpti
 			else  // set the chosen option to selected
 			{
 				var aSelector = aSelectElement + " option[value='" + aSelectedOption + "']";
-				alert ("aSelector: " + aSelector);
+				// alert ("aSelector: " + aSelector);
 				$(aSelector).attr('selected','selected');
 			}
 
@@ -247,7 +249,7 @@ function addRun()
 		dataType: 'json',
 	})
 	.done(function(data) {
-//        alert("this is data: " + data);
+       // alert("this is data: " + data);
 
 		if (data)  // insert run succeeded
 		{
@@ -281,9 +283,7 @@ function stringifyRunDetails(	aDateElement,
 								aDurationElement, 
 								isEditRun, 
 								aRowElement)
-{
-   alert("inside stringifyRunDetails");
-	
+{	
 	var date 		= $(aDateElement).val();
 	var distance 	= null;	
 	var seconds 	= null;
@@ -292,12 +292,12 @@ function stringifyRunDetails(	aDateElement,
 	// get chosen value in select menu for routes
 	var runRouteId = getSelectedRouteValue(aRouteElement);
 		
-	alert ("runRouteId: " + runRouteId);
+	// alert ("runRouteId: " + runRouteId);
 	
 	// check if default option is chosen or null
 	if (runRouteId < 0 || runRouteId == null)
 	{
-		alert ("inside if runRouteId < 0 || runRouteId == null");
+		// alert ("inside if runRouteId < 0 || runRouteId == null");
 		
 		// route NOT chosen, set it to null
 		runRouteId = null;
@@ -305,19 +305,19 @@ function stringifyRunDetails(	aDateElement,
 		// fill in distance
 		distance = $(aKmSliderElement).val() + "." + $(aMeterSliderElement).val();
 		
-		alert ("distance: " + distance);
+		// alert ("distance: " + distance);
 		
 		// check distance
 		if (distance == "0.0")
 		{
 			// set distance to null or else it will look like 0.0 in db
 			distance = null;	
-			alert ("distance: " + distance);			
+			// alert ("distance: " + distance);			
 		}
 	}
 	
 	var duration = $(aDurationElement).val();  // return string
-	alert("duration: " + duration); 
+	// alert("duration: " + duration); 
 
 	if (duration != "")
 	{		
@@ -349,10 +349,8 @@ function stringifyRunDetails(	aDateElement,
 	
 	if (isEditRun)
 	{
-		alert("edit run is true");
 		// also add runId
 		runDetails.runId = aRowElement.data("runId");
-		alert("in stringify, runId: " + runDetails.runId);
 	}
 
     // serialize it
@@ -362,93 +360,6 @@ function stringifyRunDetails(	aDateElement,
 
     return jsonStringRunDetails;
 }  // end stringifyRunDetails()
-
-
-
-
-// // make json string
-// function stringifyRunDetails(aDateElement, aFeelingElement, aRouteElement, aKmSliderElement, aMeterSliderElement, aDurationElement, isEditRun)
-// {
-   // // alert("inside stringifyRunDetails");
-	
-	// var date 		= $("#dateRun").val();
-	// var distance 	= null;	
-	// var seconds 	= null;
-	// var feeling 	= $("#txtFeeling").val().trim();	
-		
-	// // get chosen value in select menu for routes
-	// // var runRouteId = $('select[name=selRoute]').val();
-	// var runRouteId = getSelectedRouteValue("selRoute");
-		
-	// // alert ("runRouteId: " + runRouteId);
-	
-	// // check if default option is chosen or null
-	// if (runRouteId < 0 || runRouteId == null)
-	// {
-		// // alert ("inside if runRouteId < 0 || runRouteId == null");
-		
-		// // route NOT chosen, set it to null
-		// runRouteId = null;
-		
-		// // fill in distance
-		// distance = $("#sliAddRunKm").val() + "." + $("#sliAddRunMeter").val();
-		
-		// // alert ("distance: " + distance);
-		
-		// // check distance
-		// if (distance == "0.0")
-		// {
-			// // set distance to null or else it will look like 0.0 in db
-			// distance = null;	
-			// // alert ("distance: " + distance);			
-		// }
-	// }
-	
-	// var duration = $("#timeRun").val();  // return string
-	// // alert("duration: " + duration); 
-
-	// if (duration != "")
-	// {		
-		// // set seconds
-		// seconds	= convertDurationStringToSeconds(duration);
-	// }
-	   
-	// // check if feeling was filled out
-	// if (feeling.length == 0)
-	// {
-		// // empty
-		// feeling = null;		
-	// }
-	
-	// // alert("date: " + date + "\ndistance: " + distance + "\nseconds: " + seconds + "\nfeeling: " + feeling);
-
-    // // create runDetails object
-    // var runDetails = new Object();
-
-    // // add properties to object
-    // runDetails.runCustomerId		= window.localStorage.getItem("Id");
-	// runDetails.name 				= window.localStorage.getItem("Name");
-    // runDetails.authenticationKey 	= window.localStorage.getItem("OAuth");
-    // runDetails.date					= date;
-    // runDetails.distance 			= distance;
-    // runDetails.seconds 				= seconds;
-    // runDetails.feeling 				= feeling;
-    // runDetails.runRouteId			= runRouteId;
-	
-	// if (isEditRun)
-	// {
-		// // also add runId
-		// runDetails.runId		= editRun_RunTableRowElementGlobal.data("runId");
-		// alert("in stringify, runId: " + runId);
-	// }
-
-    // // serialize it
-    // var jsonStringRunDetails = JSON.stringify(runDetails);
-
-// //    alert(jsonStringRunDetails);
-
-    // return jsonStringRunDetails;
-// }  // end stringifyRunDetails()
 
 
 

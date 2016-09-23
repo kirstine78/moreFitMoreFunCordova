@@ -1,7 +1,7 @@
 /*
  Name:  Kirstine Nielsen
- Id:    100527988
- Date:  08.08.2016
+ Date:  13.09.2016
+ App: 	MoreFitMoreFun
 */
 
 /////////////////////////////////////////Variable Declaration
@@ -55,15 +55,21 @@ $("#editOrDeleteRoutePage").on("pageinit", function(){
 		{
 			// ok proceed with edit
 			submitRouteChanges();
-		} 
-		else 
-		{
-			// cancel
-			
-			// redirect
-			$(location).attr('href', '#addRunPage');
-		}
+		}		
+    });
+
+
+    // btn click
+    $("#btnDeleteRoute").on("click", function(){
 		
+		// alert ("delete btn clicked");
+		
+		var userResponse = confirm("Are you sure you want to delete Route?");
+		if (userResponse == true) 
+		{
+			// ok proceed with delete
+			deleteRoute();
+		} 	
     });
 	
 });  // end #editOrDeleteRoutePage on pageinit
@@ -140,7 +146,7 @@ function submitRouteChanges()
 
 function editRoute()
 {
-	// add route
+	// update route
 	$.ajax({
 		type: "PUT",
 		url: rootURL + 'route/',
@@ -154,15 +160,17 @@ function editRoute()
 		{
 			// route creation successful; display msg to user
 			toast("Route was successfully edited", standardDurationToast, standardDelayToast);
-		
-			// redirect to add run page home
-			$(location).attr('href', '#addRunPage');
+			
+			doRedBackground(true, "#txtEditRouteName");	
 		}
 		else  // insert route failed
 		{
 			// insert route did not go through; display msg to user
 			toast("Sorry route was not saved<br/>Please try again", standardDurationToast, standardDelayToast);
 		}
+
+		// update global array myRoutes_RoutesArrayGlobal and redirect to my runs page implicit
+		getRoutesForCustomer();
 	})
 	.always(function() { /* always execute this code */ })
 	.fail(function(data){
@@ -186,23 +194,86 @@ function stringifyEditRouteDetails()
 	var distance = routeKm + "." + routeMeter;
 	// alert("distance: " + distance);	  
 
-    // create runDetails object
-    var runDetails = new Object();
+    // create routeDetails object
+    var routeDetails = new Object();
 
     // add properties to object
-    runDetails.customerId 			= window.localStorage.getItem("Id");
-	runDetails.name 				= window.localStorage.getItem("Name");
-    runDetails.authenticationKey 	= window.localStorage.getItem("OAuth");
-    runDetails.routeName 			= routeName;
-    runDetails.routeDistance 		= distance;
-    runDetails.routeId 				= editOrDeleteRoute_RouteTableRowElementGlobal.data("routeId");
+    routeDetails.customerId 			= window.localStorage.getItem("Id");
+	routeDetails.name 				= window.localStorage.getItem("Name");
+    routeDetails.authenticationKey 	= window.localStorage.getItem("OAuth");
+    routeDetails.routeName 			= routeName;
+    routeDetails.routeDistance 		= distance;
+    routeDetails.routeId 				= editOrDeleteRoute_RouteTableRowElementGlobal.data("routeId");
 	
     // serialize it
-    var jsonStringRunDetails = JSON.stringify(runDetails);
-
-//    alert(jsonStringRunDetails);
+    var jsonStringRunDetails = JSON.stringify(routeDetails);
 
     return jsonStringRunDetails;
 
 }  // end stringifyEditRouteDetails()
+
+
+
+function deleteRoute()
+{
+	// delete route
+	$.ajax({
+		type: "DELETE",
+		url: rootURL + 'route/',
+		data: stringifyDeleteRouteDetails(),
+		dataType: 'json',
+	})
+	.done(function(data) {
+//        alert("this is data: " + data);
+
+		if (data)  // delete route succeeded
+		{
+			// route creation successful; display msg to user
+			toast("Route was successfully deleted", standardDurationToast, standardDelayToast);
+		
+			// redirect to add run page home
+			// $(location).attr('href', '#addRunPage');
+		}
+		else  // delete route failed
+		{
+			// delete route did not go through; display msg to user
+			toast("Sorry route was not deleted<br/>Please try again", standardDurationToast, standardDelayToast);
+		}
+
+		// update global array myRoutes_RoutesArrayGlobal and redirect to my runs page implicit
+		getRoutesForCustomer();
+	})
+	.always(function() { /* always execute this code */ })
+	.fail(function(data){
+		toast("Error Connecting to Webservice.<br/>Try again.", standardDurationToast, standardDelayToast);
+	});
+}
+
+
+
+// make json string
+function stringifyDeleteRouteDetails()
+{
+    // create routeDetails object
+    var routeDetails = new Object();
+
+    // add properties to object
+    routeDetails.customerId 		= window.localStorage.getItem("Id");
+	routeDetails.name 				= window.localStorage.getItem("Name");
+    routeDetails.authenticationKey 	= window.localStorage.getItem("OAuth");
+    routeDetails.routeId 			= editOrDeleteRoute_RouteTableRowElementGlobal.data("routeId");
+	
+    // serialize it
+    var jsonStringRunDetails = JSON.stringify(routeDetails);
+
+    return jsonStringRunDetails;
+
+}  // end stringifyDeleteRouteDetails()
+
+
+
+
+
+
+
 

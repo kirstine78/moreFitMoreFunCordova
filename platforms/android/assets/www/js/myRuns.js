@@ -66,8 +66,8 @@ $("#myRunsPage").on("pageinit", function(){
 		// redirect 
 		// $(location).attr('href', '#editOrDeleteRunPage');
 		
-		// $.mobile.changePage('#editOrDeleteRunPage', {reverse: false, changeHash: false});
-		$.mobile.changePage('#editOrDeleteRunPage');
+		$.mobile.changePage('#editOrDeleteRunPage', {allowSamePageTransition: true, changeHash: false});
+		// $.mobile.changePage('#editOrDeleteRunPage');
 		
     });
              

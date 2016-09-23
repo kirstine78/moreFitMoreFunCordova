@@ -63,8 +63,8 @@ $("#registrationPage, #myProfilePage, #editProfilePage, #loginPage").on("pageini
     $("#btnCancelRegistration").on("click", function(){
 		// alert("cancel registration button clicked");
         
-		// redirect
-        $(location).attr('href', '#firstTimePage');		
+		//redirect to firstTimePage
+		$("#moreFitMoreFunBody").pagecontainer("change", '#firstTimePage', {changeHash: false});		
     });
 
 
@@ -92,8 +92,8 @@ $("#registrationPage, #myProfilePage, #editProfilePage, #loginPage").on("pageini
     $("#btnCancelLogin").on("click", function(){
 		// alert("cancel login button clicked");
         
-		// redirect
-        $(location).attr('href', '#firstTimePage');		
+		//redirect to firstTimePage
+		$("#moreFitMoreFunBody").pagecontainer("change", '#firstTimePage', {changeHash: false});	
     });
 	
 	
@@ -175,13 +175,15 @@ function register(aName, anEmail, aPwd)
 
             storeCredentialsInLocalStorage(data);
 
+			// remove first page in history
+			$.mobile.navigate.history.stack.splice(0, 1);
+			$(ui.prevPage).remove();
+
             toast("Registered", standardDurationToast, standardDelayToast);
 
             // redirect to addRunPage
-            $(location).attr('href', '#addRunPage');
-
             // changeHash false => don't save current page in navigation history (registration page)
-//            $.mobile.changePage('#addRunPage', {reverse: false, changeHash: false});
+			$("#moreFitMoreFunBody").pagecontainer("change", '#addRunPage', {changeHash: false});	
         }
     })
     .always(function() { /* always execute this code */ })
@@ -266,11 +268,15 @@ function loginUser()
 		{			
 			// login went ok
 			
+			
+			
 			// store locally username, id, and authkey
 			storeCredentialsInLocalStorage(data);
 
+			
             // redirect to addRunPage
-            $(location).attr('href', '#addRunPage');
+            // $(location).attr('href', '#addRunPage');
+			$("#moreFitMoreFunBody").pagecontainer("change", '#addRunPage', {changeHash: false});	
 		}
 		
     })

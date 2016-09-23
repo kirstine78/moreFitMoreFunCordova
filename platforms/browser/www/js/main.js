@@ -28,7 +28,12 @@ var standardDelayToast = 2000;
 
 var mainBrandsArrayGlobal;
 
-/////////////////////////////////////////jquery On Document Ready
+
+$(document).ready(function () {
+    alert("ready");
+	loadFirstPage();	
+});
+
 
 $(document).one('pagebeforecreate', function () {
     $.mobile.pageContainer.prepend(panel);
@@ -37,25 +42,12 @@ $(document).one('pagebeforecreate', function () {
 });
 
 
-///////////////////////////////////////// END jquery On Document Ready
-
-$(document).on("pageinit", function(){
-
-    if(pageinited)
-    {
-//        alert("pageinited true");
-        return;
-    }
-    else
-    {
-//        alert("pageinited false");
-        pageinited= true;
-    }  // end added code
-
-    // get from local storage id, name, and oaut
-    var idFromLocalStorage = window.localStorage.getItem("Id");
-    var akeyFromLocalStorage = window.localStorage.getItem("OAuth");
-    var nameFromLocalStorage = window.localStorage.getItem("Name");
+function loadFirstPage()
+{
+	// get from local storage id, name, and oaut
+    var idFromLocalStorage 		= window.localStorage.getItem("Id");
+    var akeyFromLocalStorage 	= window.localStorage.getItem("OAuth");
+    var nameFromLocalStorage 	= window.localStorage.getItem("Name");
 
 	// alert("from storage id: " + idFromLocalStorage
 		   // + "\nfrom storage name: " + nameFromLocalStorage
@@ -77,29 +69,26 @@ $(document).on("pageinit", function(){
 
             // Execute when ajax successfully completes
 
+			var nameOfFirstPage = "";			
+			
             // check value of VALID in the returned json object {"VALID":"true/false"}
 //            alert("data.VALID: " + data.VALID);
             if (data.VALID == "true")
             {
 //                alert("in if valid == true");
-
-                // redirect to addRunPage
-                $(location).attr('href', '#addRunPage');
-
-                // changeHash false => don't save current page in navigation history (but no current page...)
-//                $.mobile.changePage('#addRunPage', {reverse: false, changeHash: false});
+				nameOfFirstPage = "addRunPage";	
             }
 
             else  //{"VALID":"false"}
             {
                 //alert user
 //                alert ("invalid");
-
-                //redirect to firstTimePage
-                $(location).attr('href', '#firstTimePage');
-                // changeHash false => don't save current page in navigation history (but no current page...)
-//                $.mobile.changePage('#firstTimePage', {reverse: false, changeHash: false});
+				nameOfFirstPage = "firstTimePage";	
             }
+			
+			//redirect to either firstTimePage	or addRunPage
+			window.location.hash = nameOfFirstPage;
+			$.mobile.initializePage();
         })
         .always(function() { /* always execute this code */ })
         .fail(function(data){
@@ -113,13 +102,95 @@ $(document).on("pageinit", function(){
 //        alert("local storage empty");
 
         //redirect to firstTimePage page
-        $(location).attr('href', '#firstTimePage');
+		var nameOfFirstPage = "firstTimePage";	
+		
+		window.location.hash = nameOfFirstPage;
+		$.mobile.initializePage();
     }
+	
+}
 
+/////////////////////////////////////////jquery On Document Ready
 
-    // ref: https://jqmtricks.wordpress.com/2014/07/13/pagecontainerbeforechange/
+$(document).on("pageinit", function(){
+
+    if(pageinited)
+    {
+//        alert("pageinited true");
+        return;
+    }
+    else
+    {
+//        alert("pageinited false");
+        pageinited= true;
+    }  // end added code
+
+    // // get from local storage id, name, and oaut
+    // var idFromLocalStorage 		= window.localStorage.getItem("Id");
+    // var akeyFromLocalStorage 	= window.localStorage.getItem("OAuth");
+    // var nameFromLocalStorage 	= window.localStorage.getItem("Name");
+
+	// // alert("from storage id: " + idFromLocalStorage
+		   // // + "\nfrom storage name: " + nameFromLocalStorage
+		   // // + "\nfrom storage key: " + akeyFromLocalStorage);		   
+
+    // // make sure that name and OAuth exist in the local storage
+    // if (nameFromLocalStorage != null && akeyFromLocalStorage != null && idFromLocalStorage != null)
+    // {
+		// // alert("local storage has id, name, and authKey");
+
+        // // check if both matches both in database
+        // $.ajax({
+            // type: 'GET',
+            // url: rootURL + 'authenticate/' + nameFromLocalStorage + '/' + akeyFromLocalStorage,
+            // dataType: "json",
+        // })
+        // .done(function(data) {
+// //            alert("in done");
+
+            // // Execute when ajax successfully completes
+
+            // // check value of VALID in the returned json object {"VALID":"true/false"}
+// //            alert("data.VALID: " + data.VALID);
+            // if (data.VALID == "true")
+            // {
+// //                alert("in if valid == true");
+
+                // // redirect to addRunPage
+                // // changeHash false => don't save current page in navigation history (but no current page...)
+               // $("#moreFitMoreFunBody").pagecontainer("change", '#addRunPage', {changeHash: false});
+            // }
+
+            // else  //{"VALID":"false"}
+            // {
+                // //alert user
+// //                alert ("invalid");
+
+                // //redirect to firstTimePage				
+                // // changeHash false => don't save current page in navigation history (but no current page...)
+               // $("#moreFitMoreFunBody").pagecontainer("change", '#firstTimePage', {changeHash: false});
+            // }
+        // })
+        // .always(function() { /* always execute this code */ })
+        // .fail(function(data){
+            // /* Execute when ajax falls over */
+// //            alert("Error Connecting to Webservice.\nTry again.");
+            // toast("Error Connecting to Webservice - authenticate.<br/>Try again", standardDurationToast, standardDelayToast);
+        // });
+    // }
+    // else  // not existing; go to firstTimePage
+    // {
+// //        alert("local storage empty");
+
+        // //redirect to firstTimePage page
+		// $("#moreFitMoreFunBody").pagecontainer("change", '#firstTimePage', {changeHash: false});
+    // }
+
+		
+		
+	// ref: https://jqmtricks.wordpress.com/2014/07/13/pagecontainerbeforechange/
     // handler for event before any page change
-    // check to see if the page changing to is registrationPage (registration page)
+    // check to see if the page changing to is loginPage (login page)
     // $(document).on("pagecontainerbeforechange", function ( event, data ) {
 
 		// alert("pagecontainerbeforechange triggered");
@@ -128,12 +199,12 @@ $(document).on("pageinit", function(){
         // var absUrl = data.absUrl ? $.mobile.path.parseUrl(data.absUrl).hash.split("#")[1] : "";
 
         // var detailsStored = (window.localStorage.getItem("OAuth") != null || window.localStorage.getItem("Name") != null);
-       // // alert("pagecontainerbeforechange triggered 2");
+       // alert("pagecontainerbeforechange triggered 2");
 
-        // if ( typeof toPage == "object" && absUrl == "registrationPage" && detailsStored)
+        // if ( typeof toPage == "object" && absUrl == "firstTimePage" && detailsStored)
         // {
-           // // alert("pagecontainerbeforechange triggered 3");
-            // data.toPage[0] = $("#searchCarPage")[0];
+           // alert("pagecontainerbeforechange triggered 3");
+            // data.toPage[0] = $("#addRunPage")[0];
 
             // $.extend(data.options, {
                 // transition: "flip",
@@ -143,17 +214,31 @@ $(document).on("pageinit", function(){
     // });
 	
 	
-	
 	// btn click
     $("#btnGoToRegister").on("click", function(){
         
 		// alert ("button clicked");
 
 		//redirect to registrationPage
-		$(location).attr('href', '#registrationPage');		
+		$("#moreFitMoreFunBody").pagecontainer("change", '#registrationPage', {changeHash: false});
+    });
+
+
+    // btn click
+    $("#btnGoToLogin").on("click", function(){
+		// alert("button clicked");
+        
+		// redirect
+		$("#moreFitMoreFunBody").pagecontainer("change", '#loginPage', {changeHash: false});	
     });
              
 });  // end document on pageinit
+
+
+
+///////////////////////////////////////// END jquery On Document Ready
+
+
 
 
 

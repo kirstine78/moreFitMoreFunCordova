@@ -1,36 +1,36 @@
 /*
  Name:  Kirstine Nielsen
- Id:    100527988
- Date:  08.08.2016
+ Date:  13.09.2016
+ App: 	MoreFitMoreFun
 */
 
 /////////////////////////////////////////Variable Declaration
 
-var editRunPageInited = false;
+var editOrDeleteRunPageInited = false;
 
 var editRun_RunTableRowElementGlobal;
 
 
 /////////////////////////////////////////jquery On pageinit
 
-$("#editRunPage").on("pageinit", function(){
+$("#editOrDeleteRunPage").on("pageinit", function(){
 
-    if(editRunPageInited)
+    if(editOrDeleteRunPageInited)
     {
-//        alert("editRunPageInited true");
+//        alert("editOrDeleteRunPageInited true");
         return;
     }
     else
     {
-//        alert("editRunPageInited false");
-        editRunPageInited= true;
+//        alert("editOrDeleteRunPageInited false");
+        editOrDeleteRunPageInited= true;
     }  // end added code
 
 
-    // editRunPage Event Handlers
-    $("#editRunPage").on("pagebeforeshow", function(event){
+    // editOrDeleteRunPage Event Handlers
+    $("#editOrDeleteRunPage").on("pagebeforeshow", function(event){
 		
-//        alert("before editRunPage show");
+//        alert("before editOrDeleteRunPage show");
 		
 		// show km and meter sliders		
 		showKmAndMeterSliders("#editRunKmSlider", "#editRunMeterSlider");
@@ -50,10 +50,10 @@ $("#editRunPage").on("pageinit", function(){
     });
 
 
-    // editRunPage Event Handlers
-    $("#editRunPage").on("pagebeforehide", function(event){
+    // editOrDeleteRunPage Event Handlers
+    $("#editOrDeleteRunPage").on("pagebeforehide", function(event){
 
-//        alert("before editRunPage hide");
+//        alert("before editOrDeleteRunPage hide");
 		editRun_RunTableRowElementGlobal = null;
 
     });
@@ -81,27 +81,38 @@ $("#editRunPage").on("pageinit", function(){
 
     // btn click
     $("#btnEditRun").on("click", function(){
-		
-		alert ("edit btn clicked");
-		
+				
 		handleBtnClickEditRun();
 		
     });
+
+
+    // btn click
+    $("#btnDeleteRun").on("click", function(){
+		
+		// alert ("delete btn clicked");
+		
+		var userResponse = confirm("Are you sure you want to delete Run?");
+		
+		if (userResponse == true) 
+		{
+			// ok proceed with delete
+			handleBtnClickDeleteRun(editRun_RunTableRowElementGlobal);
+		}	
+		
+    });
 	
-});  // end #editRunPage on pageinit
+});  // end #editOrDeleteRunPage on pageinit
 
 
-///////////////////////////////////////// END jquery On #editRunPage Ready
+///////////////////////////////////////// END jquery On #editOrDeleteRunPage Ready
 
 
 
 function fillFieldsEditRun(rowElement)
 {
-	alert (JSON.stringify(editRun_RunTableRowElementGlobal));
-	alert (JSON.stringify(rowElement));
-	alert("runId: " + rowElement.data("runId"));	
-	alert("runId: " + editRun_RunTableRowElementGlobal.data("runId"));	
-	alert("routeId: " + rowElement.children(".runRouteName").data("runrouteId"));	
+	// alert("runId: " + rowElement.data("runId"));	
+	// alert("routeId: " + rowElement.children(".runRouteName").data("runrouteId"));	
 	
 	// fill fields
 	
@@ -112,7 +123,7 @@ function fillFieldsEditRun(rowElement)
 	var duration = rowElement.children(".runDuration").text();
 	
 	// check format, 1:00:01 should be 01:00:01
-	if (duration.length < 8)
+	if (duration.length > 0 && duration.length < 8)
 	{
 		// add zero
 		duration = "0" + duration;
@@ -199,7 +210,8 @@ function handleBtnClickEditRun()
 
 function editRun()
 {
-	alert("inside editRun");
+	// alert("inside editRun");
+	
 	// edit run
 	$.ajax({
 		type: "PUT",
@@ -222,13 +234,16 @@ function editRun()
 			// run creation successful; display msg to user
 			toast("Run was successfully updated", standardDurationToast, standardDelayToast);
 			
-			doRedBackground(true, "#dateEditRun");			
+			doRedBackground(true, "#dateEditRun");		
 		}
 		else  // update run failed
 		{
 			// update run did not go through; display msg to user
 			toast("Sorry run was not updated<br/>Please try again", standardDurationToast, standardDelayToast);
 		}
+
+		// update global array myRuns_RunsArrayGlobal and redirect to my runs page implicit
+		getRunsForCustomer();
 	})
 	.always(function() { /* always execute this code */ })
 	.fail(function(data){
@@ -238,4 +253,69 @@ function editRun()
 
 
 
+function handleBtnClickDeleteRun(aRowElement)
+{
+	// alert("in handleBtnClickDeleteRun");
+	var runId = aRowElement.data("runId");
+   // alert("runId: " + runId);
+	
+	deleteRun(runId);
+}
 
+
+
+function deleteRun(aRunId)
+{
+	// alert("inside deleteRun");
+	
+	// delete run
+	$.ajax({
+		type: "DELETE",
+		url: rootURL + 'run/',
+		data: stringifyDeleteRunDetails(aRunId),
+		dataType: 'json',
+	})
+	.done(function(data) {
+//        alert("this is data: " + data);
+
+		if (data)  // delete run succeeded
+		{
+			// run deletion successful; display msg to user
+			toast("Run was successfully deleted", standardDurationToast, standardDelayToast);					
+		}
+		else  // delete run failed
+		{
+			// delete run did not go through; display msg to user
+			toast("Sorry run was not deleted<br/>Please try again", standardDurationToast, standardDelayToast);
+		}
+
+		// update global array myRuns_RunsArrayGlobal and redirect to my runs page implicit
+		getRunsForCustomer();
+	})
+	.always(function() { /* always execute this code */ })
+	.fail(function(data){
+		toast("Error Connecting to Webservice.<br/>Try again.", standardDurationToast, standardDelayToast);
+	});	
+}
+
+
+function stringifyDeleteRunDetails(aRunId)
+{
+	// alert("inside stringifyDeleteRunDetails");
+	
+	// create runDetails object
+    var runDetails = new Object();
+
+    // add properties to object
+    runDetails.runCustomerId		= window.localStorage.getItem("Id");
+	runDetails.name 				= window.localStorage.getItem("Name");
+    runDetails.authenticationKey 	= window.localStorage.getItem("OAuth");
+    runDetails.runId				= aRunId;
+
+    // serialize it
+    var jsonStringRunDetails = JSON.stringify(runDetails);
+
+//    alert(jsonStringRunDetails);
+
+    return jsonStringRunDetails;
+}

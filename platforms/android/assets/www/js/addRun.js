@@ -10,7 +10,7 @@ var addRunPageInited = false;
 
 /////////////////////////////////////////jquery On pageinit
 
-
+	
 // only apply to specific page(s)
 $("#addRunPage").on("pageinit", function(){
 	
@@ -34,7 +34,8 @@ $("#addRunPage").on("pageinit", function(){
 		
     }); // end addRunPage beforepageshow
 
-	
+
+
 	// selRoute Event Handlers
     $("#selRoute").on("change", function(){
 		
