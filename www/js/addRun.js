@@ -83,9 +83,10 @@ function populateDropDownMenuRoutes(aDivContainer, aSelectElement, aSelectedOpti
         dataType: "json",
     })
     .done(function(data) {
-       // alert("in done populateDropDownMenuRoutes");
+       alert("in done populateDropDownMenuRoutes");
 
         // Execute when ajax successfully completes
+		alert(data.length);
 
         // check that data holding array is longer than zero
         if (data.length > 0)  // at least one row

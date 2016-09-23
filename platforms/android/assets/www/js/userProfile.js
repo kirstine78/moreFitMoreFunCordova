@@ -60,6 +60,16 @@ $("#registrationPage, #myProfilePage, #editProfilePage").on("pageinit", function
 
 
     // btn click
+    $("#btnCancelRegistration").on("click", function(){
+		alert("cancel registration button clicked");
+        
+		// redirect
+        $(location).attr('href', '#firstTimePage');
+		
+    });
+	
+	
+    // btn click
     $("#btnEditProfile").on("click", function(){
         // redirect
         $(location).attr('href', '#editProfilePage');

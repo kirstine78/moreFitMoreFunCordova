@@ -29,7 +29,7 @@ function initPanel()
 // get runs for specific customer
 function getRunsForCustomer()
 {
-   // alert("inside getRunsForCustomer");
+   alert("inside getRunsForCustomer");
 
     // get from local storage id, name, and oaut
     var idFromLocalStorage = window.localStorage.getItem("Id");
@@ -45,10 +45,10 @@ function getRunsForCustomer()
         dataType: "json",
     })
     .done(function(data) {
-//        alert("in done getRunsForCustomer");
+       alert("in done getRunsForCustomer");
 
         // Execute when ajax successfully completes
-		// alert(data.length);
+		alert(data.length);
 
         // check that data array is longer than zero
         if (data.length > 0)  // at least one row
