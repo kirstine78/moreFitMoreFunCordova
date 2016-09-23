@@ -165,7 +165,7 @@ function register(aName, anEmail, aPwd)
         if (data == null)
         {
 			// alert("Sorry name must be unique - data is null");
-			toast("Sorry name must be unique", standardDurationToast, standardDelayToast);
+			toast("Sorry Username already exists", standardDurationToast, standardDelayToast);
 
             doRedBackground(false, "#txtRegisterName");
         }
