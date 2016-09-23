@@ -248,7 +248,7 @@ function addRun()
 		dataType: 'json',
 	})
 	.done(function(data) {
-       alert("this is data: " + data);
+       // alert("this is data: " + data);
 
 		if (data)  // insert run succeeded
 		{

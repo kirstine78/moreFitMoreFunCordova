@@ -64,7 +64,10 @@ $("#myRunsPage").on("pageinit", function(){
         rowElementClicked.toggleClass('row_highlight');
 		
 		// redirect 
-		$(location).attr('href', '#editOrDeleteRunPage');
+		// $(location).attr('href', '#editOrDeleteRunPage');
+		
+		$.mobile.changePage('#editOrDeleteRunPage', {allowSamePageTransition: true, changeHash: false});
+		// $.mobile.changePage('#editOrDeleteRunPage');
 		
     });
              
