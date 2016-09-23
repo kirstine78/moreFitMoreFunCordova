@@ -141,8 +141,7 @@ $(document).on("pageinit", function(){
             // });
         // }
     // });
-	
-	
+		
 	
 	// btn click
     $("#btnGoToRegister").on("click", function(){
@@ -151,6 +150,15 @@ $(document).on("pageinit", function(){
 
 		//redirect to registrationPage
 		$(location).attr('href', '#registrationPage');		
+    });
+
+
+    // btn click
+    $("#btnGoToLogin").on("click", function(){
+		// alert("button clicked");
+        
+		// redirect
+        $(location).attr('href', '#loginPage');		
     });
              
 });  // end document on pageinit

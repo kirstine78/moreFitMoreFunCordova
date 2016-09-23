@@ -12,7 +12,7 @@ var profilePagesInited = false;
 /////////////////////////////////////////jquery On pageinit
 
 // only apply to specific page(s)
-$("#registrationPage, #myProfilePage, #editProfilePage").on("pageinit", function(){
+$("#registrationPage, #myProfilePage, #editProfilePage, #loginPage").on("pageinit", function(){
 
     if(profilePagesInited)
     {
@@ -61,11 +61,39 @@ $("#registrationPage, #myProfilePage, #editProfilePage").on("pageinit", function
 
     // btn click
     $("#btnCancelRegistration").on("click", function(){
-		alert("cancel registration button clicked");
+		// alert("cancel registration button clicked");
         
 		// redirect
-        $(location).attr('href', '#firstTimePage');
+        $(location).attr('href', '#firstTimePage');		
+    });
+
+
+    // btn click
+    $("#btnLogin").on("click", function(){
+		// alert("button clicked");	
 		
+		var isUsernameEntered = isInputFieldFilledOut("#txtLoginName");
+		var isPasswordEntered = isInputFieldFilledOut("#txtLoginPassword");
+		
+		// only proceed with login if both are entered
+		if (isUsernameEntered && isPasswordEntered)
+		{
+			loginUser();
+		}
+		else
+		{
+			// toast
+            toast("Enter both Username and Password", standardDurationToast, standardDelayToast);			
+		}	
+    });
+
+
+    // btn click
+    $("#btnCancelLogin").on("click", function(){
+		// alert("cancel login button clicked");
+        
+		// redirect
+        $(location).attr('href', '#firstTimePage');		
     });
 	
 	
@@ -136,21 +164,16 @@ function register(aName, anEmail, aPwd)
         // check if data is null which means that name was not unique
         if (data == null)
         {
-           alert("Sorry name must be unique - data is null");
+			// alert("Sorry name must be unique - data is null");
+			toast("Sorry name must be unique", standardDurationToast, standardDelayToast);
 
             doRedBackground(false, "#txtRegisterName");
         }
         else  // data is not null, so name is unique
         {
-               alert(data.fldName);
+            // alert(data.fldName);
 
-            // prepare local storage on mobile phone
-            var storage = window.localStorage;
-
-            // store customerId, authentication key and name locally on mobile phone
-            storage.setItem("Id", data.fldCustomerId)  // Pass a key name and its value to add or update that key.
-            storage.setItem("OAuth", data.fldAuthenticationKey)  // Pass a key name and its value to add or update that key.
-            storage.setItem("Name", data.fldName)  // Pass a key name and its value to add or update that key.
+            storeCredentialsInLocalStorage(data);
 
             toast("Registered", standardDurationToast, standardDelayToast);
 
@@ -191,6 +214,76 @@ function stringifyRegisterDetails(aName, anEmail, aPwd)
 
 
 
+// return boolean whether user has input text
+function isInputFieldFilledOut(inputFieldId)
+{
+	var isOk = false;
+	
+	var fieldString = $(inputFieldId).val().trim();
+	
+	if (fieldString.length > 0)
+	{
+		isOk = true;
+	}
+	return isOk;
+}
+
+
+
+function storeCredentialsInLocalStorage(data)
+{
+	// prepare local storage on mobile phone
+	var storage = window.localStorage;
+
+	// store customerId, authentication key and name locally on mobile phone
+	storage.setItem("Id", data.fldCustomerId)  // Pass a key name and its value to add or update that key.
+	storage.setItem("OAuth", data.fldAuthenticationKey)  // Pass a key name and its value to add or update that key.
+	storage.setItem("Name", data.fldName)  // Pass a key name and its value to add or update that key.
+}
+
+
+
+
+function loginUser()
+{	
+	var usernameEntered = $("#txtLoginName").val().trim();
+	var passwordEntered = $("#txtLoginPassword").val().trim();
+	
+	// login process
+    $.ajax({
+        type: 'GET',
+        url: rootURL + 'login/' + usernameEntered + '/' + passwordEntered + '/',
+        dataType: "json",
+    })
+    .done(function(data) {
+		
+		if (data == null)
+		{			
+			// toast
+            toast("Wrong login details<br/><br/>Please try again", standardDurationToast, standardDelayToast);	
+		}
+		if (data != null)
+		{			
+			// login went ok
+			
+			// store locally username, id, and authkey
+			storeCredentialsInLocalStorage(data);
+
+            // redirect to addRunPage
+            $(location).attr('href', '#addRunPage');
+		}
+		
+    })
+    .always(function() { /* always execute this code */ })
+    .fail(function(data){
+        /* Execute when ajax falls over */
+        toast("Error Connecting to Webservice.<br/>Try again.", standardDurationToast, standardDelayToast);
+    });
+}
+
+
+
+
 // when editing My Profile the system must check if password entered is correct password
 function submitProfileChanges(nameFromLocalStorage, akeyFromLocalStorage)
 {
@@ -207,9 +300,9 @@ function submitProfileChanges(nameFromLocalStorage, akeyFromLocalStorage)
 	}
 	else  // only check for valid email format if email was entered
 	{
-		alert("email is not null");
+		// alert("email is not null");
 		emailFormatOK = isEmailValidFormat(email);
-		alert ("returned emailFormatOK: " + emailFormatOK);
+		// alert ("returned emailFormatOK: " + emailFormatOK);
 	}
 
     var currentPassword = $("#pwdPasswordProve").val();
@@ -365,38 +458,6 @@ function stringifyUpdateDetails(anEmail, pwd)
 }
 
 
-// check if number is correct length and digits only
-// function isNumberFormatOk(aNumber, aLength)
-// {
-    // var numberFormatOK = false;
-    // var numberLength = aNumber.length;
-// //    alert("number length: " + numberLength);
-
-    // if (numberLength == aLength)
-    // {
-// //        alert ("ok length");
-        // // check if all digits
-        // if (aNumber.match(/^[0-9]+$/) != null)
-        // {
-// //            alert("all digits");
-            // numberFormatOK = true;
-        // }
-        // else
-        // {
-// //            alert("NOT all digits");
-            // console.log("NOT all digits");
-        // }
-    // }
-    // else
-    // {
-// //         alert("NOT 10 in length");
-            // console.log("NOT 10 in length");
-    // }
-// //    alert("numberFormatOK: " + numberFormatOK);
-    // return numberFormatOK;
-// }
-
-
 
 
 
@@ -453,7 +514,8 @@ function fillMobileTextFields(nameFromLocalStorage, akeyFromLocalStorage)
 //        alert("in done fillMobileTextFields");
 
         // Execute when ajax successfully completes
-		alert("the email to fill: " + data.fldEmail);
+		
+		// alert("the email to fill: " + data.fldEmail);
         // fill field
         $("#txtEditEmail").val(data.fldEmail);
     })
