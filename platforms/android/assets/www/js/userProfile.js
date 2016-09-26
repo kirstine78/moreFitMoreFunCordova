@@ -48,7 +48,7 @@ $("#registrationPage, #myProfilePage, #editProfilePage, #loginPage").on("pageini
         $("#pwdPasswordNew2").val("");
         $(".errorRedBackground").removeClass('errorRedBackground');
 
-        console.log('before editProfilePage show'); // from Eclipse
+        // console.log('before editProfilePage show'); // from Eclipse
     });
 
 

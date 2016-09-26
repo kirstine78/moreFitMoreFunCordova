@@ -41,7 +41,8 @@ function getRunsForCustomer()
     // get all runs for this customer
     $.ajax({
         type: 'GET',
-        url: rootURL + 'run/' + idFromLocalStorage + "/" + nameFromLocalStorage + "/" + akeyFromLocalStorage + "/",
+        // url: rootURL + 'run/' + idFromLocalStorage + "/" + nameFromLocalStorage + "/" + akeyFromLocalStorage + "/",
+        url: rootURL + 'run/' + "6" + "/" + "kirsti" + "/" + "fe365106beb6f09e5be40d443dc2bf3d" + "/",
         dataType: "json",
     })
     .done(function(data) {
@@ -49,35 +50,46 @@ function getRunsForCustomer()
 
         // Execute when ajax successfully completes
 		// alert(data.length);
-
-        // check that data array is longer than zero
-        if (data.length > 0)  // at least one row
-        {
-//            alert("at least one row returned");
-//            alert("data.length: " + data.length);
-
-            // set the array of runs
-            myRuns_RunsArrayGlobal = data;
-			
-			// show runsToDisplayDiv and hide noRunsMsgDiv
-			$("#runsToDisplayDiv").show();
-			$("#noRunsMsgDiv").hide();
-        }
-        else  // zero rows were returned
-        {
-			// alert("the array before: " + myRuns_RunsArrayGlobal);
-			
-			// no runs so set array to null again
-			myRuns_RunsArrayGlobal = null;
-			// alert("the array after: " + myRuns_RunsArrayGlobal);
-			
-			// hide runsToDisplayDiv and show noRunsMsgDiv
-			$("#runsToDisplayDiv").hide();
-			$("#noRunsMsgDiv").show();
-        }
 		
-		// redirect
-		$(location).attr('href', '#myRunsPage');
+		// data is null if authentication is false
+		if (data == null)
+		{
+			alert ("data is null");
+			
+			// TODO what to do when authentication is false? Redirect to login/register page
+		}
+		else  // authentication true
+		{
+			// check that data array is longer than zero
+			if (data.length > 0)  // at least one row
+			{
+			   alert("at least one row returned");
+			   alert("data.length: " + data.length);
+
+				// set the array of runs
+				myRuns_RunsArrayGlobal = data;
+				
+				// show runsToDisplayDiv and hide noRunsMsgDiv
+				$("#runsToDisplayDiv").show();
+				$("#noRunsMsgDiv").hide();
+			}
+			else  // zero rows were returned
+			{
+				alert("the array before: " + myRuns_RunsArrayGlobal);
+				
+				// no runs so set array to null again
+				myRuns_RunsArrayGlobal = null;
+				alert("the array after: " + myRuns_RunsArrayGlobal);
+				
+				// hide runsToDisplayDiv and show noRunsMsgDiv
+				$("#runsToDisplayDiv").hide();
+				$("#noRunsMsgDiv").show();
+			}
+			
+			// redirect
+			$(location).attr('href', '#myRunsPage');
+		}
+        
     })
     .always(function() { /* always execute this code */ })
     .fail(function(data){
