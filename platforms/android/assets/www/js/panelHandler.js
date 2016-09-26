@@ -62,8 +62,8 @@ function getRunsForCustomer()
 			// check that data array is longer than zero
 			if (data.length > 0)  // at least one row
 			{
-			   alert("at least one row returned");
-			   alert("data.length: " + data.length);
+			   // alert("at least one row returned");
+			   // alert("data.length: " + data.length);
 
 				// set the array of runs
 				myRuns_RunsArrayGlobal = data;
@@ -74,11 +74,11 @@ function getRunsForCustomer()
 			}
 			else  // zero rows were returned
 			{
-				alert("the array before: " + myRuns_RunsArrayGlobal);
+				// alert("the array before: " + myRuns_RunsArrayGlobal);
 				
 				// no runs so set array to null again
 				myRuns_RunsArrayGlobal = null;
-				alert("the array after: " + myRuns_RunsArrayGlobal);
+				// alert("the array after: " + myRuns_RunsArrayGlobal);
 				
 				// hide runsToDisplayDiv and show noRunsMsgDiv
 				$("#runsToDisplayDiv").hide();

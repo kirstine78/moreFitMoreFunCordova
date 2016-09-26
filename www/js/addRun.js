@@ -351,6 +351,8 @@ function stringifyRunDetails(	aDateElement,
     runDetails.runCustomerId		= window.localStorage.getItem("Id");
 	runDetails.name 				= window.localStorage.getItem("Name");
     runDetails.authenticationKey 	= window.localStorage.getItem("OAuth");
+	// runDetails.name 				= "kirsti";
+    // runDetails.authenticationKey 	= "wrong";
     runDetails.date					= date;
     runDetails.distance 			= distance;
     runDetails.seconds 				= seconds;
