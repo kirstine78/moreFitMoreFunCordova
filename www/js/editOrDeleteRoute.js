@@ -154,23 +154,33 @@ function editRoute()
 		dataType: 'json',
 	})
 	.done(function(data) {
-//        alert("this is data: " + data);
-
-		if (data)  // insert route succeeded
+       alert("this is data: " + data);
+		
+		// data is null if credentials can't be authenticated
+		if (data == null)
 		{
-			// route creation successful; display msg to user
-			toast("Route was successfully edited", standardDurationToast, standardDelayToast);
+			alert("data is null - credentials fake");
 			
-			doRedBackground(true, "#txtEditRouteName");	
+			// TODO what to do when authentication is false? Redirect to login/register page
 		}
-		else  // insert route failed
+		else  // credentials ok
 		{
-			// insert route did not go through; display msg to user
-			toast("Sorry route was not saved<br/>Please try again", standardDurationToast, standardDelayToast);
-		}
+			if (data)  // edit route succeeded
+			{
+				// route creation successful; display msg to user
+				toast("Route was successfully edited", standardDurationToast, standardDelayToast);
+				
+				doRedBackground(true, "#txtEditRouteName");	
+			}
+			else  // edit route failed
+			{
+				// edit route did not go through; display msg to user
+				toast("Sorry route was not edited<br/>Please try again", standardDurationToast, standardDelayToast);
+			}
 
-		// update global array myRoutes_RoutesArrayGlobal and redirect to my runs page implicit
-		getRoutesForCustomer();
+			// update global array myRoutes_RoutesArrayGlobal and redirect to my runs page implicit
+			getRoutesForCustomer();
+		}		
 	})
 	.always(function() { /* always execute this code */ })
 	.fail(function(data){
@@ -198,12 +208,14 @@ function stringifyEditRouteDetails()
     var routeDetails = new Object();
 
     // add properties to object
-    routeDetails.customerId 			= window.localStorage.getItem("Id");
+    routeDetails.customerId 		= window.localStorage.getItem("Id");
 	routeDetails.name 				= window.localStorage.getItem("Name");
     routeDetails.authenticationKey 	= window.localStorage.getItem("OAuth");
+	// routeDetails.name 				= "kirsti";
+    // routeDetails.authenticationKey 	= "wrong";
     routeDetails.routeName 			= routeName;
     routeDetails.routeDistance 		= distance;
-    routeDetails.routeId 				= editOrDeleteRoute_RouteTableRowElementGlobal.data("routeId");
+    routeDetails.routeId 			= editOrDeleteRoute_RouteTableRowElementGlobal.data("routeId");
 	
     // serialize it
     var jsonStringRunDetails = JSON.stringify(routeDetails);

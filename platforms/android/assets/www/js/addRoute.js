@@ -169,10 +169,8 @@ function stringifyRouteDetails()
 
     // add properties to object
     runDetails.customerId 			= window.localStorage.getItem("Id");
-	// runDetails.name 				= window.localStorage.getItem("Name");
-    // runDetails.authenticationKey 	= window.localStorage.getItem("OAuth");
-	runDetails.name 				= "dkirsti";
-    runDetails.authenticationKey 	= "fe365106beb6f09e5be40d443dc2bf3d";
+	runDetails.name 				= window.localStorage.getItem("Name");
+    runDetails.authenticationKey 	= window.localStorage.getItem("OAuth");
     runDetails.routeName 			= routeName;
     runDetails.routeDistance 		= distance;
 
