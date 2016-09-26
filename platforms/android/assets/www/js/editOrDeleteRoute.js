@@ -237,23 +237,32 @@ function deleteRoute()
 	})
 	.done(function(data) {
 //        alert("this is data: " + data);
-
-		if (data)  // delete route succeeded
-		{
-			// route creation successful; display msg to user
-			toast("Route was successfully deleted", standardDurationToast, standardDelayToast);
 		
-			// redirect to add run page home
-			// $(location).attr('href', '#addRunPage');
-		}
-		else  // delete route failed
+		// data is null if credentials can't be authenticated
+		if (data == null)
 		{
-			// delete route did not go through; display msg to user
-			toast("Sorry route was not deleted<br/>Please try again", standardDurationToast, standardDelayToast);
+			alert("data is null - credentials fake");
+			
+			// TODO what to do when authentication is false? Redirect to login/register page
+		}
+		else  // credentials ok
+		{
+			if (data)  // delete route succeeded
+			{
+				// route creation successful; display msg to user
+				toast("Route was successfully deleted", standardDurationToast, standardDelayToast);			
+			}
+			else  // delete route failed
+			{
+				// delete route did not go through; display msg to user
+				toast("Sorry route was not deleted<br/>Please try again", standardDurationToast, standardDelayToast);
+			}
+
+			// update global array myRoutes_RoutesArrayGlobal and redirect to my runs page implicit
+			getRoutesForCustomer();
 		}
 
-		// update global array myRoutes_RoutesArrayGlobal and redirect to my runs page implicit
-		getRoutesForCustomer();
+		
 	})
 	.always(function() { /* always execute this code */ })
 	.fail(function(data){
@@ -273,6 +282,8 @@ function stringifyDeleteRouteDetails()
     routeDetails.customerId 		= window.localStorage.getItem("Id");
 	routeDetails.name 				= window.localStorage.getItem("Name");
     routeDetails.authenticationKey 	= window.localStorage.getItem("OAuth");
+	// routeDetails.name 				= "kirsti";
+    // routeDetails.authenticationKey 	= "wrong";
     routeDetails.routeId 			= editOrDeleteRoute_RouteTableRowElementGlobal.data("routeId");
 	
     // serialize it
