@@ -250,20 +250,30 @@ function addRun()
 	})
 	.done(function(data) {
        // alert("this is data: " + data);
-
-		if (data)  // insert run succeeded
+		
+		// data is null if credentials can't be authenticated
+		if (data == null)
 		{
-			// run creation successful; display msg to user
-			toast("Run was successfully saved", standardDurationToast, standardDelayToast);
+			alert("data is null - credentials fake");
 			
-			// reset fields
-			resetFieldsToDefaultAddRunPage();			
+			// TODO what to do when authentication is false? Redirect to login/register page
 		}
-		else  // insert run failed
+		else  // credentials ok
 		{
-			// insert run did not go through; display msg to user
-			toast("Sorry run was not saved<br/>Please try again", standardDurationToast, standardDelayToast);
-		}
+			if (data)  // insert run succeeded
+			{
+				// run creation successful; display msg to user
+				toast("Run was successfully saved", standardDurationToast, standardDelayToast);
+				
+				// reset fields
+				resetFieldsToDefaultAddRunPage();			
+			}
+			else  // insert run failed
+			{
+				// insert run did not go through; display msg to user
+				toast("Sorry run was not saved<br/>Please try again", standardDurationToast, standardDelayToast);
+			}
+		}		
 	})
 	.always(function() { /* always execute this code */ })
 	.fail(function(data){

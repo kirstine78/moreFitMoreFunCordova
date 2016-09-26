@@ -41,8 +41,7 @@ function getRunsForCustomer()
     // get all runs for this customer
     $.ajax({
         type: 'GET',
-        // url: rootURL + 'run/' + idFromLocalStorage + "/" + nameFromLocalStorage + "/" + akeyFromLocalStorage + "/",
-        url: rootURL + 'run/' + "6" + "/" + "kirsti" + "/" + "fe365106beb6f09e5be40d443dc2bf3d" + "/",
+        url: rootURL + 'run/' + idFromLocalStorage + "/" + nameFromLocalStorage + "/" + akeyFromLocalStorage + "/",
         dataType: "json",
     })
     .done(function(data) {
@@ -51,14 +50,14 @@ function getRunsForCustomer()
         // Execute when ajax successfully completes
 		// alert(data.length);
 		
-		// data is null if authentication is false
+		// data is null if credentials can't be authenticated
 		if (data == null)
 		{
-			alert ("data is null");
+			alert ("data is null - credentials fake");
 			
 			// TODO what to do when authentication is false? Redirect to login/register page
 		}
-		else  // authentication true
+		else  // authentication ok
 		{
 			// check that data array is longer than zero
 			if (data.length > 0)  // at least one row

@@ -30,7 +30,7 @@ var mainBrandsArrayGlobal;
 
 
 $(document).ready(function () {
-    alert("ready");
+    // alert("ready");
 	loadFirstPage();	
 });
 
