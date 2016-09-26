@@ -124,36 +124,47 @@ function getRoutesForCustomer()
 //        alert("in done getRoutesForCustomer");
 
         // Execute when ajax successfully completes
+		
+		
+		// data is null if credentials can't be authenticated
+		if (data == null)
+		{
+			alert ("data is null - credentials fake");
+			
+			// TODO what to do when authentication is false? Redirect to login/register page
+		}
+		else  // authentication ok
+		{
+			// check that data array is longer than zero
+			if (data.length > 0)  // at least one row
+			{
+	           alert("at least one row returned");
+	//            alert("data.length: " + data.length);
 
-        // check that data array is longer than zero
-        if (data.length > 0)  // at least one row
-        {
-//            alert("at least one row returned");
-//            alert("data.length: " + data.length);
+				// set the array of routes
+				myRoutes_RoutesArrayGlobal = data;
+				
+				// show routesToDisplayDiv and hide noRoutesMsgDiv
+				$("#routesToDisplayDiv").show();
+				$("#noRoutesMsgDiv").hide();
+			}
+			else  // zero rows were returned
+			{
+				
+				// alert("the array before: " + myRoutes_RoutesArrayGlobal);
+				
+				// no routes so set array to null again
+				myRoutes_RoutesArrayGlobal = null;
+				// alert("the array after: " + myRoutes_RoutesArrayGlobal);
+				
+				// hide routesToDisplayDiv and show noRoutesMsgDiv
+				$("#routesToDisplayDiv").hide();
+				$("#noRoutesMsgDiv").show();
+			}
 
-            // set the array of routes
-            myRoutes_RoutesArrayGlobal = data;
-			
-			// show routesToDisplayDiv and hide noRoutesMsgDiv
-			$("#routesToDisplayDiv").show();
-			$("#noRoutesMsgDiv").hide();
-        }
-        else  // zero rows were returned
-        {
-			
-			// alert("the array before: " + myRoutes_RoutesArrayGlobal);
-			
-			// no routes so set array to null again
-			myRoutes_RoutesArrayGlobal = null;
-			// alert("the array after: " + myRoutes_RoutesArrayGlobal);
-			
-			// hide routesToDisplayDiv and show noRoutesMsgDiv
-			$("#routesToDisplayDiv").hide();
-			$("#noRoutesMsgDiv").show();
-        }
-
-		// redirect
-		$(location).attr('href', '#myRoutesPage');
+			// redirect
+			$(location).attr('href', '#myRoutesPage');			
+		}        
     })
     .always(function() { /* always execute this code */ })
     .fail(function(data){
