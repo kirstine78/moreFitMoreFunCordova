@@ -138,7 +138,7 @@ function getRoutesForCustomer()
 			// check that data array is longer than zero
 			if (data.length > 0)  // at least one row
 			{
-	           alert("at least one row returned");
+	           // alert("at least one row returned");
 	//            alert("data.length: " + data.length);
 
 				// set the array of routes

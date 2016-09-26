@@ -116,21 +116,31 @@ function addRoute()
 	})
 	.done(function(data) {
 //        alert("this is data: " + data);
-
-		if (data)  // insert route succeeded
+		
+		// data is null if credentials can't be authenticated
+		if (data == null)
 		{
-			// route creation successful; display msg to user
-			toast("Route was successfully saved", standardDurationToast, standardDelayToast);
+			alert("data is null - credentials fake");
 			
-			// reset fields
-			resetFieldsToDefaultAddRoutePage();
-			$(location).attr('href', '#addRunPage');
+			// TODO what to do when authentication is false? Redirect to login/register page
 		}
-		else  // insert route failed
+		else  // credentials ok
 		{
-			// insert route did not go through; display msg to user
-			toast("Sorry route was not saved<br/>Please try again", standardDurationToast, standardDelayToast);
-		}
+			if (data)  // insert route succeeded
+			{
+				// route creation successful; display msg to user
+				toast("Route was successfully saved", standardDurationToast, standardDelayToast);
+				
+				// reset fields
+				resetFieldsToDefaultAddRoutePage();
+				$(location).attr('href', '#addRunPage');
+			}
+			else  // insert route failed
+			{
+				// insert route did not go through; display msg to user
+				toast("Sorry route was not saved<br/>Please try again", standardDurationToast, standardDelayToast);
+			}
+		}		
 	})
 	.always(function() { /* always execute this code */ })
 	.fail(function(data){
@@ -159,8 +169,10 @@ function stringifyRouteDetails()
 
     // add properties to object
     runDetails.customerId 			= window.localStorage.getItem("Id");
-	runDetails.name 				= window.localStorage.getItem("Name");
-    runDetails.authenticationKey 	= window.localStorage.getItem("OAuth");
+	// runDetails.name 				= window.localStorage.getItem("Name");
+    // runDetails.authenticationKey 	= window.localStorage.getItem("OAuth");
+	runDetails.name 				= "dkirsti";
+    runDetails.authenticationKey 	= "fe365106beb6f09e5be40d443dc2bf3d";
     runDetails.routeName 			= routeName;
     runDetails.routeDistance 		= distance;
 
