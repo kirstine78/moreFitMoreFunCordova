@@ -31,7 +31,8 @@ $("#registrationPage, #myProfilePage, #editProfilePage, #loginPage").on("pageini
 //              alert("before myProfilePage show");   // from dreamweaver
         // get customer details
         populateCustomerDetails(window.localStorage.getItem("Name"), window.localStorage.getItem("OAuth"));
-        console.log('before myProfilePage show'); // from Eclipse
+		
+        // console.log('before myProfilePage show'); // from Eclipse
     });
 
 
@@ -100,7 +101,7 @@ $("#registrationPage, #myProfilePage, #editProfilePage, #loginPage").on("pageini
     // btn click
     $("#btnEditProfile").on("click", function(){
         // redirect
-        $(location).attr('href', '#editProfilePage');
+		$("#moreFitMoreFunBody").pagecontainer("change", '#editProfilePage', {changeHash: true});
     });
 
 
@@ -441,7 +442,7 @@ function updateCustomerProfileDetails(anEmail, newPwd)
         }
 
 		// redirect to myProfilePage
-		$(location).attr('href', '#myProfilePage');
+		$("#moreFitMoreFunBody").pagecontainer("change", '#myProfilePage', {changeHash: false});	
     })
     .always(function() { /* always execute this code */ })
     .fail(function(data){

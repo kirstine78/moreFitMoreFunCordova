@@ -86,7 +86,7 @@ function getRunsForCustomer()
 			}
 			
 			// redirect
-			$(location).attr('href', '#myRunsPage');
+			$("#moreFitMoreFunBody").pagecontainer("change", '#myRunsPage', {changeHash: true});
 		}
         
     })
@@ -162,7 +162,7 @@ function getRoutesForCustomer()
 			}
 
 			// redirect
-			$(location).attr('href', '#myRoutesPage');			
+			$("#moreFitMoreFunBody").pagecontainer("change", '#myRoutesPage', {changeHash: true});			
 		}        
     })
     .always(function() { /* always execute this code */ })

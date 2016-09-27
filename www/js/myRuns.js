@@ -63,12 +63,11 @@ $("#myRunsPage").on("pageinit", function(){
         // Check to see if background color is set or if it's set to white.
         rowElementClicked.toggleClass('row_highlight');
 		
-		// redirect 
-		// $(location).attr('href', '#editOrDeleteRunPage');
+		// redirect		
+		// $.mobile.changePage('#editOrDeleteRunPage', {allowSamePageTransition: true, changeHash: false});		
 		
-		$.mobile.changePage('#editOrDeleteRunPage', {allowSamePageTransition: true, changeHash: false});
-		// $.mobile.changePage('#editOrDeleteRunPage');
-		
+		// TODO ??? redirect different method
+		$("#moreFitMoreFunBody").pagecontainer("change", '#editOrDeleteRunPage', {changeHash: true});
     });
              
 });  // end #myRunsPage on pageinit

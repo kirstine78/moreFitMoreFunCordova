@@ -133,7 +133,9 @@ function addRoute()
 				
 				// reset fields
 				resetFieldsToDefaultAddRoutePage();
-				$(location).attr('href', '#addRunPage');
+				
+				// redirect
+				$("#moreFitMoreFunBody").pagecontainer("change", '#addRunPage', {changeHash: true});	
 			}
 			else  // insert route failed
 			{
