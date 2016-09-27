@@ -214,8 +214,6 @@ function stringifyRegisterDetails(aName, anEmail, aPwd)
 
 
 
-
-
 // return boolean whether user has input text
 function isInputFieldFilledOut(inputFieldId)
 {
@@ -376,17 +374,28 @@ function checkCredentials(anEmail, currentPasswordEntered, newPassword, nameFrom
 //        alert("in done checkCredentials");
 
         // Execute when ajax successfully completes
-        // check password verification
-        if (data.VALID == "true")
-        {
-//            alert("in if valid == true");
-            updateCustomerProfileDetails(anEmail, newPassword);
-        }
-        else  //{"VALID":"false"}
-        {
-//            alert ("invalid");
-            doRedBackground(false, "#pwdPasswordProve");
-        }
+		
+		// data is null if credentials can't be authenticated
+		if (data == null)
+		{
+			alert("data is null - credentials fake");
+			
+			// TODO what to do when authentication is false? Redirect to login/register page
+		}
+		else  // credentials ok
+		{
+			// check password verification
+			if (data.VALID == "true")
+			{
+	//            alert("in if valid == true");
+				updateCustomerProfileDetails(anEmail, newPassword);
+			}
+			else  //{"VALID":"false"}
+			{
+	//            alert ("invalid");
+				doRedBackground(false, "#pwdPasswordProve");
+			}
+		}
     })
     .always(function() { /* always execute this code */ })
     .fail(function(data){

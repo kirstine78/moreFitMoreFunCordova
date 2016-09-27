@@ -211,8 +211,6 @@ function stringifyEditRouteDetails()
     routeDetails.customerId 		= window.localStorage.getItem("Id");
 	routeDetails.name 				= window.localStorage.getItem("Name");
     routeDetails.authenticationKey 	= window.localStorage.getItem("OAuth");
-	// routeDetails.name 				= "kirsti";
-    // routeDetails.authenticationKey 	= "wrong";
     routeDetails.routeName 			= routeName;
     routeDetails.routeDistance 		= distance;
     routeDetails.routeId 			= editOrDeleteRoute_RouteTableRowElementGlobal.data("routeId");
@@ -282,8 +280,6 @@ function stringifyDeleteRouteDetails()
     routeDetails.customerId 		= window.localStorage.getItem("Id");
 	routeDetails.name 				= window.localStorage.getItem("Name");
     routeDetails.authenticationKey 	= window.localStorage.getItem("OAuth");
-	// routeDetails.name 				= "kirsti";
-    // routeDetails.authenticationKey 	= "wrong";
     routeDetails.routeId 			= editOrDeleteRoute_RouteTableRowElementGlobal.data("routeId");
 	
     // serialize it

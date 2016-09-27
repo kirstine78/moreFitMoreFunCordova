@@ -38,12 +38,6 @@ function convertDurationStringToSeconds(durationString)
 }
 
 
-// function daysToSeconds(numberOfDays)
-// {
-	// var secondsInDay = 86400;
-	// return numberOfDays * secondsInDay;
-// }
-
 
 function hoursToSeconds(numberOfHours)
 {
@@ -59,20 +53,6 @@ function minutesToSeconds(numberOfMinutes)
 }
 
 
-
-// function getDayAmount(durationString)
-// {	
-    // var resultArray = getSplitString(durationString, " ")
-	// var days = resultArray[0];
-	
-	// // convert to number
-	// days = Number(days);
-	
-	// // alert ("days: " + days);
-	// // alert ("type of days: " + typeof(days));
-	
-	// return days;
-// }
 
 function getHourAmount(durationString)
 {	

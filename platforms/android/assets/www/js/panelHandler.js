@@ -123,8 +123,7 @@ function getRoutesForCustomer()
     .done(function(data) {
 //        alert("in done getRoutesForCustomer");
 
-        // Execute when ajax successfully completes
-		
+        // Execute when ajax successfully completes		
 		
 		// data is null if credentials can't be authenticated
 		if (data == null)
