@@ -64,9 +64,6 @@ $("#myRunsPage").on("pageinit", function(){
         rowElementClicked.toggleClass('row_highlight');
 		
 		// redirect		
-		// $.mobile.changePage('#editOrDeleteRunPage', {allowSamePageTransition: true, changeHash: false});		
-		
-		// TODO ??? redirect different method
 		$("#moreFitMoreFunBody").pagecontainer("change", '#editOrDeleteRunPage', {changeHash: true});
     });
              

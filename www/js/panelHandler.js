@@ -17,7 +17,6 @@ function initPanel()
 	
     // click link in panel
     $("#linkMyRoutes").on("click", function(event){
-		alert ("link my routes clicked");
 
         event.preventDefault();  // don't redirect to my routes page
 
@@ -83,12 +82,11 @@ function getRunsForCustomer()
 				// hide runsToDisplayDiv and show noRunsMsgDiv
 				$("#runsToDisplayDiv").hide();
 				$("#noRunsMsgDiv").show();
-			}
-			
+			}			
+
 			// redirect
-			$("#moreFitMoreFunBody").pagecontainer("change", '#myRunsPage', {changeHash: true});
-		}
-        
+			$("#moreFitMoreFunBody").pagecontainer("change", '#myRunsPage', {changeHash: false});
+		}        
     })
     .always(function() { /* always execute this code */ })
     .fail(function(data){
@@ -162,7 +160,7 @@ function getRoutesForCustomer()
 			}
 
 			// redirect
-			$("#moreFitMoreFunBody").pagecontainer("change", '#myRoutesPage', {changeHash: true});			
+			$("#moreFitMoreFunBody").pagecontainer("change", '#myRoutesPage', {changeHash: false});			
 		}        
     })
     .always(function() { /* always execute this code */ })
