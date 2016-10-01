@@ -151,7 +151,7 @@ function editRoute()
 		type: "PUT",
 		url: rootURL + 'route/',
 		data: stringifyEditRouteDetails(),
-		dataType: 'json',
+		dataType: 'json',		
 	})
 	.done(function(data) {
        alert("this is data: " + data);

@@ -35,16 +35,19 @@
 
     <link rel="stylesheet" type="text/css" href="css/index.css">
     <link rel="stylesheet" type="text/css" href="css/my_main.css">
+    <link rel="stylesheet" type="text/css" href="DateBox/css/jtsage-datebox.css">
 
-    <link rel="stylesheet" type="text/css" href="DateBox/css/jtsage-datebox.min.css">
-
+	<link rel="stylesheet" href="css/font-awesome.min.css" />
     <link rel="stylesheet" type="text/css" href="css/jquery.mobile-1.4.5.min.css">
+	<link rel="stylesheet" href="vendor/waves/waves.min.css" />
+	<link rel="stylesheet" href="vendor/wow/animate.css" />
+	<link rel="stylesheet" href="css/nativedroid2.css" />
 
-    <!--link the themeroller-->
-    <link rel="stylesheet" href="themes/blueGreen.min.css" />
-    <link rel="stylesheet" href="themes/jquery.mobile.icons.min.css" />
-
-    <script src="jQuery/jquery-1.12.0.js"></script>
+	<meta name="mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		
+	<script src="jQuery/jquery-2.1.4.min.js"></script>
 	
 	<script>
 		$(document).on("mobileinit", function() {
@@ -52,8 +55,13 @@
 		});        
 	</script>
 		
+	<script src="jQuery/jquery-ui-1.11.4.min.js"></script>
+	<script src="jQuery/jquery.mobile-1.4.5.min.js"></script>
+	<script src="vendor/waves/waves.min.js"></script>
+	<script src="vendor/wow/wow.min.js"></script>
+	<script src="js/nativedroid2.js"></script>
+	<script src="nd2settings.js"></script>
 		
-    <script src="jQuery/jquery.mobile-1.4.5.js"></script>
     <script src="DateBox/js/jtsage-datebox.min.js"></script>
 
     <title>More Fit More Fun</title>
@@ -61,7 +69,7 @@
 
 <body id="moreFitMoreFunBody">
 
-<div data-role="page" id="addRunPage"><!--Start page-->
+<div data-role="page" id="addRunPage" data-theme="a"><!--Start page-->
     <div data-role="header">
         <a href="#mypanel" class="ui-btn ui-corner-all ui-icon-bars ui-btn-icon-notext">Bars Icon</a>
         <h1>Add Run</h1>
@@ -70,7 +78,7 @@
     <div data-role="content">
         <!--datebox calendar-->
         <label for="dateRun">Date *</label>
-        <input type="text" data-role="datebox" data-options='{"mode":"datebox"}' name="dateRun" id="dateRun">	
+        <input type="text" data-role="datebox" data-options='{"mode":"datebox", "themeButton":"b"}' name="dateRun" id="dateRun">	
 		
         <!--datebox duration-->
         <label for="timeRun">Duration</label>
@@ -98,7 +106,7 @@
 		
         <!--text input feeling -->
         <div data-role="fieldcontain">
-            <label for="txtFeeling">Notes (max 50 chars)</label>
+            <label for="txtFeeling">Notes (max 100 chars)</label>
             <input type="text" name="txtFeeling" id="txtFeeling" value=""  />
         </div>
 		
@@ -183,7 +191,7 @@
 		
         <!--text input feeling -->
         <div data-role="fieldcontain">
-            <label for="txtFeelingEditRun">Notes (max 50 chars)</label>
+            <label for="txtFeelingEditRun">Notes (max 100 chars)</label>
             <input type="text" name="txtFeelingEditRun" id="txtFeelingEditRun" value=""  />
         </div>
 		
@@ -205,7 +213,7 @@
 
         <!--text input route name -->
         <div data-role="fieldcontain">
-            <label for="txtAddRouteName">Route name (max 20 chars)*</label>
+            <label for="txtAddRouteName">Route name (max 50 chars)*</label>
             <input type="text" name="txtAddRouteName" id="txtAddRouteName" value=""  />
         </div>
 		
@@ -274,7 +282,7 @@
 
         <!--text input route name -->
         <div data-role="fieldcontain">
-            <label for="txtEditRouteName">Route name *</label>
+            <label for="txtEditRouteName">Route name (max 50 chars)*</label>
             <input type="text" name="txtEditRouteName" id="txtEditRouteName" value=""  />
         </div>
 		

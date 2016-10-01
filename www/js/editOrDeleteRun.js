@@ -225,6 +225,7 @@ function editRun()
 									true, 
 									editRun_RunTableRowElementGlobal),
 		dataType: 'json',
+		contentType: "application/json",
 	})
 	.done(function(data) {
 //        alert("this is data: " + data);

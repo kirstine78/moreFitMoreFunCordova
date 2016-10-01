@@ -2271,7 +2271,7 @@
                             o.buttonIcon = o.buttonIconDate;
                         }
                     }
-                    $("<a href='#' class='ui-input-clear ui-btn ui-icon-" + o.buttonIcon + " ui-btn-icon-notext ui-corner-all'></a>").attr("title", w.__("tooltip")).text(w.__("tooltip")).appendTo(w.d.wrap).on(o.clickEvent, function(e) {
+                    $("<a href='#' class='ui-input-clear ui-btn ui-icon-" + o.buttonIcon + " ui-btn-icon-notext ui-corner-all .clr-bg-black'></a>").attr("title", w.__("tooltip")).text(w.__("tooltip")).appendTo(w.d.wrap).on(o.clickEvent, function(e) {
                         e.preventDefault();
                         if (o.useFocus) {
                             w.d.input.focus();
