@@ -128,7 +128,7 @@ function registerUser()
 	var isEmailOk = true;
 	
 	// only check email if user has entered input data
-	if (email != null)
+	if (email.length > 0)
 	{
 		isEmailOk = isEmailValidFormat(email);
 	}
@@ -175,10 +175,6 @@ function register(aName, anEmail, aPwd)
             // alert(data.fldName);
 
             storeCredentialsInLocalStorage(data);
-
-			// remove first page in history
-			$.mobile.navigate.history.stack.splice(0, 1);
-			$(ui.prevPage).remove();
 
             toast("Registered", standardDurationToast, standardDelayToast);
 

@@ -63,7 +63,7 @@ $("#myRoutesPage").on("pageinit", function(){
         rowElementClicked.toggleClass('row_highlight');
 		
 		// redirect 
-		$(location).attr('href', '#editOrDeleteRoutePage');
+		$("#moreFitMoreFunBody").pagecontainer("change", '#editOrDeleteRoutePage', {changeHash: true});
     });
              
 });  // end #myRoutesPage on pageinit

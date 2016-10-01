@@ -86,58 +86,69 @@ function populateDropDownMenuRoutes(aDivContainer, aSelectElement, aSelectedOpti
     .done(function(data) {
        // alert("in done populateDropDownMenuRoutes");
 
-        // Execute when ajax successfully completes
-		// alert(data.length);
-
-        // check that data holding array is longer than zero
-        if (data.length > 0)  // at least one row
-        {
-           // alert("at least one row returned");
-           // alert("data.length: " + data.length);
-		   
-		   // show select menu
-			$(aDivContainer).show();
-
-            var str = "";
+        // Execute when ajax successfully completes	
+		
+		// data is null if credentials can't be authenticated
+		if (data == null)
+		{
+			alert ("data is null - credentials fake");
 			
-			// add the default value -1
-            str += "<option value='-1'>No route chosen (optional)</option>";
+			// TODO what to do when authentication is false? Redirect to login/register page
+		}
+		else  // authentication ok
+		{
+			// alert(data.length);
 
-            // build string to populate the drop down
-            for (var i = 0; i < data.length; i++)
-            {
-                // add to string
-                str += "<option value='" + data[i].fldRouteId + "'>" + data[i].fldRouteName + "</option>";
-            }
-
-            // add str to element
-            $(aSelectElement).html(str);
-			
-			// decide which option to set as selected
-			if (aSelectedOption == null)
+			// check that data holding array is longer than zero
+			if (data.length > 0)  // at least one row
 			{
-				// set first option to be selected
-				var firstOption = aSelectElement + " option:first";
-				$(firstOption).attr('selected', 'selected');
-			}
-			else  // set the chosen option to selected
-			{
-				var aSelector = aSelectElement + " option[value='" + aSelectedOption + "']";
-				// alert ("aSelector: " + aSelector);
-				$(aSelector).attr('selected','selected');
-			}
+			   // alert("at least one row returned");
+			   // alert("data.length: " + data.length);
+			   
+			   // show select menu
+				$(aDivContainer).show();
 
-            //refresh and force rebuild
-            $(aSelectElement).selectmenu('refresh', true);
-        }
-        else  // zero rows were returned
-        {
-            // no Routes returned
-			// hide select menu
-			$(aDivContainer).hide();		
-			
-           alert("zero rows returned\n\ndata.length: " + data.length);
-        }
+				var str = "";
+				
+				// add the default value -1
+				str += "<option value='-1'>No route chosen (optional)</option>";
+
+				// build string to populate the drop down
+				for (var i = 0; i < data.length; i++)
+				{
+					// add to string
+					str += "<option value='" + data[i].fldRouteId + "'>" + data[i].fldRouteName + "</option>";
+				}
+
+				// add str to element
+				$(aSelectElement).html(str);
+				
+				// decide which option to set as selected
+				if (aSelectedOption == null)
+				{
+					// set first option to be selected
+					var firstOption = aSelectElement + " option:first";
+					$(firstOption).attr('selected', 'selected');
+				}
+				else  // set the chosen option to selected
+				{
+					var aSelector = aSelectElement + " option[value='" + aSelectedOption + "']";
+					// alert ("aSelector: " + aSelector);
+					$(aSelector).attr('selected','selected');
+				}
+
+				//refresh and force rebuild
+				$(aSelectElement).selectmenu('refresh', true);
+			}
+			else  // zero rows were returned
+			{
+				// no Routes returned
+				// hide select menu
+				$(aDivContainer).hide();		
+				
+			   // alert("zero rows returned\n\ndata.length: " + data.length);
+			}
+		}		
     })
     .always(function() { /* always execute this code */ })
     .fail(function(data){
@@ -247,23 +258,34 @@ function addRun()
 									false, 
 									editRun_RunTableRowElementGlobal),
 		dataType: 'json',
+		contentType: "application/json",
 	})
 	.done(function(data) {
        // alert("this is data: " + data);
-
-		if (data)  // insert run succeeded
+		
+		// data is null if credentials can't be authenticated
+		if (data == null)
 		{
-			// run creation successful; display msg to user
-			toast("Run was successfully saved", standardDurationToast, standardDelayToast);
+			alert("data is null - credentials fake");
 			
-			// reset fields
-			resetFieldsToDefaultAddRunPage();			
+			// TODO what to do when authentication is false? Redirect to login/register page
 		}
-		else  // insert run failed
+		else  // credentials ok
 		{
-			// insert run did not go through; display msg to user
-			toast("Sorry run was not saved<br/>Please try again", standardDurationToast, standardDelayToast);
-		}
+			if (data)  // insert run succeeded
+			{
+				// run creation successful; display msg to user
+				toast("Run was successfully saved", standardDurationToast, standardDelayToast);
+				
+				// reset fields
+				resetFieldsToDefaultAddRunPage();			
+			}
+			else  // insert run failed
+			{
+				// insert run did not go through; display msg to user
+				toast("Sorry run was not saved<br/>Please try again", standardDurationToast, standardDelayToast);
+			}
+		}		
 	})
 	.always(function() { /* always execute this code */ })
 	.fail(function(data){
@@ -341,6 +363,8 @@ function stringifyRunDetails(	aDateElement,
     runDetails.runCustomerId		= window.localStorage.getItem("Id");
 	runDetails.name 				= window.localStorage.getItem("Name");
     runDetails.authenticationKey 	= window.localStorage.getItem("OAuth");
+	// runDetails.name 				= "kirsti";
+    // runDetails.authenticationKey 	= "wrong";
     runDetails.date					= date;
     runDetails.distance 			= distance;
     runDetails.seconds 				= seconds;

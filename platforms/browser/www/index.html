@@ -44,7 +44,8 @@
     <link rel="stylesheet" href="themes/blueGreen.min.css" />
     <link rel="stylesheet" href="themes/jquery.mobile.icons.min.css" />
 
-    <script src="jQuery/jquery-1.12.0.js"></script>
+    <!-- <script src="jQuery/jquery-1.12.0.js"></script> -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 	
 	<script>
 		$(document).on("mobileinit", function() {
@@ -98,7 +99,7 @@
 		
         <!--text input feeling -->
         <div data-role="fieldcontain">
-            <label for="txtFeeling">Notes (max 50 chars)</label>
+            <label for="txtFeeling">Notes (max 100 chars)</label>
             <input type="text" name="txtFeeling" id="txtFeeling" value=""  />
         </div>
 		
@@ -183,7 +184,7 @@
 		
         <!--text input feeling -->
         <div data-role="fieldcontain">
-            <label for="txtFeelingEditRun">Notes (max 50 chars)</label>
+            <label for="txtFeelingEditRun">Notes (max 100 chars)</label>
             <input type="text" name="txtFeelingEditRun" id="txtFeelingEditRun" value=""  />
         </div>
 		
@@ -205,7 +206,7 @@
 
         <!--text input route name -->
         <div data-role="fieldcontain">
-            <label for="txtAddRouteName">Route name (max 20 chars)*</label>
+            <label for="txtAddRouteName">Route name (max 50 chars)*</label>
             <input type="text" name="txtAddRouteName" id="txtAddRouteName" value=""  />
         </div>
 		
@@ -274,7 +275,7 @@
 
         <!--text input route name -->
         <div data-role="fieldcontain">
-            <label for="txtEditRouteName">Route name *</label>
+            <label for="txtEditRouteName">Route name (max 50 chars)*</label>
             <input type="text" name="txtEditRouteName" id="txtEditRouteName" value=""  />
         </div>
 		
@@ -324,13 +325,13 @@
         <!--text input User name -->
         <div data-role="fieldcontain">
             <label for="txtLoginName">Username *</label>
-            <input type="text" name="txtLoginName" id="txtLoginName" value="kirsti"  />
+            <input type="text" name="txtLoginName" id="txtLoginName" value=""  />
         </div>
 
         <!--text input Password test with 'mypass'-->
         <div data-role="fieldcontain">
             <label for="txtLoginPassword">Password *</label>
-            <input type="password" name="txtLoginPassword" id="txtLoginPassword" value="mypass"  />
+            <input type="password" name="txtLoginPassword" id="txtLoginPassword" value=""  />
         </div>
 
         <input id="btnLogin" type="button" value="Login">
@@ -349,19 +350,19 @@
         <!--text input User name -->
         <div data-role="fieldcontain">
             <label for="txtRegisterName">Username (letters and digits only max 20 chars) *</label>
-            <input type="text" name="txtRegisterName" id="txtRegisterName" value="kirsti"  />
+            <input type="text" name="txtRegisterName" id="txtRegisterName" value=""  />
         </div>
 
         <!--text input Email -->
         <div data-role="fieldcontain">
             <label for="txtRegisterEmail">Email (max 40 chars)</label>
-            <input type="email" name="txtRegisterEmail" id="txtRegisterEmail" value="k@k"  />
+            <input type="email" name="txtRegisterEmail" id="txtRegisterEmail" value=""  />
         </div>
 
         <!--text input Password test with 'mypass'-->
         <div data-role="fieldcontain">
             <label for="txtRegisterPassword">Password (min 3 chars, no space) *</label>
-            <input type="password" name="txtRegisterPassword" id="txtRegisterPassword" value="mypass"  />
+            <input type="password" name="txtRegisterPassword" id="txtRegisterPassword" value=""  />
         </div>
 
         <input id="btnSubmitRegisterProfile" type="button" value="Register">

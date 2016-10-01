@@ -155,7 +155,7 @@ function isDateValid(aDate, anElementId)
 
 function isFeelingValid(feeling, elementInHtml)
 {
-	var MAX_LENGTH = 50;
+	var MAX_LENGTH = 100;
 	
     // clear red background
     doRedBackground(true, elementInHtml);
@@ -185,7 +185,7 @@ function isFeelingValid(feeling, elementInHtml)
 // check if route name is ok
 function isRouteNameValid(aRouteName, elementInHtml)
 {
-	var MAX_LENGTH = 20;
+	var MAX_LENGTH = 50;
 	
     // clear red background
     doRedBackground(true, elementInHtml);

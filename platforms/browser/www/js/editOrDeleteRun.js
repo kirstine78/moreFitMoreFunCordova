@@ -229,21 +229,31 @@ function editRun()
 	.done(function(data) {
 //        alert("this is data: " + data);
 
-		if (data)  // update run succeeded
+		// data is null if credentials can't be authenticated
+		if (data == null)
 		{
-			// run creation successful; display msg to user
-			toast("Run was successfully updated", standardDurationToast, standardDelayToast);
+			alert("data is null - credentials fake");
 			
-			doRedBackground(true, "#dateEditRun");		
+			// TODO what to do when authentication is false? Redirect to login/register page			
 		}
-		else  // update run failed
+		else  // credentials ok
 		{
-			// update run did not go through; display msg to user
-			toast("Sorry run was not updated<br/>Please try again", standardDurationToast, standardDelayToast);
-		}
+			if (data)  // update run succeeded
+			{
+				// run creation successful; display msg to user
+				toast("Run was successfully updated", standardDurationToast, standardDelayToast);
+				
+				doRedBackground(true, "#dateEditRun");		
+			}
+			else  // update run failed
+			{
+				// update run did not go through; display msg to user
+				toast("Sorry run was not updated<br/>Please try again", standardDurationToast, standardDelayToast);
+			}
 
-		// update global array myRuns_RunsArrayGlobal and redirect to my runs page implicit
-		getRunsForCustomer();
+			// update global array myRuns_RunsArrayGlobal and redirect to my runs page implicit
+			getRunsForCustomer();
+		}		
 	})
 	.always(function() { /* always execute this code */ })
 	.fail(function(data){
@@ -278,19 +288,29 @@ function deleteRun(aRunId)
 	.done(function(data) {
 //        alert("this is data: " + data);
 
-		if (data)  // delete run succeeded
+		// data is null if credentials can't be authenticated
+		if (data == null)
 		{
-			// run deletion successful; display msg to user
-			toast("Run was successfully deleted", standardDurationToast, standardDelayToast);					
+			alert("data is null - credentials fake");
+			
+			// TODO what to do when authentication is false? Redirect to login/register page			
 		}
-		else  // delete run failed
+		else  // credentials ok
 		{
-			// delete run did not go through; display msg to user
-			toast("Sorry run was not deleted<br/>Please try again", standardDurationToast, standardDelayToast);
-		}
+			if (data)  // delete run succeeded
+			{
+				// run deletion successful; display msg to user
+				toast("Run was successfully deleted", standardDurationToast, standardDelayToast);					
+			}
+			else  // delete run failed
+			{
+				// delete run did not go through; display msg to user
+				toast("Sorry run was not deleted<br/>Please try again", standardDurationToast, standardDelayToast);
+			}
 
-		// update global array myRuns_RunsArrayGlobal and redirect to my runs page implicit
-		getRunsForCustomer();
+			// update global array myRuns_RunsArrayGlobal and redirect to my runs page implicit
+			getRunsForCustomer();
+		}		
 	})
 	.always(function() { /* always execute this code */ })
 	.fail(function(data){

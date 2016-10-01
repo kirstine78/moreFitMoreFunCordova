@@ -146,7 +146,7 @@ function populateDropDownMenuRoutes(aDivContainer, aSelectElement, aSelectedOpti
 				// hide select menu
 				$(aDivContainer).hide();		
 				
-			   alert("zero rows returned\n\ndata.length: " + data.length);
+			   // alert("zero rows returned\n\ndata.length: " + data.length);
 			}
 		}		
     })

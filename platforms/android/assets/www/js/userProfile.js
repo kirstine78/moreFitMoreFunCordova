@@ -176,10 +176,6 @@ function register(aName, anEmail, aPwd)
 
             storeCredentialsInLocalStorage(data);
 
-			// remove first page in history
-			$.mobile.navigate.history.stack.splice(0, 1);
-			$(ui.prevPage).remove();
-
             toast("Registered", standardDurationToast, standardDelayToast);
 
             // redirect to addRunPage

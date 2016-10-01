@@ -31,7 +31,8 @@ $("#registrationPage, #myProfilePage, #editProfilePage, #loginPage").on("pageini
 //              alert("before myProfilePage show");   // from dreamweaver
         // get customer details
         populateCustomerDetails(window.localStorage.getItem("Name"), window.localStorage.getItem("OAuth"));
-        console.log('before myProfilePage show'); // from Eclipse
+		
+        // console.log('before myProfilePage show'); // from Eclipse
     });
 
 
@@ -48,7 +49,7 @@ $("#registrationPage, #myProfilePage, #editProfilePage, #loginPage").on("pageini
         $("#pwdPasswordNew2").val("");
         $(".errorRedBackground").removeClass('errorRedBackground');
 
-        console.log('before editProfilePage show'); // from Eclipse
+        // console.log('before editProfilePage show'); // from Eclipse
     });
 
 
@@ -63,8 +64,8 @@ $("#registrationPage, #myProfilePage, #editProfilePage, #loginPage").on("pageini
     $("#btnCancelRegistration").on("click", function(){
 		// alert("cancel registration button clicked");
         
-		// redirect
-        $(location).attr('href', '#firstTimePage');		
+		//redirect to firstTimePage
+		$("#moreFitMoreFunBody").pagecontainer("change", '#firstTimePage', {changeHash: false});		
     });
 
 
@@ -92,15 +93,15 @@ $("#registrationPage, #myProfilePage, #editProfilePage, #loginPage").on("pageini
     $("#btnCancelLogin").on("click", function(){
 		// alert("cancel login button clicked");
         
-		// redirect
-        $(location).attr('href', '#firstTimePage');		
+		//redirect to firstTimePage
+		$("#moreFitMoreFunBody").pagecontainer("change", '#firstTimePage', {changeHash: false});	
     });
 	
 	
     // btn click
     $("#btnEditProfile").on("click", function(){
         // redirect
-        $(location).attr('href', '#editProfilePage');
+		$("#moreFitMoreFunBody").pagecontainer("change", '#editProfilePage', {changeHash: true});
     });
 
 
@@ -127,7 +128,7 @@ function registerUser()
 	var isEmailOk = true;
 	
 	// only check email if user has entered input data
-	if (email != null)
+	if (email.length > 0)
 	{
 		isEmailOk = isEmailValidFormat(email);
 	}
@@ -175,10 +176,6 @@ function register(aName, anEmail, aPwd)
 
             storeCredentialsInLocalStorage(data);
 
-			// remove first page in history
-			$.mobile.navigate.history.stack.splice(0, 1);
-			$(ui.prevPage).remove();
-
             toast("Registered", standardDurationToast, standardDelayToast);
 
             // redirect to addRunPage
@@ -211,8 +208,6 @@ function stringifyRegisterDetails(aName, anEmail, aPwd)
 
     return jsonStringRegisterDetails;
 }
-
-
 
 
 
@@ -268,14 +263,10 @@ function loginUser()
 		{			
 			// login went ok
 			
-			
-			
 			// store locally username, id, and authkey
 			storeCredentialsInLocalStorage(data);
-
 			
             // redirect to addRunPage
-            // $(location).attr('href', '#addRunPage');
 			$("#moreFitMoreFunBody").pagecontainer("change", '#addRunPage', {changeHash: false});	
 		}
 		
@@ -380,17 +371,28 @@ function checkCredentials(anEmail, currentPasswordEntered, newPassword, nameFrom
 //        alert("in done checkCredentials");
 
         // Execute when ajax successfully completes
-        // check password verification
-        if (data.VALID == "true")
-        {
-//            alert("in if valid == true");
-            updateCustomerProfileDetails(anEmail, newPassword);
-        }
-        else  //{"VALID":"false"}
-        {
-//            alert ("invalid");
-            doRedBackground(false, "#pwdPasswordProve");
-        }
+		
+		// data is null if credentials can't be authenticated
+		if (data == null)
+		{
+			alert("data is null - credentials fake");
+			
+			// TODO what to do when authentication is false? Redirect to login/register page
+		}
+		else  // credentials ok
+		{
+			// check password verification
+			if (data.VALID == "true")
+			{
+	//            alert("in if valid == true");
+				updateCustomerProfileDetails(anEmail, newPassword);
+			}
+			else  //{"VALID":"false"}
+			{
+	//            alert ("invalid");
+				doRedBackground(false, "#pwdPasswordProve");
+			}
+		}
     })
     .always(function() { /* always execute this code */ })
     .fail(function(data){
@@ -400,6 +402,7 @@ function checkCredentials(anEmail, currentPasswordEntered, newPassword, nameFrom
 }
 
 
+// TODO credential check
 // update details
 function updateCustomerProfileDetails(anEmail, newPwd)
 {
@@ -435,7 +438,7 @@ function updateCustomerProfileDetails(anEmail, newPwd)
         }
 
 		// redirect to myProfilePage
-		$(location).attr('href', '#myProfilePage');
+		$("#moreFitMoreFunBody").pagecontainer("change", '#myProfilePage', {changeHash: false});	
     })
     .always(function() { /* always execute this code */ })
     .fail(function(data){
@@ -483,21 +486,30 @@ function populateCustomerDetails(nameFromLocalStorage, akeyFromLocalStorage)
 
         // Execute when ajax successfully completes
 		
-        // build the html
-        var str = "";
-        str += "<p>" +  data.fldName + "</p>";
-		
-		// check if there is an email
-		if (data.fldEmail == null)
+		if (data == null)
 		{
-			str += "<p><em>no email</em></p>";
+			alert("data is null - credentials fake");
+			
+			// TODO what to do when authentication is false? Redirect to login/register page
 		}
-		else
+		else  // credentials ok
 		{
-			str += "<p>" + data.fldEmail + "</p>";
-		}        
+			// build the html
+			var str = "";
+			str += "<p>" +  data.fldName + "</p>";
+			
+			// check if there is an email
+			if (data.fldEmail == null)
+			{
+				str += "<p><em>no email</em></p>";
+			}
+			else
+			{
+				str += "<p>" + data.fldEmail + "</p>";
+			}        
 
-        $("#profileCustomerDetails").html(str);
+			$("#profileCustomerDetails").html(str);
+		}
     })
     .always(function() { /* always execute this code */ })
     .fail(function(data){
@@ -521,9 +533,18 @@ function fillMobileTextFields(nameFromLocalStorage, akeyFromLocalStorage)
 
         // Execute when ajax successfully completes
 		
-		// alert("the email to fill: " + data.fldEmail);
-        // fill field
-        $("#txtEditEmail").val(data.fldEmail);
+		if (data == null)
+		{
+			alert("data is null - credentials fake");
+			
+			// TODO what to do when authentication is false? Redirect to login/register page
+		}
+		else  // credentials ok
+		{
+			// alert("the email to fill: " + data.fldEmail);
+			// fill field
+			$("#txtEditEmail").val(data.fldEmail);
+		}		
     })
     .always(function() { /* always execute this code */ })
     .fail(function(data){
