@@ -85,7 +85,7 @@ function getRunsForCustomer()
 			}			
 
 			// redirect
-			$("#moreFitMoreFunBody").pagecontainer("change", '#myRunsPage', {changeHash: false});
+			$("#moreFitMoreFunBody").pagecontainer("change", '#myRunsPage', {});
 		}        
     })
     .always(function() { /* always execute this code */ })
@@ -160,7 +160,7 @@ function getRoutesForCustomer()
 			}
 
 			// redirect
-			$("#moreFitMoreFunBody").pagecontainer("change", '#myRoutesPage', {changeHash: false});			
+			$("#moreFitMoreFunBody").pagecontainer("change", '#myRoutesPage', {});			
 		}        
     })
     .always(function() { /* always execute this code */ })
