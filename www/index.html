@@ -35,17 +35,19 @@
 
     <link rel="stylesheet" type="text/css" href="css/index.css">
     <link rel="stylesheet" type="text/css" href="css/my_main.css">
-
     <link rel="stylesheet" type="text/css" href="DateBox/css/jtsage-datebox.min.css">
 
+	<link rel="stylesheet" href="css/font-awesome.min.css" />
     <link rel="stylesheet" type="text/css" href="css/jquery.mobile-1.4.5.min.css">
+	<link rel="stylesheet" href="vendor/waves/waves.min.css" />
+	<link rel="stylesheet" href="vendor/wow/animate.css" />
+	<link rel="stylesheet" href="css/nativedroid2.css" />
 
-    <!--link the themeroller-->
-    <link rel="stylesheet" href="themes/blueGreen.min.css" />
-    <link rel="stylesheet" href="themes/jquery.mobile.icons.min.css" />
-
-    <script src="jQuery/jquery-1.12.0.js"></script>
-    <!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script> -->
+	<meta name="mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		
+	<script src="jQuery/jquery-2.1.4.min.js"></script>
 	
 	<script>
 		$(document).on("mobileinit", function() {
@@ -53,8 +55,13 @@
 		});        
 	</script>
 		
+	<script src="jQuery/jquery-ui-1.11.4.min.js"></script>
+	<script src="jQuery/jquery.mobile-1.4.5.min.js"></script>
+	<script src="vendor/waves/waves.min.js"></script>
+	<script src="vendor/wow/wow.min.js"></script>
+	<script src="js/nativedroid2.js"></script>
+	<script src="nd2settings.js"></script>
 		
-    <script src="jQuery/jquery.mobile-1.4.5.js"></script>
     <script src="DateBox/js/jtsage-datebox.min.js"></script>
 
     <title>More Fit More Fun</title>
@@ -62,7 +69,7 @@
 
 <body id="moreFitMoreFunBody">
 
-<div data-role="page" id="addRunPage"><!--Start page-->
+<div data-role="page" id="addRunPage" data-theme="a"><!--Start page-->
     <div data-role="header">
         <a href="#mypanel" class="ui-btn ui-corner-all ui-icon-bars ui-btn-icon-notext">Bars Icon</a>
         <h1>Add Run</h1>
@@ -189,6 +196,7 @@
         </div>
 		
         <input id="btnEditRun" type="button" value="Edit Run">
+		<br/>
         <input id="btnDeleteRun" type="button" value="Delete Run">
 
     </div>
@@ -290,6 +298,7 @@
 		</div>
 				
         <input id="btnEditRoute" type="button" value="Edit Route">
+		<br/>
         <input id="btnDeleteRoute" type="button" value="Delete Route">
 
     </div>
@@ -335,6 +344,7 @@
         </div>
 
         <input id="btnLogin" type="button" value="Login">
+		<br/>
         <input id="btnCancelLogin" type="button" value="Cancel">
     </div>
 </div><!--End page-->
@@ -366,6 +376,7 @@
         </div>
 
         <input id="btnSubmitRegisterProfile" type="button" value="Register">
+		<br/>
         <input id="btnCancelRegistration" type="button" value="Cancel">
     </div>
 </div><!--End page-->
